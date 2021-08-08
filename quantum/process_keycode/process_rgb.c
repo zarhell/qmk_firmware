@@ -23,7 +23,7 @@ typedef void (*rgb_func_pointer)(void);
  *
  * noinline to optimise for firmware size not speed (not in hot path)
  */
-#if !(defined(RGBLIGHT_DISABLE_KEYCODES) || defined(RGB_MATRIX_DISABLE_KEYCODES))
+#if (defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)) || (defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES))
 static void __attribute__((noinline)) handleKeycodeRGB(const uint8_t is_shifted, const rgb_func_pointer inc_func, const rgb_func_pointer dec_func) {
     if (is_shifted) {
         dec_func();
@@ -58,7 +58,7 @@ bool process_rgb(const uint16_t keycode, const keyrecord_t *record) {
     // Split keyboards need to trigger on key-up for edge-case issue
     if (!record->event.pressed) {
 #endif
-#if !(defined(RGBLIGHT_DISABLE_KEYCODES) || defined(RGB_MATRIX_DISABLE_KEYCODES))
+#if (defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)) || (defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES))
         uint8_t shifted = get_mods() & MOD_MASK_SHIFT;
 #endif
         switch (keycode) {
@@ -205,6 +205,11 @@ bool process_rgb(const uint16_t keycode, const keyrecord_t *record) {
             case RGB_MODE_RGBTEST:
 #if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES) && defined(RGBLIGHT_EFFECT_RGB_TEST)
                 rgblight_mode(RGBLIGHT_MODE_RGB_TEST);
+#endif
+                return false;
+            case RGB_MODE_TWINKLE:
+#if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES) && defined(RGBLIGHT_EFFECT_TWINKLE)
+                handleKeycodeRGBMode(RGBLIGHT_MODE_TWINKLE, RGBLIGHT_MODE_TWINKLE_end);
 #endif
                 return false;
         }
