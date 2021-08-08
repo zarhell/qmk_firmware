@@ -45,9 +45,9 @@ enum layers {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_planck_mit(
     KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,     KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-    LT(_NUMPAD, KC_TAB),  KC_A,    C_S,    A_D,    G_F,    KC_G,     KC_H,   C_J,    A_K,    G_L,    SE_ACUT,   RSFT_T(KC_ENTER),
-    LSFT_T(SE_PLUS), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,     KC_N,   KC_M,    KC_COMM, KC_DOT, KC_SLSH,   SE_APOS,
-    KC_HYPR, ___, ___,  MT(MOD_LSFT | MOD_LALT | MOD_LGUI, SE_LESS),    MO(_LOWER),    KC_SPACE,    MO(_CURSOR),  MO(_MORE), SE_RCBR_MAC,   LALT(KC_2), SE_QUES
+    LT(_NUMPAD, KC_TAB),  KC_A,    C_S,    A_D,    G_F,    KC_G,     KC_H,   C_J,    A_K,    G_L,    SE_ACUT,   SE_APOS,
+    LSFT_T(SE_PLUS), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,     KC_N,   KC_M,    KC_COMM, KC_DOT, KC_SLSH,   RSFT_T(KC_ENTER),
+    KC_HYPR, ___, ___,  ___, MO(_LOWER), KC_SPACE, MO(_CURSOR),  MO(_MORE), ___, ___, ___
   ),
 
  [_LOWER] = LAYOUT_planck_mit(
@@ -58,8 +58,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_NUMPAD] = LAYOUT_planck_mit(
-    RESET, ___, KC_HOME, KC_UP, KC_END, ___, ___, KC_7, KC_8, KC_9, ___, ___,
-    ___, ___, KC_LEFT, KC_DOWN, KC_RIGHT, ___, LSFT(KC_7), KC_4, KC_5, KC_6, SE_PLUS, ___,
+    RESET, ___, ___, ___, ___, ___, ___, KC_7, KC_8, KC_9, ___, ___,
+    ___, ___, ___, ___, ___, ___, LSFT(KC_7), KC_4, KC_5, KC_6, SE_PLUS, ___,
     ___, ___, ___, ___, ___, ___, LSFT(SE_APOS), KC_1, KC_2, KC_3, LSFT(KC_DOT), RSFT_T(KC_ENTER),
     ___, ___, ___, ___, ___, ___, KC_0, KC_SLSH, KC_COMM, KC_DOT, ___
   ),
