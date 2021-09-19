@@ -21,8 +21,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
  // place overrides here
-#undef DEBOUNCE
-#define DEBOUNCE 50
+#define TAPPING_TERM 150
+#define TAPPING_TERM_PER_KEY
+#define LONG_TAPPING_TERM 1000
+// #define PERMISSIVE_HOLD
+#define IGNORE_MOD_TAP_INTERRUPT
 
 /* Use I2C or Serial, not both */
 #define USE_SERIAL

@@ -60,19 +60,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NUMPAD] = LAYOUT_planck_mit(
     RESET, ___, ___, ___, ___, ___, ___, KC_7, KC_8, KC_9, ___, ___,
     ___, ___, ___, ___, ___, ___, LSFT(KC_7), KC_4, KC_5, KC_6, SE_PLUS, ___,
-    ___, ___, ___, ___, ___, ___, LSFT(SE_APOS), KC_1, KC_2, KC_3, LSFT(KC_DOT), RSFT_T(KC_ENTER),
+    ___, ___, ___, ___, ___, ___, LSFT(SE_APOS), KC_1, KC_2, KC_3, LSFT(KC_DOT), ___,
     ___, ___, ___, ___, ___, ___, KC_0, KC_SLSH, KC_COMM, KC_DOT, ___
   ),
 
   [_CURSOR] = LAYOUT_planck_mit(
-    ___, ___, ___, ___, ___, ___, ___, KC_HOME, KC_UP, KC_END, ___, ___,
+    KC_ESC, ___, ___, ___, ___, ___, ___, KC_HOME, KC_UP, KC_END, ___, ___,
     ___, ___, ___, ___, ___, ___, ___, KC_LEFT, KC_DOWN, KC_RIGHT, ___, ___,
     ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___,
     ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___
   ),
 
   [_MORE] = LAYOUT_planck_mit(
-    ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___,
+    KC_ESC, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___,
     ___, ___, SE_LESS_MAC, SE_GRTR_MAC, LALT(KC_4), ___, ___, SE_LBRC, SE_RBRC, SE_BSLS_MAC, LSFT(SE_DIAE), ___,
     ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___,
     ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___
