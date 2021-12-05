@@ -28,6 +28,7 @@
 #define CUT LGUI(KC_X)
 #define COPY LGUI(KC_C)
 #define PASTE LGUI(KC_V)
+#define FLYCUT SGUI(KC_V)
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
@@ -39,43 +40,43 @@ enum layers {
     _LOWER,
     _NUMPAD,
     _CURSOR,
-    _MORE,
+    _EDIT,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_planck_mit(
-    KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,     KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-    LT(_NUMPAD, KC_TAB),  KC_A,    C_S,    A_D,    G_F,    KC_G,     KC_H,   C_J,    A_K,    G_L,    SE_ACUT,   SE_APOS,
-    LSFT_T(SE_PLUS), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,     KC_N,   KC_M,    KC_COMM, KC_DOT, KC_SLSH,   RSFT_T(KC_ENTER),
-    KC_HYPR, ___, ___,  ___, MO(_LOWER), KC_SPACE, MO(_CURSOR),  MO(_MORE), ___, ___, ___
+    KC_ESC,             KC_Q,    KC_W, KC_E, KC_R,       KC_T,     KC_Y, KC_U,        KC_I,       KC_O,   KC_P,    KC_BSPC,
+    LT(_NUMPAD,KC_TAB), KC_A,    C_S,  A_D,  G_F,        KC_G,     KC_H, C_J,         A_K,        G_L,    SE_ACUT, SE_APOS,
+    LSFT_T(SE_PLUS),    KC_Z,    KC_X, KC_C, KC_V,       KC_B,     KC_N, KC_M,        KC_COMM,    KC_DOT, KC_SLSH, RSFT_T(KC_ENTER),
+    KC_HYPR,            ___,     ___,  ___,  MO(_LOWER), KC_SPACE,       MO(_CURSOR), MO(_EDIT),  ___,    ___,     ___
   ),
 
  [_LOWER] = LAYOUT_planck_mit(
-    SE_LESS,  LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_4), LSFT(KC_5),  LSFT(KC_6),  LSFT(KC_7),  LSFT(KC_8),  LSFT(KC_9),  LSFT(KC_0),  ___,
-    SE_GRTR,  SE_PIPE_MAC,  SE_LCBR_MAC,  SE_RCBR_MAC, LALT(KC_2), SE_QUES,  SE_GRV_MAC, SE_AA, SE_AE, SE_OSLH, LALT(SE_DIAE), ___,
-    ___,   ___,  ___,  ___,   ___,  ___, ___,   ___,  ___,   ___,   ___,    ___,
-    ___,   ___,  ___,  ___,   ___,  ___,  ___,   ___,  ___,   ___,   ___
+    SE_LESS,  LSFT(KC_1),  LSFT(KC_2),  LSFT(KC_3),  LSFT(KC_4), LSFT(KC_5), LSFT(KC_6), LSFT(KC_7),   LSFT(KC_8), LSFT(KC_9),    LSFT(KC_0),    ___,
+    SE_GRTR,  SE_PIPE_MAC, SE_LCBR_MAC, SE_RCBR_MAC, LALT(KC_2), SE_QUES,    SE_GRV_MAC, SE_AA,        SE_AE,      SE_OSLH,       LALT(SE_DIAE), ___,
+    ___,      ___,         ___,         ___,         ___,        ___,        ___,        ___,          ___,        ___,           ___,           ___,
+    ___,      ___,         ___,         ___,         ___,        ___,                    ___,          ___,        ___,           ___,           ___
   ),
 
   [_NUMPAD] = LAYOUT_planck_mit(
-    RESET, ___, ___, ___, ___, ___, ___, KC_7, KC_8, KC_9, ___, ___,
-    ___, ___, ___, ___, ___, ___, LSFT(KC_7), KC_4, KC_5, KC_6, SE_PLUS, ___,
-    ___, ___, ___, ___, ___, ___, LSFT(SE_APOS), KC_1, KC_2, KC_3, LSFT(KC_DOT), ___,
-    ___, ___, ___, ___, ___, ___, KC_0, KC_SLSH, KC_COMM, KC_DOT, ___
+    RESET, ___, ___, ___, ___, ___, ___,           KC_7,    KC_8,    KC_9,    ___,          ___,
+    ___,   ___, ___, ___, ___, ___, LSFT(KC_7),    KC_4,    KC_5,    KC_6,    SE_PLUS,      ___,
+    ___,   ___, ___, ___, ___, ___, LSFT(SE_APOS), KC_1,    KC_2,    KC_3,    LSFT(KC_DOT), ___,
+    ___,   ___, ___, ___, ___, ___,                KC_0,    KC_SLSH, KC_COMM, KC_DOT,       ___
   ),
 
   [_CURSOR] = LAYOUT_planck_mit(
-    KC_ESC, ___, ___, ___, ___, ___, ___, KC_HOME, KC_UP, KC_END, ___, ___,
-    ___, ___, ___, ___, ___, ___, ___, KC_LEFT, KC_DOWN, KC_RIGHT, ___, ___,
-    ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___,
-    ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___
+    KC_ESC, ___,         ___,     ___,         ___,           ___,        ___, KC_HOME, KC_UP,   KC_END,   ___, ___,
+    ___,    SE_BSLS_MAC, SE_LBRC, SE_RBRC,     LSFT(SE_DIAE), ___,        ___, KC_LEFT, KC_DOWN, KC_RIGHT, ___, ___,
+    ___,    ___,         ___,     SE_LESS_MAC, SE_GRTR_MAC,   LALT(KC_4), ___, ___,     ___,     ___,      ___, ___,
+    ___,    ___,         ___,     ___,         ___,           ___,             ___,     ___,     ___,      ___, ___
   ),
 
-  [_MORE] = LAYOUT_planck_mit(
-    KC_ESC, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___,
-    ___, ___, SE_LESS_MAC, SE_GRTR_MAC, LALT(KC_4), ___, ___, SE_LBRC, SE_RBRC, SE_BSLS_MAC, LSFT(SE_DIAE), ___,
-    ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___,
-    ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___
+  [_EDIT] = LAYOUT_planck_mit(
+    KC_ESC, ___, ___, UNDO, REDO,   ___, ___, KC_HOME, KC_UP,   KC_END,   ___, ___,
+    ___,    ___, CUT, COPY, PASTE,  ___, ___, KC_LEFT, KC_DOWN, KC_RIGHT, ___, ___,
+    ___,    ___, ___, ___,  FLYCUT, ___, ___, ___,     ___,     ___,      ___, ___,
+    ___,    ___, ___, ___,  ___,    ___,      ___,     ___,     ___,      ___, ___
   ),
 /* Always good to have a nice clean layer template …
   [3] = LAYOUT_planck_mit(
