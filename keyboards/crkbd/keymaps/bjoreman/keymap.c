@@ -56,7 +56,7 @@ enum layers {
     _NUMPAD,
     _CURSOR,
     _EDIT,
-    //_GAME,
+    _GAME,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -68,7 +68,7 @@ LT(_NUMPAD, KC_ESC),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,               
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             SE_PLUS,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  SE_QUOT,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              KC_HYPR,MO(_LOWER),  KC_SPC,MO(_CURSOR),MO(_EDIT), _______
+                                              KC_HYPR,MO(_LOWER),  KC_SPC,MO(_CURSOR),MO(_EDIT), TO(_GAME)
                                             //`--------------------------'  `--------------------------'
 
   ),
@@ -115,13 +115,13 @@ LT(_NUMPAD, KC_ESC),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,               
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, _______,     CUT,    COPY,   PASTE, _______,                      _______, KC_LEFT, KC_DOWN,KC_RIGHT, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_MOD, RGB_HUD, _______, _______,  FLYCUT, _______,                      RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SAD, RGB_VAD,
+      _______, _______, _______, _______,  FLYCUT, _______,                      _______, _______, _______, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______,  _______,     _______, _______, _______
                                       //`--------------------------'  `--------------------------'
-  )
+  ),
 
-  /*[_GAME] = LAYOUT_split_3x6_3(
+  [_GAME] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
              KC_ESC,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -129,36 +129,36 @@ LT(_NUMPAD, KC_ESC),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,               
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             SE_PLUS,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  SE_QUOT,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                                KC_LCTL, KC_LALT, LGUI_T(KC_SPC),    KC_RGUI, KC_RALT, _______
+                                                KC_LCTL, KC_LALT, LGUI_T(KC_SPC),    KC_RGUI, KC_RALT, TO(_QWERTY)
                                             //`--------------------------'  `--------------------------'
 
-  )*/
+  )
 };
 
-const uint8_t PROGMEM ledmap[][42][3] = {
+const uint8_t PROGMEM ledmap[][42][4] = {
 [_NUMPAD] = {
 ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,         ___off___, MG___BLUE, MG___BLUE, MG___BLUE, MG__GREEN, ___off___,
 ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,         MG__GREEN, MG___BLUE, MG___BLUE, MG___BLUE, MG__GREEN, ___off___,
 MG____RED, ___off___, ___off___, ___off___, ___off___, ___off___,         MG__GREEN, MG___BLUE, MG___BLUE, MG___BLUE, MG__GREEN, ___off___,
-                 ___off___, ___off___, ___off___,         MG__GREEN, MG___BLUE, MG__GREEN
+                                 ___off___, ___off___, ___off___,         MG__GREEN, MG___BLUE, MG__GREEN
       },
 [_CURSOR] = {
 ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,         ___off___, ___off___, MG___BLUE, ___off___, ___off___, ___off___,
 ___off___, MG__GREEN, MG__GREEN, MG__GREEN, MG__GREEN, ___off___,         ___off___, MG___BLUE, MG___BLUE, MG___BLUE, ___off___, ___off___,
 ___off___, ___off___, ___off___, MG__GREEN, MG__GREEN, MG__GREEN,         ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,
-                   ___off___, ___off___, ___off___,         ___off___, ___off___, ___off___
+                                 ___off___, ___off___, ___off___,         ___off___, ___off___, ___off___
       },
 [_EDIT] = {
 ___off___, ___off___, ___off___, MG_PURPLE, MG_YELLOW, ___off___,         ___off___, ___off___, MG___BLUE, ___off___, ___off___, ___off___,
 ___off___, ___off___, MG____RED, MG_ORANGE, MG__GREEN, ___off___,         ___off___, MG___BLUE, MG___BLUE, MG___BLUE, ___off___, ___off___,
 ___off___, ___off___, ___off___, ___off___, MG__WHITE, ___off___,         ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,
-                   ___off___, ___off___, ___off___,         ___off___, ___off___, ___off___
-      },
-/*[_GAME] = {
+                                 ___off___, ___off___, ___off___,         ___off___, ___off___, ___off___
+      }/*,
+[_GAME] = {
 MG____RED, MG_ORANGE, MG_YELLOW, MG__GREEN, MG_PURPLE, MG___PINK,         MG___PINK, MG_PURPLE, MG__GREEN, MG_YELLOW, MG_ORANGE, MG____RED,
 MG____RED, MG_ORANGE, MG_YELLOW, MG__GREEN, MG_PURPLE, MG___PINK,         MG___PINK, MG_PURPLE, MG__GREEN, MG_YELLOW, MG_ORANGE, MG____RED,
 MG____RED, MG_ORANGE, MG_YELLOW, MG__GREEN, MG_PURPLE, MG___PINK,         MG___PINK, MG_PURPLE, MG__GREEN, MG_YELLOW, MG_ORANGE, MG____RED,
-                   MG__WHITE, MG__WHITE, MG___BLUE,         MG___BLUE, MG__WHITE, MG__WHITE
+                                 MG__WHITE, MG__WHITE, MG___BLUE,         MG___BLUE, MG__WHITE, MG__WHITE
       },*/
 };
 
