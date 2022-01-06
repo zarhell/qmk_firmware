@@ -52,10 +52,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
  [_LOWER] = LAYOUT_planck_mit(
-    SE_LESS,  LSFT(KC_1),  LSFT(KC_2),  LSFT(KC_3),  LSFT(KC_4), LSFT(KC_5), LSFT(KC_6), LSFT(KC_7),   LSFT(KC_8), LSFT(KC_9),    LSFT(KC_0),    ___,
-    SE_GRTR,  SE_PIPE_MAC, SE_LCBR_MAC, SE_RCBR_MAC, LALT(KC_2), SE_QUES,    SE_GRV_MAC, SE_AA,        SE_AE,      SE_OSLH,       LALT(SE_DIAE), ___,
-    ___,      ___,         ___,         ___,         ___,        ___,        ___,        ___,          ___,        ___,           ___,           ___,
-    ___,      ___,         ___,         ___,         ___,        ___,                    ___,          ___,        ___,           ___,           ___
+    SE_LESS,  LSFT(KC_1),  LSFT(KC_2),  LSFT(KC_3),  LSFT(KC_4),  LSFT(KC_5), LSFT(KC_6), LSFT(KC_7),   LSFT(KC_8), LSFT(KC_9),    LSFT(KC_0),    ___,
+    SE_GRTR,  SE_PIPE_MAC, LALT(KC_2),  SE_LCBR_MAC, SE_RCBR_MAC, SE_QUES,    SE_GRV_MAC, SE_AA,        SE_AE,      SE_OSLH,       LALT(SE_DIAE), ___,
+    ___,      ___,         ___,         ___,         ___,         ___,        ___,        ___,          ___,        ___,           ___,           ___,
+    ___,      ___,         ___,         ___,         ___,         ___,                    ___,          ___,        ___,           ___,           ___
   ),
 
   [_NUMPAD] = LAYOUT_planck_mit(
@@ -66,10 +66,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_CURSOR] = LAYOUT_planck_mit(
-    KC_ESC, ___,         ___,     ___,         ___,           ___,        ___, KC_HOME, KC_UP,   KC_END,   ___, ___,
-    ___,    SE_BSLS_MAC, SE_LBRC, SE_RBRC,     LSFT(SE_DIAE), ___,        ___, KC_LEFT, KC_DOWN, KC_RIGHT, ___, ___,
-    ___,    ___,         ___,     SE_LESS_MAC, SE_GRTR_MAC,   LALT(KC_4), ___, ___,     ___,     ___,      ___, ___,
-    ___,    ___,         ___,     ___,         ___,           ___,             ___,     ___,     ___,      ___, ___
+    KC_ESC, ___,         ___,           ___,         ___,         ___,        ___, KC_HOME, KC_UP,   KC_END,   ___, ___,
+    ___,    SE_BSLS_MAC, LSFT(SE_DIAE), SE_LBRC,     SE_RBRC,     ___,        ___, KC_LEFT, KC_DOWN, KC_RIGHT, ___, ___,
+    ___,    ___,         ___,           SE_LESS_MAC, SE_GRTR_MAC, LALT(KC_4), ___, ___,     ___,     ___,      ___, ___,
+    ___,    ___,         ___,           ___,         ___,         ___,             ___,     ___,     ___,      ___, ___
   ),
 
   [_EDIT] = LAYOUT_planck_mit(
