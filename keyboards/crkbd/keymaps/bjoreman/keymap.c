@@ -20,6 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include "keymap_swedish_pro_osx_iso.h"
 
+// HELLO NAVI
+#include "transactions.h"
+#include "gui_state.h"
+#include "boot.h"
+#include "navi_logo.h"
+#include "layer_frame.h"
+
 #define ___ KC_TRNS
 #define C_S LCTL_T(KC_S)
 #define A_D LALT_T(KC_D)
@@ -49,16 +56,7 @@ enum my_keycodes {
   RGB_SET_WHITE,
   RGB_SET_PURPLE,
 };
-
-enum layers {
-    _QWERTY = 0,
-    _LOWER,
-    _NUMPAD,
-    _CURSOR,
-    _EDIT,
-    _GAME,
-};
-
+ 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
@@ -123,7 +121,7 @@ LT(_NUMPAD, KC_ESC),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,               
 
   [_GAME] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-             KC_ESC,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
+LT(_NUMPAD, KC_ESC),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
      LSFT_T(KC_TAB),    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, SE_ACUT, RSFT_T(KC_ENTER),
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -165,10 +163,58 @@ MG____RED, MG_ORANGE, MG_YELLOW, MG__GREEN, MG_PURPLE, MG___PINK,         MG___P
 extern bool g_suspend_state;
 extern rgb_config_t rgb_matrix_config;
 
+// sync transport
+typedef struct _sync_keycode_t {
+    uint16_t keycode;
+} sync_keycode_t;
+
+// force rigth side to update
+bool b_sync_need_send = false;
+
+// last keycode typed
+sync_keycode_t last_keycode;
+
+void set_wackingup_mode_clean(void) {
+    oled_clear();
+}
+
+void process_key(uint16_t keycode) {
+    // update screen with the new key
+    //update(keycode);
+
+    gui_state_t t = get_gui_state();
+
+    if (t == _IDLE) {
+        // wake up animation
+        //reset();
+    }
+
+    if (t == _BOOTING || t == _HALTING) {
+        // cancel booting or halting : waking_up
+        set_wackingup_mode_clean();
+    }
+
+    if (t == _SLEEP) {
+        // boot sequence
+        set_wackingup_mode_clean();
+        reset_boot();
+    }
+
+    update_gui_state();
+}
+
+void user_sync_a_slave_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) {
+    const sync_keycode_t* m2s = (const sync_keycode_t*)in_data;
+    // get the last char typed on left side and update the right side
+    process_key(m2s->keycode);
+}
+
 void keyboard_post_init_user(void) {
     rgb_matrix_enable();
     rgb_matrix_sethsv_noeeprom(0, 0, 0); // (180, 255, 231) is purple
     rgb_matrix_mode_noeeprom(1);
+    // HELLO NAVI
+    transaction_register_rpc(USER_SYNC_A, user_sync_a_slave_handler);
 }
 
 // ====================================================
@@ -225,4 +271,86 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             }
         }
     }
+}
+
+// HELLO NAVI
+// clang-format on
+
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    // vertical orientation
+    return OLED_ROTATION_270;
+}
+
+void render(gui_state_t t) {
+    // logo
+    render_logo(t);
+
+    render_layer_frame(t);
+    render_gears();
+}
+
+bool oled_task_user(void) {
+    gui_state_t t = get_gui_state();
+
+    // in sleep mode => turn display off
+    if (t == _SLEEP) {
+        oled_off();
+        return false;
+    }
+
+    // not in sleep mode => screen is on
+    oled_on();
+
+#ifdef WITH_BOOT
+    // in booting mode => display booting animation
+    if (t == _BOOTING) {
+        bool boot_finished = render_boot();
+        if (boot_finished) {
+            // end of the boot : wacking up
+            set_wackingup_mode_clean();
+            update_gui_state();
+        }
+        return false;
+    }
+#endif
+
+    // in halting mode => display booting animation
+    if (t == _HALTING) {
+        render_halt();
+        return false;
+    }
+
+    render(t);
+    return false;
+}
+
+void housekeeping_task_user(void) {
+    // only for master side
+    if (!is_keyboard_master()) return;
+
+    // only if a new char was typed
+    if (!b_sync_need_send) return;
+
+    // send the char to the slave side : sync is done
+    if (transaction_rpc_send(USER_SYNC_A, sizeof(last_keycode), &last_keycode)) {
+        b_sync_need_send = false;
+    }
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+    if (record->event.pressed) {
+        // master : store keycode to sent to the other side to be process_key
+        last_keycode.keycode = keycode;
+        b_sync_need_send     = true;
+
+        // gui process the input
+        process_key(keycode);
+    }
+    return true;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    // update the frame with the layer name
+    update_layer_frame(state);
+    return state;
 }
