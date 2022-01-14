@@ -28,5 +28,6 @@ SRC += ./lib/rgb_state_reader.c \
         ./layer_frame.c \
         ./boot.c \
         ./gui_state.c \
+        ./ring.c \
         ./fast_random.c \
         ./draw_helper.c

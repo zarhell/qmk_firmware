@@ -25,7 +25,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "gui_state.h"
 #include "boot.h"
 #include "navi_logo.h"
+
+#if IS_LEFT
 #include "layer_frame.h"
+#else
+enum layer_number {
+  _QWERTY = 0,
+  _LOWER,
+  _NUMPAD,
+  _CURSOR,
+  _EDIT,
+  _GAME
+};
+#endif
+
+#include "draw_helper.h"
+#include "fast_random.h"
+#include "ring.h"
 
 #define ___ KC_TRNS
 #define C_S LCTL_T(KC_S)
@@ -51,12 +67,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MG___PINK {208,0,255}
 #define MG_PURPLE {50,0,232}
 
-enum my_keycodes {
-  RGB_SET_SOLID = SAFE_RANGE,
-  RGB_SET_WHITE,
-  RGB_SET_PURPLE,
-};
- 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
@@ -99,7 +109,7 @@ LT(_NUMPAD, KC_ESC),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,               
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       _______, _______, _______, _______, _______, _______,                      _______, KC_HOME,   KC_UP,  KC_END, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, SE_BSLS, LSFT(SE_DIAE), SE_LBRC, SE_RBRC, _______,                _______, KC_LEFT, KC_DOWN,KC_RIGHT, _______, _______,
+      _______, SE_BSLS, LSFT(SE_DIAE), LALT_T(SE_LBRC), LGUI_T(SE_RBRC), _______,                _______, KC_LEFT, KC_DOWN,KC_RIGHT, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, _______, _______, SE_LABK, SE_RABK, LALT(KC_4),                      _______, _______, _______, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -174,19 +184,32 @@ bool b_sync_need_send = false;
 // last keycode typed
 sync_keycode_t last_keycode;
 
+void update(uint16_t keycode) {
+#if IS_RIGHT
+    update_circle(keycode);
+#endif
+}
+
+void reset(void) {
+#if IS_RIGHT
+    reset_ring();
+#endif
+}
+
 void set_wackingup_mode_clean(void) {
     oled_clear();
+    reset();
 }
 
 void process_key(uint16_t keycode) {
     // update screen with the new key
-    //update(keycode);
+    update(keycode);
 
     gui_state_t t = get_gui_state();
 
     if (t == _IDLE) {
         // wake up animation
-        //reset();
+        reset();
     }
 
     if (t == _BOOTING || t == _HALTING) {
@@ -221,7 +244,7 @@ void keyboard_post_init_user(void) {
 // RGB matrix
 // ====================================================
 
-uint8_t ledIndexForKeymapIndex(uint8_t keyIndex) {
+/* uint8_t ledIndexForKeymapIndex(uint8_t keyIndex) {
   // Turn keyIndex into a row and column within g_led_config.
   // Reference: https://github.com/qmk/qmk_firmware/blob/master/keyboards/crkbd/r2g/r2g.c
   uint8_t row = 0;
@@ -271,7 +294,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             }
         }
     }
-}
+}*/
 
 // HELLO NAVI
 // clang-format on
@@ -284,9 +307,16 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 void render(gui_state_t t) {
     // logo
     render_logo(t);
-
+#if IS_LEFT
+    // left side
     render_layer_frame(t);
     render_gears();
+#endif
+
+#if IS_RIGHT
+    // right side
+    render_circle(t);
+#endif
 }
 
 bool oled_task_user(void) {
@@ -349,8 +379,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 
+#if IS_LEFT
 layer_state_t layer_state_set_user(layer_state_t state) {
     // update the frame with the layer name
     update_layer_frame(state);
     return state;
 }
+#endif

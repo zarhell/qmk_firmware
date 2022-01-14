@@ -21,6 +21,7 @@ void draw_fill_circle(short x, short y, uint8_t radius, bool color);
 void draw_circle(uint8_t x, uint8_t y, uint8_t radius, bool color);
 void draw_ellipse(uint8_t x, uint8_t y, uint8_t a, uint8_t b, bool color);
 void draw_ellipse_fill(uint8_t x, uint8_t y, uint8_t a, uint8_t b, bool color);
+void draw_arc_sector(uint8_t x, uint8_t y, uint8_t radius, unsigned char sectors, unsigned char half, bool color);
 void draw_static(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, int color, uint8_t density);
 
 // text
@@ -40,6 +41,7 @@ void move_block(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, int shift);
 void draw_glitch_comb(uint8_t x, uint8_t y, uint8_t width, uint16_t height, uint8_t iSize, bool odd);
 
 // misc
+void render_tv_animation(uint8_t frame_number, uint8_t x, uint8_t y, uint8_t width, uint8_t heigth);
 int  interpo_pourcent(int min, int max, int v);
 void get_glitch_index(uint32_t *glitch_timer, int *current_glitch_scope_time, uint8_t *glitch_index, uint8_t min_time, uint16_t max_time, uint8_t glitch_probobility, uint8_t glitch_frame_number);
 void get_glitch_index_new(uint16_t *glitch_timer, uint8_t *current_glitch_scope_time, uint8_t *glitch_index, uint8_t min_time, uint16_t max_time, uint8_t glitch_probobility, uint8_t glitch_frame_number);
