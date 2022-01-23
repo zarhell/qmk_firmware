@@ -23,8 +23,7 @@ BOOTMAGIC_ENABLE = no
 LTO_ENABLE = yes
 EXTRAFLAGS += -flto
 
-SRC += ./lib/rgb_state_reader.c \
-        ./navi_logo.c \
+SRC +=  ./navi_logo.c \
         ./layer_frame.c \
         ./boot.c \
         ./gui_state.c \

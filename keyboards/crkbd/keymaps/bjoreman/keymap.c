@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include "keymap_swedish_pro_osx_iso.h"
 
 // HELLO NAVI
 #include "transactions.h"
@@ -43,19 +42,40 @@ enum layer_number {
 #include "fast_random.h"
 #include "ring.h"
 
-#define ___ KC_TRNS
+#define SE_PLUS KC_MINS
+#define SE_ACUT KC_EQL
+#define SE_QUOT KC_NUHS
+#define SE_SECT KC_GRV
+#define SE_PIPE A(KC_7) 
+#define SE_GRV  S(SE_ACUT)
+#define SE_LBRC A(KC_8)
+#define SE_RBRC A(KC_9)
+#define SE_ODIA KC_SCLN // Ö
+#define SE_ADIA KC_QUOT // Ä
+#define SE_ARNG KC_LBRC
+#define SE_DIAE KC_RBRC
+#define SE_BSLS S(A(KC_7))
+#define SE_LCBR S(A(KC_8))    // {
+#define SE_RCBR S(A(KC_9))    // }
+#define SE_LABK KC_NUBS // <
+#define SE_RABK S(SE_LABK) // >
+#define SE_QUES S(SE_PLUS)
+
+#define S_A LSFT_T(KC_A)
 #define C_S LCTL_T(KC_S)
 #define A_D LALT_T(KC_D)
 #define G_F LGUI_T(KC_F)
 #define C_J RCTL_T(KC_J)
 #define A_K RALT_T(KC_K)
 #define G_L RGUI_T(KC_L)
+#define S_T RSFT_T(SE_ACUT)
 #define UNDO LGUI(KC_Z)
 #define REDO SGUI(KC_Z)
 #define CUT LGUI(KC_X)
 #define COPY LGUI(KC_C)
 #define PASTE LGUI(KC_V)
 #define FLYCUT SGUI(KC_V)
+#define SCRSHOT LGUI(LSFT(KC_4))
 
 #define ___off___ {0,0,0}
 #define MG__WHITE {255,255,255}
@@ -72,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
 LT(_NUMPAD, KC_ESC),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-     LSFT_T(KC_TAB),    KC_A,     C_S,     A_D,     G_F,    KC_G,                         KC_H,     C_J,     A_K,     G_L, SE_ACUT, RSFT_T(KC_ENTER),
+             KC_TAB,     S_A,     C_S,     A_D,     G_F,    KC_G,                         KC_H,     C_J,     A_K,     G_L,     S_T,KC_ENTER,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             SE_PLUS,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  SE_QUOT,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -83,11 +103,11 @@ LT(_NUMPAD, KC_ESC),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,               
 
   [_LOWER] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      SE_SECT, LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_4),    LSFT(KC_5),                         LSFT(KC_6),    LSFT(KC_7),    LSFT(KC_8),    LSFT(KC_9),    LSFT(KC_0), _______,
+      SE_SECT,LSFT(KC_1),LSFT(KC_2),LSFT(KC_3),LSFT(KC_4),LSFT(KC_5),         LSFT(KC_6),LSFT(KC_7),LSFT(KC_8),LSFT(KC_9),LSFT(KC_0), _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      LSFT(SE_SECT), SE_PIPE, LALT(KC_2), SE_LCBR, SE_RCBR, SE_QUES,                      SE_GRV, SE_ARNG,   SE_ADIA,SE_ODIA, LALT(SE_DIAE), XXXXXXX,
+LSFT(SE_SECT), SE_PIPE,LALT(KC_2),SE_LCBR,SE_RCBR, SE_QUES,                   LALT(KC_4), SE_ARNG,   SE_ADIA,SE_ODIA, LALT(SE_DIAE), XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,
+      SE_LABK, SE_RABK, SE_BSLS, _______, _______, _______,                       SE_GRV, _______, _______, SE_LBRC, SE_RBRC,LSFT(SE_DIAE),
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______,  _______,     _______, _______, _______
                                       //`--------------------------'  `--------------------------'
@@ -109,19 +129,19 @@ LT(_NUMPAD, KC_ESC),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,               
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       _______, _______, _______, _______, _______, _______,                      _______, KC_HOME,   KC_UP,  KC_END, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, SE_BSLS, LSFT(SE_DIAE), LALT_T(SE_LBRC), LGUI_T(SE_RBRC), _______,                _______, KC_LEFT, KC_DOWN,KC_RIGHT, _______, _______,
+      _______, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, _______,                      _______, KC_LEFT, KC_DOWN,KC_RIGHT, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, _______, _______, SE_LABK, SE_RABK, LALT(KC_4),                      _______, _______, _______, _______, _______, _______,
+      XXXXXXX, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, _______,  _______,     _______, _______, _______
+                                          _______, _______, _______,     _______, _______, _______
                                       //`--------------------------'  `--------------------------'
   ),
 
   [_EDIT] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, _______, _______,    UNDO,    REDO, _______,                      _______, KC_HOME,   KC_UP,  KC_END, _______, _______,
+      _______, _______, SCRSHOT,    UNDO,    REDO, _______,                      _______, _______, _______, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, _______,     CUT,    COPY,   PASTE, _______,                      _______, KC_LEFT, KC_DOWN,KC_RIGHT, _______, _______,
+      _______, _______,     CUT,    COPY,   PASTE, _______,                      _______, _______, _______, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, _______, _______, _______,  FLYCUT, _______,                      _______, _______, _______, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -143,7 +163,7 @@ LT(_NUMPAD, KC_ESC),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,               
   )
 };
 
-const uint8_t PROGMEM ledmap[][42][4] = {
+const uint8_t PROGMEM ledmap[][42][3] = {
 [_NUMPAD] = {
 ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,         ___off___, MG___BLUE, MG___BLUE, MG___BLUE, MG__GREEN, ___off___,
 ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,         MG__GREEN, MG___BLUE, MG___BLUE, MG___BLUE, MG__GREEN, ___off___,
@@ -152,13 +172,13 @@ MG____RED, ___off___, ___off___, ___off___, ___off___, ___off___,         MG__GR
       },
 [_CURSOR] = {
 ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,         ___off___, ___off___, MG___BLUE, ___off___, ___off___, ___off___,
-___off___, MG__GREEN, MG__GREEN, MG__GREEN, MG__GREEN, ___off___,         ___off___, MG___BLUE, MG___BLUE, MG___BLUE, ___off___, ___off___,
-___off___, ___off___, ___off___, MG__GREEN, MG__GREEN, MG__GREEN,         ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,
+___off___, ___off___, ___off___, ___off___, ___off___, ___off___,         ___off___, MG___BLUE, MG___BLUE, MG___BLUE, ___off___, ___off___,
+___off___, ___off___, ___off___, ___off___, ___off___, ___off___,         ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,
                                  ___off___, ___off___, ___off___,         ___off___, ___off___, ___off___
       },
 [_EDIT] = {
-___off___, ___off___, ___off___, MG_PURPLE, MG_YELLOW, ___off___,         ___off___, ___off___, MG___BLUE, ___off___, ___off___, ___off___,
-___off___, ___off___, MG____RED, MG_ORANGE, MG__GREEN, ___off___,         ___off___, MG___BLUE, MG___BLUE, MG___BLUE, ___off___, ___off___,
+___off___, ___off___, MG___BLUE, MG_PURPLE, MG_YELLOW, ___off___,         ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,
+___off___, ___off___, MG____RED, MG_ORANGE, MG__GREEN, ___off___,         ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,
 ___off___, ___off___, ___off___, ___off___, MG__WHITE, ___off___,         ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,
                                  ___off___, ___off___, ___off___,         ___off___, ___off___, ___off___
       }/*,
@@ -244,7 +264,7 @@ void keyboard_post_init_user(void) {
 // RGB matrix
 // ====================================================
 
-/* uint8_t ledIndexForKeymapIndex(uint8_t keyIndex) {
+uint8_t ledIndexForKeymapIndex(uint8_t keyIndex) {
   // Turn keyIndex into a row and column within g_led_config.
   // Reference: https://github.com/qmk/qmk_firmware/blob/master/keyboards/crkbd/r2g/r2g.c
   uint8_t row = 0;
@@ -294,7 +314,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             }
         }
     }
-}*/
+}
 
 // HELLO NAVI
 // clang-format on

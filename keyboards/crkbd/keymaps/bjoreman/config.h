@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MASTER_LEFT
 
+#define TAPPING_TERM 150
 #define IGNORE_MOD_TAP_INTERRUPT
 
 #define SPLIT_LAYER_STATE_ENABLE
@@ -57,4 +58,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IS_LEFT 1
 //#define IS_RIGHT 1
 #define WITH_BOOT
+#define WITH_GLITCH
 #define SPLIT_TRANSACTION_IDS_USER USER_SYNC_A

@@ -467,7 +467,9 @@ void update_circle(uint16_t keycode) {
 
     // keycode to char
     char c;
-    if (keycode == LCTL_T(KC_S)) {
+    if (keycode == LSFT_T(KC_A)) {
+        c = 'A';
+    } else if (keycode == LCTL_T(KC_S)) {
         c = 'S';
     } else if (keycode == LALT_T(KC_D)) {
         c = 'D';
