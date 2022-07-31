@@ -12,7 +12,7 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no
 COMMAND_ENABLE = no
-
+MUSIC_ENABLE = no
 AUTO_SHIFT_ENABLE = no
 WEBUSB_ENABLE = no # might just be for Oryx
 EXTRAKEY_ENABLE = no # media/volume keys

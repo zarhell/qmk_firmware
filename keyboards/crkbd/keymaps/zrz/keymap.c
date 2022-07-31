@@ -33,8 +33,7 @@ enum layer_number {
   _LOWER,
   _NUMPAD,
   _CURSOR,
-  _EDIT,
-  _GAME
+  _EDIT
 };
 #endif
 
@@ -42,49 +41,12 @@ enum layer_number {
 #include "fast_random.h"
 #include "ring.h"
 
-#define SE_PLUS KC_MINS
-#define SE_ACUT KC_EQL
-#define SE_QUOT KC_NUHS
-#define SE_SECT KC_GRV
-#define SE_PIPE A(KC_7)
-#define SE_GRV  S(SE_ACUT)
-#define SE_LBRC A(KC_8)
-#define SE_RBRC A(KC_9)
-#define SE_ODIA KC_SCLN // Ö
-#define SE_ADIA KC_QUOT // Ä
-#define SE_ARNG KC_LBRC
-#define SE_DIAE KC_RBRC
-#define SE_BSLS S(A(KC_7))
-#define SE_LCBR S(A(KC_8))    // {
-#define SE_RCBR S(A(KC_9))    // }
-#define SE_LABK KC_NUBS // <
-#define SE_RABK S(SE_LABK) // >
-#define SE_QUES S(SE_PLUS)
 
-#define S_A LSFT_T(KC_A)
-#define C_S LCTL_T(KC_S)
-#define A_D LALT_T(KC_D)
-#define G_F LGUI_T(KC_F)
-#define C_J RCTL_T(KC_J)
-#define A_K RALT_T(KC_K)
-#define G_L RGUI_T(KC_L)
-#define S_T RSFT_T(SE_ACUT)
-#define UNDO LGUI(KC_Z)
-#define REDO SGUI(KC_Z)
-#define CUT LGUI(KC_X)
-#define COPY LGUI(KC_C)
-#define PASTE LGUI(KC_V)
-#define FLYCUT SGUI(KC_V)
-#define SCRSHOT LGUI(LSFT(KC_4))
 
 #define ___off___ {0,0,0}
-#define MG__WHITE {255,255,255}
-#define MG____RED {255,0,0}
-#define MG__GREEN {32,159,33}
-#define MG___BLUE {0,181,213}
-#define MG_YELLOW {255,208,0}
-#define MG_ORANGE {255,85,0}
-#define MG___PINK {208,0,255}
+#define MG_CYAN {0,255,255}
+#define MG_RED {204,0,0}
+#define MG_BLUE {0,0,153}
 #define MG_PURPLE {50,0,232}
 
 
@@ -93,24 +55,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
 LT(_NUMPAD, KC_ESC),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-             KC_TAB,     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,  KC_J,     KC_K,   KC_L,  KC_SCLN, SE_QUOT,
+             KC_TAB,     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,  KC_J,     KC_K,   KC_L,  KC_SCLN, KC_QUOT,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                        KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  TO(_GAME),
+            KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                        KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_LSFT,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                              KC_LGUI,MO(_LOWER),  KC_SPC,                  KC_ENT, MO(_CURSOR),MO(_EDIT)
+                              KC_LGUI,TT(_LOWER),  KC_SPC,                  KC_ENT, TT(_CURSOR),TT(_EDIT)
                             //`--------------------------'                   `--------------------------'
 
   ),
 
-  //KC_APP Application (Windows Context Menu Key)
 
   [_LOWER] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       KC_F1,    KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,                          KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______,_______,_______,_______,_______,_______,                          _______,_______,_______,_______,_______,_______,
+      KC_LSFT,_______,_______,_______,_______,_______,                          _______,_______,_______,_______,_______,_______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______,_______,_______,_______,_______,_______,                       _______,_______,_______,_______,_______,_______,
+      _______,_______,_______,_______,_______,_______,                       KC_APP,_______,_______,_______,_______,_______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______,  _______,     _______, _______, _______
                                       //`--------------------------'  `--------------------------'
@@ -132,65 +93,59 @@ LT(_NUMPAD, KC_ESC),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,               
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       _______, KC_HOME, KC_UP, KC_END, _______, _______,                      _______, KC_HOME,   KC_UP,  KC_END, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______,                      _______, KC_LEFT, KC_DOWN,KC_RIGHT, _______, _______,
+      KC_LSFT, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______,                      _______, KC_LEFT, KC_DOWN,KC_RIGHT, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,
+      KC_LCTL, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______, _______,     _______, _______, _______
                                       //`--------------------------'  `--------------------------'
   ),
 
   [_EDIT] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, _______, _______,    XP(U+00C9, U+00E9),    _______, _______,    _______, XP(U+00DA, U+00FA), XP(U+00CD, U+00ED), XP(U+00D3, U+00F3), _______, _______,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______,  XP(U+00C1, U+00E1),  _______,    _______,   _______, _______,                      _______, _______, _______, _______, _______, _______,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, _______, _______, _______,  _______, _______,                      UC(U+00F1) , _______, _______, _______, _______, _______,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, _______,  _______,     _______, _______, _______
-                                      //`--------------------------'  `--------------------------'
-  ),
-
-  [_GAME] = LAYOUT_split_3x6_3(
-        //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-LT(_NUMPAD, KC_ESC),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
-        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-     LSFT_T(KC_TAB),    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, SE_ACUT, RSFT_T(KC_ENTER),
-        //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            SE_PLUS,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  SE_QUOT,
-        //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                                KC_LCTL, KC_LALT, LGUI_T(KC_SPC),    KC_RGUI, KC_RALT, TO(_QWERTY)
-                                            //`--------------------------'  `--------------------------'
-
+  //,-----------------------------------------------------.                             ,-----------------------------------------------------.
+      _______, _______, _______,    XP(0x00E9, 0x00C9),    _______, _______,                _______, XP(0x00FA, 0x00DA), XP(0x00CD,0x00ED ), XP(0x00F3,0x00D3), _______, _______,
+  //|--------+--------+--------+--------+--------+--------|                                 |--------+--------+--------+--------+--------+--------|
+      _______,  XP(0x00E1, 	0x00C1),  _______,    _______,   _______, _______,                      _______, _______, _______, _______, _______, _______,
+  //|--------+--------+--------+--------+--------+--------|                                 |--------+--------+--------+--------+--------+--------|
+      _______, _______, _______, _______,  _______, _______,                                 UC(0x00C9) , _______, _______, _______, _______, _______,
+  //|--------+--------+--------+--------+--------+--------+--------|                        |--------+--------+--------+--------+--------+--------+--------|
+                                          _______, _______,  _______,                        _______, _______, _______
+                                      //`--------------------------'                         `--------------------------'
   )
 };
 
 const uint8_t PROGMEM ledmap[][42][3] = {
+
+[_QWERTY] = {
+MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,          MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_RED,
+MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,          MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_RED,
+MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,          MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_RED,
+                                 MG_RED, MG_RED, MG_RED,                MG_RED, MG_RED, MG_RED
+      },
+[_LOWER] = {
+MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE,                   MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE,
+___off___, ___off___, ___off___, ___off___, ___off___, ___off___,         ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,
+___off___, ___off___, ___off___, ___off___, ___off___, ___off___,         MG_RED, ___off___, ___off___, ___off___, ___off___, ___off___,
+                                 ___off___, ___off___, ___off___,         ___off___, ___off___, ___off___
+      },
 [_NUMPAD] = {
-___off___, ___off___, ___off___, ___off___, ___off___, ___off___,         ___off___, MG___BLUE, MG___BLUE, MG___BLUE, MG__GREEN, ___off___,
-___off___, ___off___, ___off___, ___off___, ___off___, ___off___,         MG__GREEN, MG___BLUE, MG___BLUE, MG___BLUE, MG__GREEN, ___off___,
-MG____RED, ___off___, ___off___, ___off___, ___off___, ___off___,         MG__GREEN, MG___BLUE, MG___BLUE, MG___BLUE, MG__GREEN, ___off___,
-                                 ___off___, ___off___, ___off___,         MG__GREEN, MG___BLUE, MG__GREEN
+___off___, MG_CYAN, MG_CYAN, MG_CYAN, MG_CYAN, MG_CYAN,                 MG_PURPLE, MG_BLUE, MG_BLUE, MG_BLUE, MG_PURPLE, MG_RED,
+___off___, MG_CYAN, MG_CYAN, MG_CYAN, MG_CYAN, ___off___,               MG_PURPLE, MG_BLUE, MG_BLUE, MG_BLUE, MG_PURPLE, MG_PURPLE,
+MG_RED, ___off___, ___off___, ___off___, ___off___, ___off___,          MG_CYAN, MG_BLUE, MG_BLUE, MG_BLUE, MG_PURPLE, ___off___,
+                                 ___off___, ___off___, ___off___,       MG_RED, ___off___, MG_BLUE
       },
 [_CURSOR] = {
-___off___, ___off___, ___off___, ___off___, ___off___, ___off___,         ___off___, ___off___, MG___BLUE, ___off___, ___off___, ___off___,
-___off___, ___off___, ___off___, ___off___, ___off___, ___off___,         ___off___, MG___BLUE, MG___BLUE, MG___BLUE, ___off___, ___off___,
-___off___, ___off___, ___off___, ___off___, ___off___, ___off___,         ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,
+___off___, MG_PURPLE, MG_RED, MG_PURPLE, ___off___, ___off___,            ___off___, MG_PURPLE, MG_RED, MG_PURPLE, ___off___, ___off___,
+MG_PURPLE, MG_RED, MG_RED, MG_RED, ___off___, ___off___,                 ___off___, MG_RED, MG_RED, MG_RED, ___off___, ___off___,
+MG_PURPLE, ___off___, ___off___, ___off___, ___off___, ___off___,         ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,
                                  ___off___, ___off___, ___off___,         ___off___, ___off___, ___off___
       },
 [_EDIT] = {
-___off___, ___off___, MG___BLUE, MG_PURPLE, MG_YELLOW, ___off___,         ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,
-___off___, ___off___, MG____RED, MG_ORANGE, MG__GREEN, ___off___,         ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,
-___off___, ___off___, ___off___, ___off___, MG__WHITE, ___off___,         ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,
+___off___, ___off___, ___off___, MG_RED, ___off___, ___off___,         ___off___, MG_RED, MG_RED, MG_RED, ___off___, ___off___,
+___off___, MG_RED, ___off___, ___off___, ___off___, ___off___,         ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,
+___off___, ___off___, ___off___, ___off___, ___off___, ___off___,         MG_RED, ___off___, ___off___, ___off___, ___off___, ___off___,
                                  ___off___, ___off___, ___off___,         ___off___, ___off___, ___off___
-      }/*,
-[_GAME] = {
-MG____RED, MG_ORANGE, MG_YELLOW, MG__GREEN, MG_PURPLE, MG___PINK,         MG___PINK, MG_PURPLE, MG__GREEN, MG_YELLOW, MG_ORANGE, MG____RED,
-MG____RED, MG_ORANGE, MG_YELLOW, MG__GREEN, MG_PURPLE, MG___PINK,         MG___PINK, MG_PURPLE, MG__GREEN, MG_YELLOW, MG_ORANGE, MG____RED,
-MG____RED, MG_ORANGE, MG_YELLOW, MG__GREEN, MG_PURPLE, MG___PINK,         MG___PINK, MG_PURPLE, MG__GREEN, MG_YELLOW, MG_ORANGE, MG____RED,
-                                 MG__WHITE, MG__WHITE, MG___BLUE,         MG___BLUE, MG__WHITE, MG__WHITE
-      },*/
+      }
 };
 
 extern bool g_suspend_state;
@@ -296,9 +251,7 @@ uint8_t ledIndexForKeymapIndex(uint8_t keyIndex) {
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
     uint8_t layerNum = get_highest_layer(layer_state);
-    if (layerNum == 0) {
-        return;
-    }
+
 
     uint8_t ledIndex = 0;
     uint8_t r, g, b;
@@ -319,8 +272,6 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     }
 }
 
-// HELLO NAVI
-// clang-format on
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     // vertical orientation
