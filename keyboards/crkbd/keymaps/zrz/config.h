@@ -112,6 +112,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef ENABLE_RGB_MATRIX_SOLID_SPLASH
 #undef ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
+#define NO_ACTION_ONESHOT
+
 
 
 // boot sequence
@@ -120,3 +124,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WITH_BOOT
 #define WITH_GLITCH
 #define SPLIT_TRANSACTION_IDS_USER USER_SYNC_A
+
+#ifndef NO_DEBUG
+#define NO_DEBUG
+#endif // !NO_DEBUG
+#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
+#define NO_PRINT
+#endif // !NO_PRINT
