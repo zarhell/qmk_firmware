@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 enum layer_number {
   _QWERTY = 0,
   _LOWER,
+  _FUNKEY,
   _NUMPAD,
   _CURSOR
 };
@@ -43,22 +44,23 @@ enum layer_number {
 
 
 #define ___off___ {0,0,0}
-#define MG_CYAN {0,255,255}
-#define MG_RED {204,0,0}
-#define MG_BLUE {0,0,153}
+#define MG_CYAN {0,206,209}
+#define MG_RED {255,0,0}
+#define MG_BLUE {0,0,255}
 #define MG_PURPLE {50,0,232}
+#define MG_ORANGE {255,140,0}
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-LT(_NUMPAD, KC_ESC),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
+LT(_LOWER, KC_ESC),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
              KC_TAB,     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,  KC_J,     KC_K,   KC_L,  KC_SCLN, KC_QUOT,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                        KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_LSFT,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                              KC_LGUI,MO(_LOWER),  KC_SPC,                  KC_ENT, MO(_CURSOR),KC_LALT
+                              LT(_FUNKEY, KC_LGUI),TG(_NUMPAD),  KC_SPC,                  KC_ENT, TG(_CURSOR),KC_LALT
                             //`--------------------------'                   `--------------------------'
 
   ),
@@ -66,11 +68,22 @@ LT(_NUMPAD, KC_ESC),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,               
 
   [_LOWER] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+      _______,    KC_1,  KC_2,  KC_3,  KC_4,  KC_5,                              KC_6,  KC_7,  KC_8,  KC_9, KC_0, KC_DEL,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      KC_LSFT,_______,_______,_______,_______,_______,                          _______,_______,_______,_______,KC_MEDIA_PREV_TRACK,KC_MEDIA_NEXT_TRACK,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      _______,_______,_______,_______,_______,_______,                       KC_APP,_______,_______,_______,_______,KC_MEDIA_PLAY_PAUSE,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                          _______, _______,  _______,     _______, _______, _______
+                                      //`--------------------------'  `--------------------------'
+  ),
+    [_FUNKEY] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       KC_F1,    KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,                          KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,_______,_______,_______,_______,_______,                          _______,_______,_______,_______,_______,_______,
+      _______,_______,_______,_______,_______,_______,                          _______,_______,_______,_______,_______,_______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______,_______,_______,_______,_______,_______,                       KC_APP,_______,_______,_______,_______,_______,
+      _______,_______,_______,_______,_______,_______,                       _______,_______,_______,_______,_______,_______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______,  _______,     _______, _______, _______
                                       //`--------------------------'  `--------------------------'
@@ -94,7 +107,7 @@ LT(_NUMPAD, KC_ESC),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,               
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______,                      _______, KC_LEFT, KC_DOWN,KC_RIGHT, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______, _______,     _______, _______, _______
                                       //`--------------------------'  `--------------------------'
@@ -110,19 +123,26 @@ MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,          MG_PURPL
                                  MG_RED, MG_RED, MG_RED,                MG_RED, MG_RED, MG_RED
       },
 [_LOWER] = {
-MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE,                   MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE,
+MG_RED, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE,                   MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_RED,
+MG_RED, ___off___, ___off___, ___off___, ___off___, ___off___,         ___off___, ___off___, ___off___, ___off___, MG_RED, MG_RED,
+___off___, ___off___, ___off___, ___off___, ___off___, ___off___,         MG_RED, ___off___, ___off___, ___off___, ___off___, MG_RED,
+                                 ___off___, ___off___, ___off___,         ___off___, ___off___, ___off___
+      },
+
+[_FUNKEY] = {
+MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,          MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,
+MG_RED, ___off___, ___off___, ___off___, ___off___, ___off___,         ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,
 ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,         ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,
-___off___, ___off___, ___off___, ___off___, ___off___, ___off___,         MG_RED, ___off___, ___off___, ___off___, ___off___, ___off___,
                                  ___off___, ___off___, ___off___,         ___off___, ___off___, ___off___
       },
 [_NUMPAD] = {
-___off___, MG_CYAN, MG_CYAN, MG_CYAN, MG_CYAN, MG_CYAN,                 MG_PURPLE, MG_BLUE, MG_BLUE, MG_BLUE, MG_PURPLE, MG_RED,
-___off___, MG_CYAN, MG_CYAN, MG_CYAN, MG_CYAN, ___off___,               MG_PURPLE, MG_BLUE, MG_BLUE, MG_BLUE, MG_PURPLE, MG_PURPLE,
-MG_RED, ___off___, ___off___, ___off___, ___off___, ___off___,          MG_CYAN, MG_BLUE, MG_BLUE, MG_BLUE, MG_PURPLE, ___off___,
+___off___, MG_CYAN, MG_CYAN, MG_CYAN, MG_CYAN, MG_CYAN,                 MG_ORANGE, MG_BLUE, MG_BLUE, MG_BLUE, MG_ORANGE, MG_RED,
+___off___, MG_CYAN, MG_CYAN, MG_CYAN, MG_CYAN, ___off___,               MG_ORANGE, MG_BLUE, MG_BLUE, MG_BLUE, MG_ORANGE, MG_ORANGE,
+MG_RED, ___off___, ___off___, ___off___, ___off___, ___off___,          MG_CYAN, MG_BLUE, MG_BLUE, MG_BLUE, MG_ORANGE, ___off___,
                                  ___off___, ___off___, ___off___,       MG_RED, ___off___, MG_BLUE
       },
 [_CURSOR] = {
-___off___, MG_PURPLE, MG_RED, MG_PURPLE, ___off___, ___off___,            ___off___, MG_PURPLE, MG_RED, MG_PURPLE, ___off___, MG_RED,
+___off___, MG_BLUE, MG_RED, MG_BLUE, ___off___, ___off___,            ___off___, MG_BLUE, MG_RED, MG_BLUE, ___off___, MG_RED,
 MG_PURPLE, MG_RED, MG_RED, MG_RED, ___off___, ___off___,                 ___off___, MG_RED, MG_RED, MG_RED, ___off___, ___off___,
 MG_PURPLE, ___off___, ___off___, ___off___, ___off___, ___off___,         ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,
                                  ___off___, ___off___, ___off___,         ___off___, ___off___, ___off___
