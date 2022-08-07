@@ -20,6 +20,7 @@ SPACE_CADET_ENABLE = no # parentheses when tapping left/right mods
 MAGIC_ENABLE = no
 BOOTMAGIC_ENABLE = no
 
+
 LTO_ENABLE = yes
 EXTRAFLAGS += -flto
 
