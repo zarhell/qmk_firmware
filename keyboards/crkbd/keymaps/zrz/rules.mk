@@ -30,4 +30,5 @@ SRC +=  ./navi_logo.c \
         ./gui_state.c \
         ./ring.c \
         ./fast_random.c \
-        ./draw_helper.c
+        ./draw_helper.c \
+		./features/layer_lock.c

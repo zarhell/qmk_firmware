@@ -23,6 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MASTER_LEFT
 
+#define LAYER_LOCK_IDLE_TIMEOUT 60000
+
 #define TAPPING_TERM 150
 #define IGNORE_MOD_TAP_INTERRUPT
 
