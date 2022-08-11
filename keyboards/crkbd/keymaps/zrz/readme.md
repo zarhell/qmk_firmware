@@ -2,24 +2,29 @@
 
 #### A Corne Profile for Windows with 5 layers
 
+Each layer has its own set  of lights that indicate the keys enabled for each type of layer (thanks to [@mattgemmell](https://twitter.com/mattgemmell))
+The oleds has a NAVI icon from serial experimental Lain (thanks to [@bjoreman](https://twitter.com/bjoreman))
+
+##keyboard schematics
 
 ### Base Layer
-![corne-base-layer,-zrz](https://user-images.githubusercontent.com/26225607/183351573-e5738eb0-7b46-47f5-aad0-84252adf6ba2.jpg)
+![corne-base-layer,-zrz](https://user-images.githubusercontent.com/26225607/184247601-0ae64175-f1e3-437a-867c-5187b088ea2e.png)
+
 
 ### Numpad Layer
-![corne-num-layer,-zrz](https://user-images.githubusercontent.com/26225607/183351906-bbdf62df-2bf8-4a24-90c5-7282fecbb035.jpg)
+![corne-num-layer,-zrz](https://user-images.githubusercontent.com/26225607/184247724-e32bd0f8-b584-4d18-be39-4e855d4c7eb3.png)
 
 
 ### Cursor Layer
-![corne-cursor-layer,-zrz](https://user-images.githubusercontent.com/26225607/183351952-0923b8b4-ada6-454f-a1bd-32cb4bc66c8c.jpg)
+![corne-cursor-layer,-zrz](https://user-images.githubusercontent.com/26225607/184247675-680c22e3-8636-41c2-b14e-2b6a394e7b0f.png)
 
 
 ### Sym Layer
-![corne-sym-layer,-zrz](https://user-images.githubusercontent.com/26225607/183352045-2c00a8f3-171e-4c7d-aaa2-a5a577d5bcaf.jpg)
+![corne-sym-layer,-zrz](https://user-images.githubusercontent.com/26225607/184247745-bb0f1158-cf6c-42c8-9a69-75dae0269531.png)
 
 
 ### FuntionKeys Layer
-![corne-fun-layer,-zrz](https://user-images.githubusercontent.com/26225607/183352197-8a0ff430-e15c-4b07-a3f2-8214b243ebc1.jpg)
+![corne-fun-layer,-zrz](https://user-images.githubusercontent.com/26225607/184247712-5306ffb8-eb10-46e9-b46c-b1a920750532.png)
 
 
 Flash example for this keyboard:  
