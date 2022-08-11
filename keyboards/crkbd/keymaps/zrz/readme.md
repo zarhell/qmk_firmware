@@ -10,7 +10,7 @@ The oleds has a HELLO NAVI interface from serial experimental Lain (thanks to [H
 ## keyboard schematics
 
 ### Base Layer
-![corne-base-layer,-zrz](https://user-images.githubusercontent.com/26225607/184247601-0ae64175-f1e3-437a-867c-5187b088ea2e.png)
+![corne-base-layer,-zrz](https://user-images.githubusercontent.com/26225607/184257057-fc7f9e80-e5f0-4fa7-aa29-f8d9ba7deb70.png)
 
 
 ### Numpad Layer
