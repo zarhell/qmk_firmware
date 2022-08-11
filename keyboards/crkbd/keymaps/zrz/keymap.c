@@ -76,11 +76,11 @@ LT(_FUNKEY, KC_TAB),     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,              
 
   [_LOWER] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______,    KC_1,  KC_2,  KC_3,  KC_4,  KC_5,                              KC_6,  KC_7,  KC_8,  KC_9, KC_0, KC_DEL,
+      _______, KC_EXCLAIM,  KC_AT,  KC_HASH,  KC_DOLLAR, KC_PERCENT,           KC_CIRCUMFLEX,  KC_AMPERSAND,  KC_ASTERISK,KC_LEFT_PAREN, KC_RIGHT_PAREN, KC_DEL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_CAPS,KC_EXCLAIM,KC_AT,KC_HASH,KC_DOLLAR,KC_PERCENT,                     KC_LBRC,KC_RBRC,KC_BSLS,KC_MINS,KC_EQL,_______,
+      LSFT_T(KC_CAPS),KC_TILDE ,_______,_______,_______,_______,           KC_LCBR,KC_RCBR, KC_BSLS,KC_MINS,KC_PLUS,KC_DQUO,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______,KC_CIRCUMFLEX,KC_AMPERSAND,_______,_______,_______,                       KC_APP,_______,_______,_______,_______,LLOCK,
+      _______,_______,_______,_______,_______,_______,               KC_APP,_______,KC_UNDERSCORE,KC_EQL,KC_PIPE,LLOCK,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______,  _______,     _______, _______, _______
                                       //`--------------------------'  `--------------------------'
@@ -91,7 +91,7 @@ LT(_FUNKEY, KC_TAB),     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,              
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
     _______,_______,_______,_______,KC_VOLD,KC_VOLU,                          _______,_______,_______,_______,_______,KC_PAUSE,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______,_______,_______,KC_MPRV,KC_MNXT,KC_MPLY,                       _______,_______,_______,_______,_______,LLOCK,
+      RESET,_______,_______,KC_MPRV,KC_MNXT,KC_MPLY,                       _______,_______,_______,_______,_______,LLOCK,
   //|--------+--------+--------+--------+--------+--------+--------|           |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______,  _______,               _______, _______, _______
                                       //`--------------------------'             `--------------------------'
@@ -99,11 +99,11 @@ LT(_FUNKEY, KC_TAB),     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,              
 
   [_NUMPAD] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, _______, _______, _______, _______, _______,                      KC_PSLS,    KC_P7,    KC_P8,    KC_P9, KC_PMNS, KC_DEL,
+      _______, KC_1, KC_2, KC_3, _______, _______,                      KC_PSLS,    KC_P7,    KC_P8,    KC_P9, KC_PMNS, KC_DEL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, _______, _______, _______, _______, _______,                     KC_PAST,    KC_P4,    KC_P5,    KC_P6, KC_PPLS,  KC_NUM,
+      _______, KC_4, KC_5, KC_6, _______, _______,                     KC_PAST,    KC_P4,    KC_P5,    KC_P6, KC_PPLS,  KC_NUM,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-        RESET, _______, _______, _______, _______, _______,                     KC_COMM,    KC_P1,    KC_P2,    KC_P3,  KC_PDOT, LLOCK,
+        _______, KC_7, KC_8, KC_9, KC_0, _______,                     KC_COMM,    KC_P1,    KC_P2,    KC_P3,  KC_PDOT, LLOCK,
   //|--------+--------+--------+--------+--------+--------+--------|         |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______,  _______,         KC_PENT, _______, KC_P0
                                       //`--------------------------'            `--------------------------'
@@ -113,10 +113,10 @@ LT(_FUNKEY, KC_TAB),     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,              
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       _______, KC_HOME, KC_UP, KC_END, _______, _______,                      _______, KC_HOME,   KC_UP,  KC_END, _______, KC_DEL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, KC_LEFT, KC_DOWN, KC_RIGHT, _______, KC_RGHT,                      KC_RGHT, KC_LEFT, KC_DOWN,KC_RIGHT, _______, _______,
+      KC_LSFT, KC_LEFT, KC_DOWN, KC_RIGHT, _______, KC_PGUP,                      KC_PGUP, KC_LEFT, KC_DOWN,KC_RIGHT, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, _______, _______, _______, _______, KC_PGDN,                      KC_PGDN, _______, _______, _______, _______, LLOCK,
-  //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
+  //|--------+--------+--------+--------+--------+-------+--------|        |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______, _______,          _______, _______, _______
                                       //`--------------------------'          `--------------------------'
   )
@@ -131,23 +131,23 @@ MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,          MG_PURPL
                                  MG_RED, MG_RED, MG_RED,                MG_RED, MG_RED, MG_RED
       },
 [_LOWER] = {
-MG_RED, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE,                   MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_RED,
-MG_RED, MG_RED, MG_RED, MG_RED, MG_RED, MG_RED,                         MG_RED, MG_RED, MG_RED, MG_RED, MG_RED, ___off___,
-___off___, MG_RED, MG_RED, ___off___, ___off___, ___off___,         MG_RED, ___off___, ___off___, ___off___, ___off___, ___off___,
+___off___, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE,                   MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_RED,
+MG_RED, MG_BLUE, ___off___, ___off___, ___off___, ___off___,              MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE,
+___off___, ___off___, ___off___, ___off___, ___off___, ___off___,         MG_RED, ___off___, MG_BLUE, MG_BLUE, MG_BLUE, MG_RED,
                                  ___off___, ___off___, ___off___,         ___off___, ___off___, ___off___
       },
 
 [_FUNKEY] = {
 MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,          MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,
 MG_RED, ___off___, ___off___, ___off___, MG_RED, MG_RED,                 MG_RED, ___off___, ___off___, ___off___, ___off___, MG_RED,
-___off___, ___off___, ___off___, MG_RED, MG_RED, MG_RED,                 MG_RED, ___off___, ___off___, ___off___, ___off___, MG_RED,
+___off___, ___off___, ___off___, MG_RED, MG_RED, MG_RED,                 ___off___, ___off___, ___off___, ___off___, ___off___, MG_RED,
                                  ___off___, ___off___, ___off___,         ___off___, ___off___, ___off___
       },
 [_NUMPAD] = {
-___off___, ___off___, ___off___, ___off___, ___off___, ___off___,                 MG_ORANGE, MG_BLUE, MG_BLUE, MG_BLUE, MG_ORANGE, MG_RED,
-___off___, ___off___, ___off___, ___off___, ___off___, ___off___,               MG_ORANGE, MG_BLUE, MG_BLUE, MG_BLUE, MG_ORANGE, MG_RED,
-MG_RED, ___off___, ___off___, ___off___, ___off___, ___off___,          MG_CYAN, MG_BLUE, MG_BLUE, MG_BLUE, MG_ORANGE, MG_RED,
-                                 ___off___, ___off___, ___off___,       MG_RED, ___off___, MG_BLUE
+___off___, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, ___off___,                 MG_ORANGE, MG_BLUE, MG_BLUE, MG_BLUE, MG_ORANGE, MG_RED,
+___off___, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, ___off___,               MG_ORANGE, MG_BLUE, MG_BLUE, MG_BLUE, MG_ORANGE, MG_RED,
+MG_RED, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, ___off___,                  MG_RED, MG_BLUE, MG_BLUE, MG_BLUE, MG_RED, MG_RED,
+                                 ___off___, ___off___, ___off___,               MG_RED, ___off___, MG_BLUE
       },
 [_CURSOR] = {
 ___off___, MG_BLUE, MG_RED, MG_BLUE, ___off___, ___off___,                   ___off___, MG_BLUE, MG_RED, MG_BLUE, ___off___, MG_RED,
