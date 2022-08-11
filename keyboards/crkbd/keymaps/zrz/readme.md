@@ -7,14 +7,15 @@ Each layer has its own set  of lights that indicate the keys enabled for each ty
 
 The oleds has a HELLO NAVI interface from serial experimental Lain (thanks to [Hello Navi](https://github.com/druotoni/qmk_firmware/blob/master/keyboards/lily58/keymaps/druotoni/readme.md))
 
-##keyboard schematics
+## keyboard schematics
 
 ### Base Layer
 ![corne-base-layer,-zrz](https://user-images.githubusercontent.com/26225607/184247601-0ae64175-f1e3-437a-867c-5187b088ea2e.png)
 
 
 ### Numpad Layer
-![corne-num-layer,-zrz](https://user-images.githubusercontent.com/26225607/184247724-e32bd0f8-b584-4d18-be39-4e855d4c7eb3.png)
+![corne-num-layer,-zrz](https://user-images.githubusercontent.com/26225607/184256215-886c1b8a-800f-45ac-9416-3e8521807a3e.png)
+
 
 
 ### Cursor Layer
@@ -22,7 +23,8 @@ The oleds has a HELLO NAVI interface from serial experimental Lain (thanks to [H
 
 
 ### Sym Layer
-![corne-sym-layer,-zrz](https://user-images.githubusercontent.com/26225607/184247745-bb0f1158-cf6c-42c8-9a69-75dae0269531.png)
+![corne-sym-layer,-zrz](https://user-images.githubusercontent.com/26225607/184256236-aa013b3c-8c32-4dfe-984d-5a96089e55f4.png)
+
 
 
 ### FuntionKeys Layer
