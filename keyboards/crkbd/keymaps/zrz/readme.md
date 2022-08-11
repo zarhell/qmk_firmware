@@ -5,7 +5,7 @@
 Each layer has its own set  of lights that indicate the keys enabled for each type of layer (thanks to [@mattgemmell](https://twitter.com/mattgemmell) reference)
 
 
-The oleds has a NAVI icon from serial experimental Lain (thanks to [Hello Navi](https://github.com/druotoni/qmk_firmware/blob/master/keyboards/lily58/keymaps/druotoni/readme.md))
+The oleds has a HELLO NAVI interface from serial experimental Lain (thanks to [Hello Navi](https://github.com/druotoni/qmk_firmware/blob/master/keyboards/lily58/keymaps/druotoni/readme.md))
 
 ##keyboard schematics
 
