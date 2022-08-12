@@ -50,6 +50,8 @@ void drawline(uint8_t x, uint8_t y, uint8_t width, bool bHorizontal, bool bPosit
 
 void drawline_vb(uint8_t x, uint8_t y, uint8_t width, bool color) { drawline(x, y, width, false, true, color); }
 
+void drawline_vt(uint8_t x, uint8_t y, uint8_t width, bool color) { drawline(x, y, width, false, false, color); }
+
 void drawline_hr(uint8_t x, uint8_t y, uint8_t width, bool color) { drawline(x, y, width, true, true, color); }
 
 void drawline_hl(uint8_t x, uint8_t y, uint8_t width, bool color) { drawline(x, y, width, true, false, color); }
@@ -63,6 +65,13 @@ void draw_rectangle(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, bool co
 
 void draw_rectangle_fill(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, bool color) {
     for (uint8_t i = 0; i < heigth; i++) {
+        drawline_hr(x, y + i, width, color);
+    }
+}
+
+void drawline_hr_heigth(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, bool color) {
+    for (int i = 0; i < heigth; i++) {
+        drawline_hr(x, y - i, width, color);
         drawline_hr(x, y + i, width, color);
     }
 }
@@ -156,6 +165,44 @@ void draw_ellipse(uint8_t x, uint8_t y, uint8_t a, uint8_t b, bool color) {
 }
 
 void draw_ellipse_fill(uint8_t x, uint8_t y, uint8_t a, uint8_t b, bool color) { return; }
+// void draw_ellipse_fill(uint8_t x, uint8_t y, uint8_t a, uint8_t b, uint8_t color) {
+//     int dx, dy;
+//     int a2, b2;
+//     int err, e2;
+
+//     // Calculate intermediates
+//     dx  = 0;
+//     dy  = b;
+//     a2  = a * a;
+//     b2  = b * b;
+//     err = b2 - (2 * b - 1) * a2;
+
+//     short py, px, px1;
+
+//     // Away we go using Bresenham's ellipse algorithm
+//     // This is optimized to prevent overdrawing by drawing a line only when a y is about to change value
+//     do {
+//         e2 = 2 * err;
+//         if (e2 < (2 * dx + 1) * b2) {
+//             dx++;
+//             err += (2 * dx + 1) * b2;
+//         }
+//         if (e2 > -(2 * dy - 1) * a2) {
+//             py  = y + dy;
+//             px  = x - dx;
+//             px1 = x + dx;
+//             drawline_point_hr(px, py, px1, color);
+//             if (y) {
+//                 py  = y - dy;
+//                 px  = x - dx;
+//                 px1 = x + dx;
+//                 drawline_point_hr(px, py, px1, color);
+//             }
+//             dy--;
+//             err -= (2 * dy - 1) * a2;
+//         }
+//     } while (dy >= 0);
+// }
 
 bool test_limit(short x, short y) { return !(y < 0 || y > 127 || x < 0 || x > 31); }
 
@@ -422,6 +469,26 @@ void draw_random_char(uint8_t column, uint8_t row, char final_char, int value, u
     oled_write_char(c, false);
 }
 
+void get_glitch_index_new(uint16_t *glitch_timer, uint8_t *current_glitch_scope_time, uint8_t *glitch_index, uint8_t min_time, uint16_t max_time, uint8_t glitch_probobility, uint8_t glitch_frame_number) {
+    if (timer_elapsed(*glitch_timer) > *current_glitch_scope_time) {
+        // end of the last glitch period
+        *glitch_timer = timer_read();
+
+        // new random glich period
+        *current_glitch_scope_time = min_time + fastrand() % (max_time - min_time);
+
+        bool bGenerateGlitch = (fastrand() % 100) < glitch_probobility;
+        if (!bGenerateGlitch) {
+            // no glitch
+            *glitch_index = 0;
+            return;
+        }
+
+        // get a new glitch index
+        *glitch_index = fastrand() % glitch_frame_number;
+    }
+}
+
 uint8_t get_glitch_frame_index(uint8_t glitch_probobility, uint8_t glitch_frame_number) {
     bool bGenerateGlitch = (fastrand() % 100) < glitch_probobility;
     if (!bGenerateGlitch) {
@@ -465,6 +532,14 @@ void draw_progress(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, int valu
             case 0:
                 drawline_vb(x + i, y, heigth - 1, color);
                 break;
+
+                // case 1:
+                //     drawline_vb(x + i, y + 1, heigth - 3, ((i % 3) < 2));
+                //     break;
+                // case 2:
+                //     // . . . . .
+                //     drawline_vb(x + i, y + 3, 2, ((i % 2) == 0));
+                //     break;
         }
     }
 }
@@ -610,5 +685,84 @@ void draw_gradient(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, uint8_t 
 
             oled_write_pixel(x + i, y + j, color_d);
         }
+    }
+}
+
+void render_tv_animation(uint8_t frame_number, uint8_t x, uint8_t y, uint8_t width, uint8_t heigth) {
+    uint8_t xCenter = x + (width / 2);
+    uint8_t yCenter = y + (heigth / 2);
+
+    switch (frame_number) {
+        case 0:
+            // a fond : allume
+            drawline_hr_heigth(x, yCenter, width, 17, true);
+            break;
+
+        case 1:
+            drawline_hr_heigth(x, yCenter, width, 12, true);
+            draw_ellipse_fill(xCenter, yCenter, 7, 15, true);
+            break;
+
+        case 2:
+            drawline_hr_heigth(x, yCenter, width, 5, true);
+            draw_ellipse_fill(xCenter, yCenter, 5, 8, true);
+            break;
+
+        case 3:
+            drawline_hr_heigth(x, yCenter, width, 3, true);
+            draw_ellipse_fill(xCenter, yCenter, 3, 4, true);
+            break;
+
+        case 4:
+            drawline_hr_heigth(x, yCenter, width, 2, true);
+            draw_fill_circle(xCenter, yCenter, 3, true);
+            break;
+
+        case 5:
+            // central line
+            drawline_hr(x, yCenter, width, true);
+            draw_fill_circle(xCenter, yCenter, 2, true);
+            break;
+
+        case 6:
+            // cross
+            drawline_hr(xCenter, yCenter + 1, 2, true);
+            drawline_hr(xCenter, yCenter - 1, 2, true);
+
+            // central line
+            drawline_hr(x, yCenter, width, true);
+            break;
+
+        case 7:
+            // cross
+            drawline_hr(xCenter, yCenter + 1, 2, true);
+            drawline_hr(xCenter, yCenter - 1, 2, true);
+            // central line
+            drawline_hr(xCenter - 8, yCenter, 18, true);
+            // static
+            oled_write_pixel(xCenter - 11, yCenter, true);
+            oled_write_pixel(xCenter + 12, yCenter, true);
+            break;
+
+        case 8:
+            // cross
+            drawline_hr(xCenter, yCenter + 1, 2, true);
+            drawline_hr(xCenter, yCenter - 1, 2, true);
+            // central line
+            drawline_hr(xCenter - 2, yCenter, 4, true);
+            // static
+            drawline_hr(xCenter - 7, yCenter, 2, true);
+            drawline_hr(xCenter + 6, yCenter, 3, true);
+
+            //  oled_write_pixel(xCenter - 11, yCenter, true);
+            oled_write_pixel(xCenter - 9, yCenter, true);
+            oled_write_pixel(xCenter + 12, yCenter, true);
+            oled_write_pixel(xCenter + 14, yCenter, true);
+            break;
+
+        case 9:
+            // central line
+            drawline_hr(xCenter, yCenter, 2, true);
+            break;
     }
 }

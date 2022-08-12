@@ -24,11 +24,13 @@ BOOTMAGIC_ENABLE = no
 LTO_ENABLE = yes
 EXTRAFLAGS += -flto
 
-SRC +=  ./navi_logo.c \
-        ./layer_frame.c \
-        ./boot.c \
+SRC +=  ./lib/rgb_state_reader.c \
+        ./burst.c \
+        ./navi_logo.c \
         ./gui_state.c \
-        ./ring.c \
         ./fast_random.c \
+        ./layer_frame.c \
+        ./ring.c \
+        ./boot.c \
         ./draw_helper.c \
 		./features/layer_lock.c

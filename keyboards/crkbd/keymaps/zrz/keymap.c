@@ -33,6 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #if IS_LEFT
 #include "layer_frame.h"
+#include "burst.h"
 #else
 enum layer_number {
   _QWERTY = 0,
@@ -179,17 +180,45 @@ bool b_sync_need_send = false;
 // last keycode typed
 sync_keycode_t last_keycode;
 
+void render(gui_state_t t) {
+    // logo
+    render_logo(t);
+
+#if IS_LEFT
+    // left side
+    render_layer_frame(t);
+    render_gears();
+
+    decay_scope();
+    render_scope(t);
+#endif
+
+#if IS_RIGHT
+    // right side
+    render_circle(t);
+#endif
+}
+
 void update(uint16_t keycode) {
+#if IS_LEFT
+    update_scope();
+#endif
+
 #if IS_RIGHT
     update_circle(keycode);
 #endif
 }
 
 void reset(void) {
+#if IS_LEFT
+    reset_scope();
+#endif
+
 #if IS_RIGHT
     reset_ring();
 #endif
 }
+
 
 void set_wackingup_mode_clean(void) {
     oled_clear();
@@ -295,20 +324,6 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;
 }
 
-void render(gui_state_t t) {
-    // logo
-    render_logo(t);
-#if IS_LEFT
-    // left side
-    render_layer_frame(t);
-    render_gears();
-#endif
-
-#if IS_RIGHT
-    // right side
-    render_circle(t);
-#endif
-}
 
 bool oled_task_user(void) {
     gui_state_t t = get_gui_state();

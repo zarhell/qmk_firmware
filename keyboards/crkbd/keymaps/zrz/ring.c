@@ -456,7 +456,7 @@ void render_circle(gui_state_t t) {
 
 void update_circle(uint16_t keycode) {
     // special animation for special keys
-    if (keycode == KC_ESC || keycode == LT(2, KC_ESC) || keycode == KC_BSPC || keycode == KC_SPACE || keycode == KC_ENTER || keycode == RSFT_T(KC_ENTER)) {
+    if (keycode == KC_ESC || keycode == KC_SPACE || keycode == KC_ENTER) {
         anim_center_timer         = timer_read();
         anim_center_current_frame = 0;
         return;
@@ -465,27 +465,13 @@ void update_circle(uint16_t keycode) {
     // cancel special animation on a new key
     anim_center_current_frame = ANIM_CENTER_FRAME_NUMBER;
 
-    // keycode to char
-    char c;
-    if (keycode == LSFT_T(KC_A)) {
-        c = 'A';
-    } else if (keycode == LCTL_T(KC_S)) {
-        c = 'S';
-    } else if (keycode == LALT_T(KC_D)) {
-        c = 'D';
-    } else if (keycode == LGUI_T(KC_F)) {
-        c = 'F';
-    } else if (keycode == RCTL_T(KC_J)) {
-        c = 'J';
-    } else if (keycode == RALT_T(KC_K)) {
-        c = 'K';
-    } else if (keycode == RGUI_T(KC_L)) {
-        c = 'L';
-    } else if (keycode >= 60) {
+    // out of scope key
+    if (keycode >= 60) {
         return;
-    } else {
-        c = pgm_read_byte(&code_to_name[keycode]);
     }
+
+    // keycode to char
+    char c = pgm_read_byte(&code_to_name[keycode]);
 
     // stock previous char
     c_previous = c_last;

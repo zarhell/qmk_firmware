@@ -6,8 +6,10 @@
 
 // line
 void drawline_vb(uint8_t x, uint8_t y, uint8_t width, bool color);
+void drawline_vt(uint8_t x, uint8_t y, uint8_t width, bool color);
 void drawline_hr(uint8_t x, uint8_t y, uint8_t width, bool color);
 void drawline_hl(uint8_t x, uint8_t y, uint8_t width, bool color);
+void drawline_hr_heigth(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, bool color);
 
 // rectangle
 void draw_rectangle(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, bool color);
@@ -39,5 +41,7 @@ void move_block(uint8_t x, uint8_t y, uint8_t width, uint8_t heigth, int shift);
 void draw_glitch_comb(uint8_t x, uint8_t y, uint8_t width, uint16_t height, uint8_t iSize, bool odd);
 
 // misc
+void render_tv_animation(uint8_t frame_number, uint8_t x, uint8_t y, uint8_t width, uint8_t heigth);
 int  interpo_pourcent(int min, int max, int v);
 void get_glitch_index(uint32_t *glitch_timer, int *current_glitch_scope_time, uint8_t *glitch_index, uint8_t min_time, uint16_t max_time, uint8_t glitch_probobility, uint8_t glitch_frame_number);
+void get_glitch_index_new(uint16_t *glitch_timer, uint8_t *current_glitch_scope_time, uint8_t *glitch_index, uint8_t min_time, uint16_t max_time, uint8_t glitch_probobility, uint8_t glitch_frame_number);
