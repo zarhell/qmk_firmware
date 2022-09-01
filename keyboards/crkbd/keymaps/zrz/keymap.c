@@ -19,17 +19,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
+#include "features/layer_lock.h"
+
 // HELLO NAVI
 #include "transactions.h"
 #include "gui_state.h"
 #include "boot.h"
 #include "navi_logo.h"
 
-#include "draw_helper.h"
-#include "fast_random.h"
-#include "ring.h"
-
-#include "features/layer_lock.h"
 
 #if IS_LEFT
 #include "layer_frame.h"
@@ -43,6 +40,10 @@ enum layer_number {
   _CURSOR
 };
 #endif
+
+#include "draw_helper.h"
+#include "fast_random.h"
+#include "ring.h"
 
 enum custom_keycodes {
   LLOCK = SAFE_RANGE,
@@ -180,25 +181,6 @@ bool b_sync_need_send = false;
 // last keycode typed
 sync_keycode_t last_keycode;
 
-void render(gui_state_t t) {
-    // logo
-    render_logo(t);
-
-#if IS_LEFT
-    // left side
-    render_layer_frame(t);
-    render_gears();
-
-    decay_scope();
-    render_scope(t);
-#endif
-
-#if IS_RIGHT
-    // right side
-    render_circle(t);
-#endif
-}
-
 void update(uint16_t keycode) {
 #if IS_LEFT
     update_scope();
@@ -218,7 +200,6 @@ void reset(void) {
     reset_ring();
 #endif
 }
-
 
 void set_wackingup_mode_clean(void) {
     oled_clear();
@@ -298,7 +279,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
     uint8_t layerNum = get_highest_layer(layer_state);
 
-
+     // Per-key indicators
     uint8_t ledIndex = 0;
     uint8_t r, g, b;
     for (uint8_t keyIndex = 0; keyIndex < 42; keyIndex++) { // 0 to 42
@@ -318,12 +299,33 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     }
 }
 
+// HELLO NAVI
+// clang-format on
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     // vertical orientation
     return OLED_ROTATION_270;
 }
 
+
+void render(gui_state_t t) {
+    // logo
+    render_logo(t);
+
+#if IS_LEFT
+    // left side
+    render_layer_frame(t);
+    render_gears();
+
+    decay_scope();
+    render_scope(t);
+#endif
+
+#if IS_RIGHT
+    // right side
+    render_circle(t);
+#endif
+}
 
 bool oled_task_user(void) {
     gui_state_t t = get_gui_state();
@@ -382,7 +384,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         // gui process the input
         process_key(keycode);
     }
-
+    // lock layer when pressed
     if (!process_layer_lock(keycode, record, LLOCK)) {
         return false;
     }

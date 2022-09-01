@@ -100,10 +100,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef ENABLE_RGB_MATRIX_HUE_WAVE
 #undef ENABLE_RGB_MATRIX_PIXEL_FRACTAL
 #undef ENABLE_RGB_MATRIX_PIXEL_RAIN
-
 #undef ENABLE_RGB_MATRIX_TYPING_HEATMAP
 #undef ENABLE_RGB_MATRIX_DIGITAL_RAIN
-
 #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
 #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE
 #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
@@ -124,7 +122,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 // boot sequence
-//#define IS_LEFT 1
+// #define IS_LEFT 1
 #define IS_RIGHT 1
 //#define WITH_BOOT
 #define WITH_GLITCH
