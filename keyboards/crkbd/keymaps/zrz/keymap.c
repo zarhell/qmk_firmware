@@ -28,22 +28,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "navi_logo.h"
 
 
-#if IS_LEFT
-#include "layer_frame.h"
-#include "burst.h"
-#else
-enum layer_number {
-  _QWERTY = 0,
-  _LOWER,
-  _FUNKEY,
-  _NUMPAD,
-  _CURSOR
-};
-#endif
-
 #include "draw_helper.h"
 #include "fast_random.h"
+
+
+// left side
+#include "layer_frame.h"
+#include "burst.h"
+
+// right side
 #include "ring.h"
+
+#define _QWERTY 0
+#define _SYMBOL 1
+#define _FUNKEY 2
+#define _NUMPAD 3
+#define _CURSOR 4
 
 enum custom_keycodes {
   LLOCK = SAFE_RANGE,
@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QWERTY] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-LT(_LOWER, KC_ESC),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
+LT(_SYMBOL, KC_ESC),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 LT(_FUNKEY, KC_TAB),     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,  KC_J,     KC_K,   KC_L,  KC_SCLN, KC_QUOT,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -76,7 +76,7 @@ LT(_FUNKEY, KC_TAB),     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,              
   ),
 
 
-  [_LOWER] = LAYOUT_split_3x6_3(
+  [_SYMBOL] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       _______, KC_EXCLAIM,  KC_AT,  KC_HASH,  KC_DOLLAR, KC_PERCENT,           KC_CIRCUMFLEX,  KC_AMPERSAND,  KC_ASTERISK,KC_LEFT_PAREN, KC_RIGHT_PAREN, KC_DEL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -132,7 +132,7 @@ MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,          MG_PURPL
 MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,          MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_RED,
                                  MG_RED, MG_RED, MG_RED,                MG_RED, MG_RED, MG_RED
       },
-[_LOWER] = {
+[_SYMBOL] = {
 ___off___, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE,                   MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_RED,
 MG_RED, MG_BLUE, ___off___, ___off___, ___off___, ___off___,              MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE,
 ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,         MG_RED, ___off___, MG_BLUE, MG_BLUE, MG_BLUE, MG_RED,

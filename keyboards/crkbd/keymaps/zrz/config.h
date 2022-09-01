@@ -29,13 +29,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM 150
 #define IGNORE_MOD_TAP_INTERRUPT
 
-#define SPLIT_LAYER_STATE_ENABLEz
+#define SPLIT_LAYER_STATE_ENABLE
 
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
 
 // small layer state
 #define LAYER_STATE_8BIT
+
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100
+
 
 /* Undefine all effects enabled by r2g, remove one to enable the effect again */
 #undef ENABLE_RGB_MATRIX_ALPHAS_MODS
@@ -121,11 +124,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DISABLE_LEADER
 
 
-// boot sequence
-// #define IS_LEFT 1
-#define IS_RIGHT 1
+// // boot sequence
+#define IS_LEFT 1
+// #define IS_RIGHT 1
 //#define WITH_BOOT
-#define WITH_GLITCH
+// #define WITH_GLITCH
 #define SPLIT_TRANSACTION_IDS_USER USER_SYNC_A
 
 // custom font
