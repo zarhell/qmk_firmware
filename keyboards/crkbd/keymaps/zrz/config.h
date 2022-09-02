@@ -38,6 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LAYER_STATE_8BIT
 
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100
+#define LED_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 
 
 /* Undefine all effects enabled by r2g, remove one to enable the effect again */
@@ -125,8 +126,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 // // boot sequence
-#define IS_LEFT 1
-// #define IS_RIGHT 1
+// #define IS_LEFT 1
+#define IS_RIGHT 1
 //#define WITH_BOOT
 // #define WITH_GLITCH
 #define SPLIT_TRANSACTION_IDS_USER USER_SYNC_A
