@@ -17,6 +17,7 @@ AUTO_SHIFT_ENABLE = no
 WEBUSB_ENABLE = no # might just be for Oryx
 EXTRAKEY_ENABLE = yes # media/volume keys
 SPACE_CADET_ENABLE = no # parentheses when tapping left/right mods
+GRAVE_ESC_ENABLE = no
 MAGIC_ENABLE = no
 BOOTMAGIC_ENABLE = no
 

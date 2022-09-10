@@ -104,9 +104,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef ENABLE_RGB_MATRIX_HUE_PENDULUM
 #undef ENABLE_RGB_MATRIX_HUE_WAVE
 #undef ENABLE_RGB_MATRIX_PIXEL_FRACTAL
+#undef ENABLE_RGB_MATRIX_PIXEL_FLOW
 #undef ENABLE_RGB_MATRIX_PIXEL_RAIN
+
 #undef ENABLE_RGB_MATRIX_TYPING_HEATMAP
 #undef ENABLE_RGB_MATRIX_DIGITAL_RAIN
+
 #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
 #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE
 #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
@@ -120,16 +123,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef ENABLE_RGB_MATRIX_SOLID_SPLASH
 #undef ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-//To reduce file size
-#define RETRO_TAPPING
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 #define NO_ACTION_ONESHOT
-#define NO_ACTION_TAPPING
-#define IGNORE_MOD_TAP_INTERRUPT
-#define TAPPING_FORCE_HOLD
 #define DISABLE_LEADER
-
+#define NO_MUSIC_MODE
 
 // // boot sequence
 #define IS_LEFT 1
