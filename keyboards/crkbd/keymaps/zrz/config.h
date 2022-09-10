@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_DRIVER_ENABLE
 
 #define LAYER_LOCK_IDLE_TIMEOUT 60000
+#define RGB_DISABLE_WHEN_USB_SUSPENDED true
 
 #define TAPPING_TERM 150
 #define IGNORE_MOD_TAP_INTERRUPT
@@ -37,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // small layer state
 #define LAYER_STATE_8BIT
 
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
 #define LED_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 
 
@@ -119,15 +120,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef ENABLE_RGB_MATRIX_SOLID_SPLASH
 #undef ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
+//To reduce file size
+#define RETRO_TAPPING
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 #define NO_ACTION_ONESHOT
+#define NO_ACTION_TAPPING
+#define IGNORE_MOD_TAP_INTERRUPT
+#define TAPPING_FORCE_HOLD
 #define DISABLE_LEADER
 
 
 // // boot sequence
-// #define IS_LEFT 1
-#define IS_RIGHT 1
+#define IS_LEFT 1
+// #define IS_RIGHT 1
 //#define WITH_BOOT
 // #define WITH_GLITCH
 #define SPLIT_TRANSACTION_IDS_USER USER_SYNC_A
