@@ -1,8 +1,4 @@
 /*
-Copyright 2019 @foostan
-Copyright 2020 Drashna Jaelre <@drashna>
-Copyright 2021 Elliot Powell  <@e11i0t23>
-
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
@@ -21,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "features/layer_lock.h"
 
-// HELLO NAVI
+
 #include "transactions.h"
 #include "gui_state.h"
 #include "boot.h"
@@ -66,9 +62,9 @@ LT(_SYMBOL, KC_ESC),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,               
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 LT(_FUNKEY, KC_TAB),     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,  KC_J,     KC_K,   KC_L,  KC_SCLN, KC_QUOT,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                        KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_LSFT,
+            KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                        KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_LGUI,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                              KC_LGUI, MO(_NUMPAD), LALT_T(KC_SPC),                  KC_ENT, MO(_CURSOR),KC_LALT
+                              KC_LSFT, KC_LALT, KC_SPC,                  KC_ENT, MO(_CURSOR),MO(_NUMPAD)
                             //`--------------------------'                   `--------------------------'
 
   ),
@@ -76,13 +72,13 @@ LT(_FUNKEY, KC_TAB),     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,              
 
   [_SYMBOL] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                              ,-----------------------------------------------------.
-      _______, KC_EXCLAIM,  KC_AT,  KC_HASH,  KC_DOLLAR, KC_PERCENT,                       KC_CIRCUMFLEX,  KC_AMPERSAND,  KC_ASTERISK,KC_LEFT_PAREN, KC_RIGHT_PAREN, KC_DEL,
+      _______, KC_EXCLAIM,  KC_AT,  KC_HASH,  KC_DOLLAR, KC_PERCENT,                       KC_CIRCUMFLEX,  KC_AMPERSAND,  KC_ASTERISK,KC_LEFT_PAREN, KC_RIGHT_PAREN, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                               |--------+--------+--------+--------+--------+--------|
       _______,KC_TILDE ,_______,_______,_______,_______,                                    KC_LCBR,KC_RCBR, KC_BSLS,KC_MINS,KC_PLUS,_______,
   //|--------+--------+--------+--------+--------+--------|                              |--------+--------+--------+--------+--------+--------|
-      _______,_______,_______,_______,_______,_______,                               _______,_______,KC_UNDERSCORE,KC_EQL,KC_PIPE,LSFT_T(KC_CAPS),
+      _______,_______,_______,_______,_______,_______,                               _______,_______,KC_UNDERSCORE,KC_EQL,KC_PIPE,LLOCK,
   //|--------+--------+--------+--------+--------+--------+--------|            |--------+--------+--------+--------+--------+--------+--------|
-                                          LLOCK, _______,  _______,            _______, _______, _______
+                                          LSFT_T(KC_CAPS), _______,  _______,            _______, _______, _______
                                       //`--------------------------'            `--------------------------'
   ),
     [_FUNKEY] = LAYOUT_split_3x6_3(
@@ -91,33 +87,33 @@ LT(_FUNKEY, KC_TAB),     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,              
   //|--------+--------+--------+--------+--------+--------|                            |--------+--------+--------+--------+--------+--------|
     _______,_______,_______,_______,KC_VOLD,KC_VOLU,                                  KC_PAUSE,_______,_______,_______,_______,RESET,
   //|--------+--------+--------+--------+--------+--------|                          |--------+--------+--------+--------+--------+--------|
-      _______,_______,_______,KC_MPRV,KC_MNXT,KC_MPLY,                                  KC_APP,_______,_______,_______,_______,_______,
+      _______,_______,_______,KC_MPRV,KC_MNXT,KC_MPLY,                                  KC_APP,_______,_______,_______,_______,LLOCK,
   //|--------+--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------+--------|
-                                          LLOCK, _______,  _______,               _______, _______, _______
+                                          _______, _______,  _______,               _______, _______, _______
                                       //`--------------------------'             `--------------------------'
   ),
 
   [_NUMPAD] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                           ,-----------------------------------------------------.
-      _______, KC_1, KC_2, KC_3, _______, _______,                                      KC_PSLS,    KC_P7,    KC_P8,    KC_P9, KC_PMNS, KC_DEL,
+      _______, KC_1, KC_2, KC_3, _______, _______,                                      KC_PSLS,    KC_P7,    KC_P8,    KC_P9, KC_PMNS, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                         |--------+--------+--------+--------+--------+--------|
       _______, KC_4, KC_5, KC_6, _______, _______,                                   KC_PAST,    KC_P4,    KC_P5,    KC_P6, KC_PPLS,  KC_NUM,
   //|--------+--------+--------+--------+--------+--------|                         |--------+--------+--------+--------+--------+--------|
-        _______, KC_7, KC_8, KC_9, KC_0, _______,                                    KC_COMM,    KC_P1,    KC_P2,    KC_P3,  KC_PDOT, _______,
+        _______, KC_7, KC_8, KC_9, KC_0, _______,                                    KC_COMM,    KC_P1,    KC_P2,    KC_P3,  KC_PDOT, LLOCK,
   //|--------+--------+--------+--------+--------+--------+--------|         |--------+--------+--------+--------+--------+--------+--------|
-                                          LLOCK, _______,  _______,         KC_PENT, _______, KC_P0
+                                          _______, _______,  _______,         KC_PENT, _______, KC_P0
                                       //`--------------------------'          `--------------------------'
   ),
 
   [_CURSOR] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, KC_HOME, KC_UP, KC_END, _______, _______,                      _______, KC_HOME,   KC_UP,  KC_END, _______, KC_DEL,
+      _______, KC_HOME, KC_UP, KC_END, _______, _______,                      _______, KC_HOME,   KC_UP,  KC_END, _______, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT, KC_LEFT, KC_DOWN, KC_RIGHT, _______, KC_PGUP,                      KC_PGUP, KC_LEFT, KC_DOWN,KC_RIGHT, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, _______, _______, _______, _______, KC_PGDN,                      KC_PGDN, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, KC_PGDN,                      KC_PGDN, _______, _______, _______, _______, LLOCK,
   //|--------+--------+--------+--------+--------+-------+--------|        |--------+--------+--------+--------+--------+--------+--------|
-                                          LLOCK, _______, _______,          _______, _______, _______
+                                          _______, _______, _______,          _______, _______, _______
                                       //`--------------------------'          `--------------------------'
   )
 };
@@ -131,9 +127,9 @@ MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,                  
                                          MG_RED, MG_RED, MG_RED,                MG_RED, MG_RED, MG_RED
       },
 [_SYMBOL] = {
-___off___, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE,                           MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_RED,
-MG_RED, MG_BLUE, ___off___, ___off___, ___off___, ___off___,                      MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE,
-___off___, ___off___, ___off___, ___off___, ___off___, ___off___,                 MG_RED, ___off___, MG_BLUE, MG_BLUE, MG_BLUE, MG_RED,
+___off___, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE,                           MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, ___off___,
+___off___, MG_BLUE, ___off___, ___off___, ___off___, ___off___,                      MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, ___off___,
+___off___, ___off___, ___off___, ___off___, ___off___, ___off___,                 ___off___, ___off___, MG_BLUE, MG_BLUE, MG_BLUE, MG_RED,
                                  MG_RED, ___off___, ___off___,         ___off___, ___off___, ___off___
       },
 
@@ -156,7 +152,6 @@ ___off___, ___off___, ___off___, ___off___, ___off___, MG_BLUE,                 
                                  MG_RED, ___off___, ___off___,         ___off___, ___off___, ___off___
       }
 };
-
 
 
 void matrix_scan_user(void) {
@@ -238,8 +233,9 @@ void user_sync_a_slave_handler(uint8_t in_buflen, const void* in_data, uint8_t o
 void keyboard_post_init_user(void) {
     rgb_matrix_enable();
     rgb_matrix_sethsv_noeeprom(0, 0, 0); // (180, 255, 231) is purple
-                                                                                                                                rgb_matrix_mode_noeeprom(1);
-                                                                                                                                // HELLO NAVI
+    rgb_matrix_mode_noeeprom(1);
+
+    // HELLO NAVI
     transaction_register_rpc(USER_SYNC_A, user_sync_a_slave_handler);
 }
 

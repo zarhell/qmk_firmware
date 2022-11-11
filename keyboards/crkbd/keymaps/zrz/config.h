@@ -38,7 +38,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // small layer state
 #define LAYER_STATE_8BIT
 
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50
+
 #define LED_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 
 
@@ -129,7 +130,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DISABLE_LEADER
 #define NO_MUSIC_MODE
 
-// // boot sequence
+// boot sequence
 #define IS_LEFT 1
 // #define IS_RIGHT 1
 //#define WITH_BOOT

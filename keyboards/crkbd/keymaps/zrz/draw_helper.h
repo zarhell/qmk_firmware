@@ -4,7 +4,7 @@
 
 #pragma once
 
-// line
+// linekk
 void drawline_vb(uint8_t x, uint8_t y, uint8_t width, bool color);
 void drawline_vt(uint8_t x, uint8_t y, uint8_t width, bool color);
 void drawline_hr(uint8_t x, uint8_t y, uint8_t width, bool color);
