@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MASTER_LEFT
 #define OLED_DRIVER_ENABLE
 
-#define LAYER_LOCK_IDLE_TIMEOUT 60000
+#define LAYER_LOCK_IDLE_TIMEOUT 10000
 #define RGB_DISABLE_WHEN_USB_SUSPENDED true
 
 #define TAPPING_TERM 150
@@ -38,9 +38,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // small layer state
 #define LAYER_STATE_8BIT
 
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50
-
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 80
+#define RGB_DISABLE_TIMEOUT 10000
 #define LED_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+#define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
 
 
 /* Undefine all effects enabled by r2g, remove one to enable the effect again */
@@ -131,8 +132,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_MUSIC_MODE
 
 // boot sequence
-#define IS_LEFT 1
-// #define IS_RIGHT 1
+// #define IS_LEFT 1
+#define IS_RIGHT 1
 //#define WITH_BOOT
 // #define WITH_GLITCH
 #define SPLIT_TRANSACTION_IDS_USER USER_SYNC_A
