@@ -51,20 +51,20 @@ enum custom_keycodes {
 #define MG_RED {153,0,0}
 #define MG_BLUE {0,0,153}
 #define MG_PURPLE {50,0,232}
-#define MG_ORANGE {255,140,0}
+#define MG_GREEN {0,153,0}
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QWERTY] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-             KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
+ LT(_NUMPAD, KC_ESC),  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                  KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             KC_TAB,   KC_A,    KC_S,   KC_D,   KC_F,     KC_G,                             KC_H,   KC_J,   KC_K,   KC_L,  KC_SCLN, RSFT_T(KC_QUOT),
         //|--------+--------+--------+--------+--------+--------|                       |--------+--------+--------+--------+--------+--------|
-            KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,    LT(_SYMBOL, KC_B),       LT(_FUNKEY, KC_N),  KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_LGUI,
+            KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,    LT(_SYMBOL, KC_B),        KC_N,  KC_M, KC_COMM,  KC_DOT, KC_SLSH,  LGUI_T(KC_APP),
         //|--------+--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------+--------|
-                                         KC_LSFT, KC_LALT, KC_SPC,                  KC_ENT, MO(_CURSOR),MO(_NUMPAD)
+                                        KC_LALT , LSFT_T(KC_ENT), KC_SPC,                  KC_ENT, MO(_CURSOR),MO(_FUNKEY)
                                        //`--------------------------'                   `--------------------------'
 
   ),
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                              |--------+--------+--------+--------+--------+--------|
       _______,_______,_______,_______,_______,_______,                               _______,_______,KC_UNDERSCORE,KC_EQL,KC_PIPE,LLOCK,
   //|--------+--------+--------+--------+--------+--------+--------|            |--------+--------+--------+--------+--------+--------+--------|
-                                          LSFT_T(KC_CAPS), _______,  _______,            _______, _______, _______
+                                          _______, KC_CAPS,  _______,            _______, _______, _______
                                       //`--------------------------'            `--------------------------'
   ),
     [_FUNKEY] = LAYOUT_split_3x6_3(
@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                            |--------+--------+--------+--------+--------+--------|
     _______,_______,KC_PSCR,_______,KC_VOLD,KC_VOLU,                                  KC_PAUSE,_______,_______,_______,_______,RESET,
   //|--------+--------+--------+--------+--------+--------|                          |--------+--------+--------+--------+--------+--------|
-      _______,_______,_______,KC_MPRV,KC_MNXT,KC_MPLY,                                  KC_APP,_______,_______,_______,_______,LLOCK,
+      _______,_______,_______,KC_MPRV,KC_MNXT,KC_MPLY,                                  _______,_______,_______,_______,_______,LLOCK,
   //|--------+--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______,  _______,               KC_INS, _______, _______
                                       //`--------------------------'             `--------------------------'
@@ -99,9 +99,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                         |--------+--------+--------+--------+--------+--------|
       _______, KC_4, KC_5, KC_6, _______, _______,                                   KC_PAST,    KC_P4,    KC_P5,    KC_P6, KC_PPLS,  KC_COMM,
   //|--------+--------+--------+--------+--------+--------|                         |--------+--------+--------+--------+--------+--------|
-        _______, KC_7, KC_8, KC_9, KC_0, _______,                                    KC_P0,    KC_P1,    KC_P2,    KC_P3,  KC_PDOT, LLOCK,
+        _______, KC_7, KC_8, KC_9, KC_0, _______,                                    _______,    KC_P1,    KC_P2,    KC_P3,  KC_PDOT, LLOCK,
   //|--------+--------+--------+--------+--------+--------+--------|         |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, _______,  _______,         KC_PENT, _______, _______
+                                          _______, _______,  _______,         KC_PENT, _______, KC_P0
                                       //`--------------------------'          `--------------------------'
   ),
 
@@ -123,33 +123,33 @@ const uint8_t PROGMEM ledmap[][42][3] = {
 [_QWERTY] = {
 MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,                       MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_RED,
 MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,                       MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_RED,
-MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_RED,                       MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_RED,
+MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,                       MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_RED,
                                          MG_RED, MG_RED, MG_RED,                MG_RED, MG_RED, MG_RED
       },
 [_SYMBOL] = {
-___off___, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE,                           MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, ___off___,
+___off___, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE,                            MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, ___off___,
 ___off___, MG_BLUE, MG_BLUE, ___off___, ___off___, ___off___,                      MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, ___off___,
-___off___, ___off___, ___off___, ___off___, ___off___, ___off___,                 ___off___, ___off___, MG_BLUE, MG_BLUE, MG_BLUE, MG_RED,
-                                 MG_RED, ___off___, ___off___,         ___off___, ___off___, ___off___
+___off___, ___off___, ___off___, ___off___, ___off___, ___off___,                 ___off___, ___off___, MG_BLUE, MG_BLUE, MG_BLUE, MG_GREEN,
+                                 ___off___, MG_RED, ___off___,                  ___off___, ___off___, ___off___
       },
 
 [_FUNKEY] = {
 MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,                 MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,
 ___off___, ___off___, MG_RED, ___off___, MG_RED, MG_RED,                         MG_RED, ___off___, ___off___, ___off___, ___off___, ___off___,
-___off___, ___off___, ___off___, MG_RED, MG_RED, MG_RED,                         MG_RED, ___off___, ___off___, ___off___, ___off___, MG_RED,
-                                 ___off___, ___off___, ___off___,         MG_RED, ___off___, ___off___
+___off___, ___off___, ___off___, MG_RED, MG_RED, MG_RED,                         MG_RED, ___off___, ___off___, ___off___, ___off___, MG_GREEN,
+                                 ___off___, ___off___, ___off___,            MG_RED, ___off___, ___off___
       },
 [_NUMPAD] = {
-___off___, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, ___off___,                          MG_ORANGE, MG_BLUE, MG_BLUE, MG_BLUE, MG_ORANGE, ___off___,
-___off___, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, ___off___,                          MG_ORANGE, MG_BLUE, MG_BLUE, MG_BLUE, MG_ORANGE, MG_RED,
-___off___, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, ___off___,                               MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_RED, MG_RED,
-                                 MG_RED, ___off___, ___off___,               MG_RED, ___off___, ___off___
+___off___, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, ___off___,                          MG_GREEN, MG_BLUE, MG_BLUE, MG_BLUE, MG_GREEN, ___off___,
+___off___, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, ___off___,                          MG_GREEN, MG_BLUE, MG_BLUE, MG_BLUE, MG_GREEN, MG_RED,
+___off___, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, ___off___,                               ___off___, MG_BLUE, MG_BLUE, MG_BLUE, MG_RED, MG_GREEN,
+                                 ___off___, ___off___, ___off___,               MG_RED, ___off___, MG_BLUE
       },
 [_CURSOR] = {
 ___off___, MG_BLUE, MG_RED, MG_BLUE, ___off___, ___off___,                      ___off___, MG_BLUE, MG_RED, MG_BLUE, ___off___, ___off___,
 ___off___, MG_RED, MG_RED, MG_RED, ___off___, MG_BLUE,                          MG_BLUE, MG_RED, MG_RED, MG_RED, ___off___, ___off___,
-___off___, ___off___, ___off___, ___off___, ___off___, MG_BLUE,                 MG_BLUE, ___off___, ___off___, ___off___, ___off___, MG_RED,
-                                 MG_RED, ___off___, ___off___,         ___off___, ___off___, ___off___
+___off___, ___off___, ___off___, ___off___, ___off___, MG_BLUE,                 MG_BLUE, ___off___, ___off___, ___off___, ___off___, MG_GREEN,
+                                 ___off___, ___off___, ___off___,         ___off___, ___off___, ___off___
       }
 };
 
