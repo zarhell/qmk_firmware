@@ -20,8 +20,6 @@ SPACE_CADET_ENABLE = no # parentheses when tapping left/right mods
 GRAVE_ESC_ENABLE = no
 MAGIC_ENABLE = no
 BOOTMAGIC_ENABLE = no
-
-
 LTO_ENABLE = yes
 EXTRAFLAGS += -flto
 
@@ -34,4 +32,5 @@ SRC +=  ./lib/rgb_state_reader.c \
         ./ring.c \
         ./boot.c \
         ./draw_helper.c \
-		./features/layer_lock.c
+		./features/layer_lock.c \
+		./features/select_word.c
