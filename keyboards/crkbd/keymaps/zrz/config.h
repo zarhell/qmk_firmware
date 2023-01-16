@@ -130,8 +130,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_MUSIC_MODE
 
 // boot sequence
-// #define IS_LEFT 1
-#define IS_RIGHT 1
+#define IS_LEFT 1
+// #define IS_RIGHT 1
 //#define WITH_BOOT
 // #define WITH_GLITCH
 #define SPLIT_TRANSACTION_IDS_USER USER_SYNC_A
