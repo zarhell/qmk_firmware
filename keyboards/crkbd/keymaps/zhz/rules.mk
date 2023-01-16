@@ -26,4 +26,7 @@ LTO_ENABLE = yes
 EXTRAFLAGS += -flto
 
 SRC +=  ./lib/rgb_state_reader.c \
-        ./features/layer_lock.c
+        ./features/layer_lock.c \
+		./features/select_word.c
+
+
