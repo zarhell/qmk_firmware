@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [3] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                           ,-----------------------------------------------------.
-      _______, KC_1, KC_2, KC_3, _______, KC_NUM,                                    KC_P7,    KC_P8,    KC_P9,    KC_PMNS, KC_PPLS, _______,
+      TO(0), KC_1, KC_2, KC_3, _______, KC_NUM,                                    KC_P7,    KC_P8,    KC_P9,    KC_PMNS, KC_PPLS, _______,
   //|--------+--------+--------+--------+--------+--------|                         |--------+--------+--------+--------+--------+--------|
       _______, KC_4, KC_5, KC_6, _______, _______,                                   KC_P4,    KC_P5,    KC_P6,    KC_PSLS, KC_PAST,  _______,
   //|--------+--------+--------+--------+--------+--------|                         |--------+--------+--------+--------+--------+--------|
@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [4] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, _______, _______, _______, _______, _______,                      _______, KC_HOME,   KC_UP,  KC_END, _______, _______,
+      TO(0), _______, _______, _______, _______, _______,                      _______, KC_HOME,   KC_UP,  KC_END, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, KC_HOME, KC_UP, KC_END, _______, KC_PGUP,                      KC_PGUP, KC_LEFT, KC_DOWN,KC_RIGHT, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -163,14 +163,18 @@ void oled_render_layer_state(void) {
         case _SYMBOL:
             oled_write_ln_P(PSTR("Symbol"), false);
             break;
-        case _FUNKEY:
-            oled_write_ln_P(PSTR("Funkey"), false);
-            break;
         case _NUMPAD:
             oled_write_ln_P(PSTR("Numpad"), false);
             break;
         case _CURSOR:
             oled_write_ln_P(PSTR("Cursor"), false);
+            break;
+        case _FUNKEY:
+        case _FUNKEY | _SYMBOL:
+        case _FUNKEY | _NUMPAD:
+        case _FUNKEY | _CURSOR:
+        case _FUNKEY | _SYMBOL | _NUMPAD | _CURSOR:
+            oled_write_ln_P(PSTR("Funkey"), false);
             break;
     }
 }
@@ -282,9 +286,9 @@ uint8_t ledIndexForKeymapIndex(uint8_t keyIndex) {
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
     uint8_t layerNum = get_highest_layer(layer_state);
-    if (layerNum == 0) {
-        return;
-    }
+    // if (layerNum == 0) {
+    //     return;
+    // }
 
      // Per-key indicators
     uint8_t ledIndex = 0;
