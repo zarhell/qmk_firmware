@@ -49,9 +49,11 @@ enum custom_keycodes {
 };
 
 #define ___off___ {0,0,0}
+#define MG_CYAN {0,206,209}
 #define MG_RED {153,0,0}
 #define MG_BLUE {0,0,153}
 #define MG_PURPLE {50,0,232}
+#define MG_GREEN {0,153,0}
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -83,9 +85,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
     [_FUNKEY] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                              ,-----------------------------------------------------.
-      _______,KC_F1,KC_F2,KC_F3,KC_F4,_______,                                   KC_MPRV,  KC_MNXT,  _______,  _______, _______, _______,
+      _______,KC_F1,KC_F2,KC_F3,KC_F4,  TG(_CURSOR),                                   KC_MPRV,  KC_MNXT,  _______,  _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                            |--------+--------+--------+--------+--------+--------|
-      _______,KC_F5,KC_F6,KC_F7,KC_F8,_______,                                  KC_PAUSE,_______,_______,_______,_______,RESET,
+      _______,KC_F5,KC_F6,KC_F7,KC_F8,TG(_NUMPAD),                                  KC_PAUSE,_______,_______,_______,_______,RESET,
   //|--------+--------+--------+--------+--------+--------|                          |--------+--------+--------+--------+--------+--------|
       _______,KC_F9,KC_F10,KC_F11,KC_F12,_______,                                  KC_MPLY ,_______,_______,_______,KC_PSCR,LLOCK,
   //|--------+--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------+--------|
@@ -121,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint8_t PROGMEM ledmap[][42][3] = {
 
 [_QWERTY] = {
-MG_RED, MG_PU RPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,                       MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_RED,
+MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,                       MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_RED,
 MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,                       MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_RED,
 MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,                       MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_RED,
                                          MG_RED, MG_RED, MG_RED,                MG_RED, MG_RED, MG_RED
@@ -129,26 +131,26 @@ MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,                  
 [_SYMBOL] = {
 ___off___, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE,                            MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, ___off___,
 ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,                      MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, ___off___,
-___off___, ___off___, ___off___, ___off___, ___off___, ___off___,                 ___off___, ___off___, MG_BLUE, MG_BLUE, MG_BLUE, MG_RED,
+___off___, ___off___, ___off___, ___off___, ___off___, ___off___,                 ___off___, ___off___, MG_BLUE, MG_BLUE, MG_BLUE, MG_GREEN,
                                  ___off___, MG_RED, ___off___,                  ___off___, ___off___, ___off___
       },
 
 [_FUNKEY] = {
 ___off___, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, ___off___,                 MG_RED, MG_RED, ___off___, ___off___, ___off___, ___off___,
 ___off___, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, ___off___,                 MG_RED, ___off___, ___off___, ___off___, ___off___, ___off___,
-___off___, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, ___off___,                 MG_RED, ___off___, ___off___, ___off___, MG_RED, MG_RED,
+___off___, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, ___off___,                 MG_RED, ___off___, ___off___, ___off___, MG_RED, MG_GREEN,
                                             MG_RED, MG_RED, MG_RED,            MG_RED, MG_RED, ___off___
       },
 [_NUMPAD] = {
 ___off___, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, MG_RED,                          MG_BLUE, MG_BLUE, MG_BLUE, MG_RED, MG_RED, ___off___,
-___off___, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, ___off___,                       MG_BLUE, MG_BLUE, MG_BLUE, MG_RED, MG_RED, ___off___,
-___off___, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, ___off___,                         MG_BLUE, MG_BLUE, MG_BLUE, MG_RED, MG_RED, ___off___,
+___off___, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, ___off___,                          MG_BLUE, MG_BLUE, MG_BLUE, MG_RED, MG_RED, ___off___,
+___off___, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, ___off___,                               MG_BLUE, MG_BLUE, MG_BLUE, MG_RED, MG_RED, ___off___,
                                  ___off___, ___off___, ___off___,               MG_RED, MG_BLUE, ___off___
       },
 [_CURSOR] = {
-___off___, ___off___, ___off___, ___off___, ___off___, ___off___,           ___off___, MG_BLUE, MG_RED, MG_BLUE, ___off___, ___off___,
-___off___, MG_BLUE, MG_RED, MG_BLUE, ___off___, MG_BLUE,                    MG_BLUE, MG_RED, MG_RED, MG_RED, ___off___, ___off___,
-___off___, MG_RED, MG_RED, MG_RED, ___off___, MG_BLUE,                       MG_BLUE, ___off___, ___off___, ___off___, ___off___, MG_RED,
+___off___, ___off___, ___off___, ___off___, ___off___, ___off___,                      ___off___, MG_BLUE, MG_RED, MG_BLUE, ___off___, ___off___,
+___off___, MG_BLUE, MG_RED, MG_BLUE, ___off___, MG_BLUE,                          MG_BLUE, MG_RED, MG_RED, MG_RED, ___off___, ___off___,
+___off___, MG_RED, MG_RED, MG_RED, ___off___, MG_BLUE,                 MG_BLUE, ___off___, ___off___, ___off___, ___off___, MG_GREEN,
                                  ___off___, ___off___, ___off___,         ___off___, ___off___, ___off___
       }
 };
