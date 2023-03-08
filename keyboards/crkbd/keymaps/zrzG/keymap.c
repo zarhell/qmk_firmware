@@ -40,11 +40,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [0] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.              ,-----------------------------------------------------.
-    KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y, KC_U,  KC_I,    KC_O,   KC_P,  KC_BSPC,
+    LT(3 , KC_ESC),  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                   KC_Y, KC_U,  KC_I,    KC_O,   KC_P,  KC_BSPC,
         //|--------+--------+--------+--------+--------+--------|              |--------+--------+--------+--------+--------+--------|
-    KC_TAB , KC_A,   KC_S,   KC_D,   KC_F,     KC_G,                         KC_H,   KC_J,   KC_K,   KC_L,  KC_SCLN, LGUI_T(KC_QUOT),
+              KC_TAB , KC_A,   KC_S,   KC_D,   KC_F,     KC_G,                   KC_H,   KC_J,   KC_K,   KC_L,  KC_SCLN, LGUI_T(KC_QUOT),
         //|--------+--------+--------+--------+--------+--------|              |--------+--------+--------+--------+--------+--------|
-    LSFT_T(KC_CAPS),  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                 KC_N,  KC_M, KC_COMM,  KC_DOT, KC_SLSH,  RSFT_T(KC_APP),
+            KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                   KC_N,  KC_M, KC_COMM,  KC_DOT, KC_SLSH,  RSFT_T(KC_APP),
         //|--------+--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------+--------|
                                         KC_LCTL, KC_LALT , KC_SPC,               KC_ENT,  KC_SPC, MO(1)
                                        //`--------------------------'                   `--------------------------'
@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [1] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                       ,-----------------------------------------------------.
+  //,-----------------------------------------------------.                       ,---/m--------------------------------------------------.
       TO(0), KC_HOME, KC_UP, KC_END, _______, KC_NUM,                              _______,    KC_P7,    KC_P8,    KC_P9, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                       |--------+--------+--------+--------+--------+--------|
       _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______,                       _______,    KC_P4,    KC_P5,    KC_P6, _______,  _______,
@@ -81,12 +81,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                             ,-----------------------------------------------------.
       TO(0),_______,_______,_______,_______,_______,                                    _______,  KC_F1,KC_F2,KC_F3,KC_F4, _______,
   //|--------+--------+--------+--------+--------+--------|                            |--------+--------+--------+--------+--------+--------|
-      _______,KC_PSCR,_______,_______,KC_PAUSE,_______,                                  _______,KC_F5,KC_F6,KC_F7,KC_F8,_______,
+      _______,KC_PSCR,_______,_______,KC_PAUSE,_______,                                 _______,KC_F5,KC_F6,KC_F7,KC_F8,_______,
   //|--------+--------+--------+--------+--------+--------|                           |--------+--------+--------+--------+--------+--------|
-      _______,KC_INT1,KC_INT2,KC_MPRV,KC_MNXT,KC_MPLY,                               _______ ,KC_F9,KC_F10,KC_F11,KC_F12,LLOCK,
+      _______,_______,_______,KC_MPRV,KC_MNXT,KC_MPLY,                               _______ ,KC_F9,KC_F10,KC_F11,KC_F12,LLOCK,
   //|--------+--------+--------+--------+--------+--------+--------|                |--------+--------+--------+--------+--------+--------+--------|
-                                          SELWORD, KC_ENT,  KC_BSPC,                KC_INS, KC_CAPS, _______
-                                      //`--------------------------'                           `--------------------------'
+                                          SELWORD, _______ ,  KC_BSPC,             KC_INS, _______, _______
+                                      //`--------------------------'                 `--------------------------'
   )
 };
 
@@ -115,10 +115,10 @@ ___off___, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, ___off___,                 MG_R
 
 
 [3] = {
-___off___, ___off___, ___off___, ___off___, ___off___, ___off___,               ___off___, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, ___off___,
-___off___, MG_RED, ___off___, ___off___, MG_RED, ___off___,                     ___off___, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, ___off___,
-___off___, MG_RED, MG_RED, MG_RED, MG_RED, MG_RED,                              ___off___, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_GREEN,
-                                     MG_RED, MG_RED, MG_RED,            MG_RED, MG_RED, ___off___
+MG_CYAN, ___off___, ___off___, ___off___, ___off___, ___off___,             ___off___, MG_GREEN, MG_GREEN, MG_GREEN, MG_GREEN, ___off___,
+___off___, MG_RED, ___off___, ___off___, MG_RED, ___off___,                 ___off___, MG_GREEN, MG_GREEN, MG_GREEN, MG_GREEN, ___off___,
+___off___, ___off___, ___off___, MG_RED, MG_RED, MG_RED,                    ___off___, MG_GREEN, MG_GREEN, MG_GREEN, MG_GREEN, MG_PURPLE,
+                                     MG_RED, ___off___, MG_RED,            MG_RED, ___off___, ___off___
       }
 };
 
@@ -188,11 +188,11 @@ void set_keylog(uint16_t keycode, keyrecord_t *record) {
 
 enum combos {
     //Number layer
+    F_LALT_LAYER,
     G_LALT_LAYER,
-    H_SPC_LAYER,
 
     //Function layer
-    Q_W_LAYER,
+    Y_SPC_LAYER,
 
     //Number layer
     numDOT,
@@ -221,6 +221,7 @@ enum combos {
     BSPC_K_RPRN,
     BSPC_M_LCBR,
     BSPC_COMM_RCBR,
+
     //Number layer
     BSPC_7_LBRC,
     BSPC_8_RBRC,
@@ -267,8 +268,10 @@ enum combos {
 
     //Control keys
     K_L_ENT,
+    B_SPC_ENT,
     numENT,
     J_K_TAB,
+    Z_X_LSFT_CAPS,
 
     //Navigation keys
     U_I_O_HOME,
@@ -305,6 +308,9 @@ enum combos {
     GIT_LOG,
     GIT_ADD,
     GIT_CHECKOUT,
+    GIT_RESTORE,
+    GIT_REVERT,
+    GIT_STASH,
     PASS_MC,
     USER_MC,
 
@@ -316,10 +322,10 @@ enum combos {
 uint16_t COMBO_LEN = COMBO_LENGTH;
     //Number layer
     const uint16_t PROGMEM g_LALT_layer[] = { KC_G, KC_LALT, COMBO_END};
-    const uint16_t PROGMEM h_SPC_layer[] = { KC_H, KC_SPC, COMBO_END};
+    const uint16_t PROGMEM f_LALT_layer[] = { KC_F, KC_LALT, COMBO_END};
 
     //Function layer
-    const uint16_t PROGMEM q_w_layer[] = { KC_Q, KC_W, COMBO_END};
+    const uint16_t PROGMEM y_SPC_layer[] = { KC_Y, KC_SPC, COMBO_END};
 
     //Number layer
     const uint16_t PROGMEM numdot[] = { KC_6, KC_SCLN, COMBO_END};
@@ -392,8 +398,11 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 
     //Control keys
     const uint16_t PROGMEM k_L_ent[] = { KC_K, KC_L, KC_SCLN, COMBO_END};
+    const uint16_t PROGMEM b_SPC_ent[] = { KC_B, KC_SPC, COMBO_END};
     const uint16_t PROGMEM nument[] = { KC_5, KC_6, KC_SCLN, COMBO_END};
     const uint16_t PROGMEM j_k_tab[] = { KC_J, KC_K, COMBO_END};
+    const uint16_t PROGMEM z_x_lsft_caps[] = { KC_Z, KC_X, KC_LSFT, COMBO_END};
+
 
     //Navigation keys
     const uint16_t PROGMEM u_i_o_home[] = { KC_U, KC_I, KC_O, COMBO_END};
@@ -430,17 +439,20 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
     const uint16_t PROGMEM git_log_combo[] = {KC_G, KC_L, COMBO_END};
     const uint16_t PROGMEM git_add_combo[] = {KC_G, KC_A, COMBO_END};
     const uint16_t PROGMEM git_checkout_combo[] = {KC_G, KC_C, KC_K, COMBO_END};
+    const uint16_t PROGMEM git_restore_combo[] = {KC_G, KC_R, KC_T, COMBO_END};
+    const uint16_t PROGMEM git_revert_combo[] = {KC_G, KC_R, KC_V, COMBO_END};
+    const uint16_t PROGMEM git_stash_combo[] = {KC_G, KC_S, KC_T, COMBO_END};
     const uint16_t PROGMEM pass_mc_combo[] = {KC_P, KC_W, COMBO_END};
     const uint16_t PROGMEM user_mc_combo[] = {KC_U, KC_I, KC_D, COMBO_END};
 
 
 combo_t key_combos[] = {
     //Number layer
-    [H_SPC_LAYER] = COMBO(h_SPC_layer, TT(1)),
+    [F_LALT_LAYER] = COMBO(f_LALT_layer, TT(1)),
     [G_LALT_LAYER] = COMBO(g_LALT_layer, TT(2)),
 
     //Function layer
-    [Q_W_LAYER] = COMBO(q_w_layer, TT(3)),
+    [Y_SPC_LAYER] = COMBO(y_SPC_layer, TT(3)),
 
     //Number layer
     [numDOT] = COMBO(numdot, KC_DOT),
@@ -513,8 +525,10 @@ combo_t key_combos[] = {
 
     //Control keys
     [K_L_ENT] = COMBO(k_L_ent, KC_ENT),
+    [B_SPC_ENT] = COMBO(b_SPC_ent, KC_ENT),
     [numENT] = COMBO(nument, KC_ENT),
     [J_K_TAB] = COMBO(j_k_tab, KC_TAB),
+    [Z_X_LSFT_CAPS] = COMBO(z_x_lsft_caps, KC_CAPS),
 
     //Navigation keys
     [U_I_O_HOME] = COMBO(u_i_o_home, KC_HOME),
@@ -546,6 +560,9 @@ combo_t key_combos[] = {
     [GIT_LOG] = COMBO_ACTION(git_log_combo),
     [GIT_ADD] = COMBO_ACTION(git_add_combo),
     [GIT_CHECKOUT] = COMBO_ACTION(git_checkout_combo),
+    [GIT_RESTORE] = COMBO_ACTION(git_restore_combo),
+    [GIT_REVERT] = COMBO_ACTION(git_revert_combo),
+    [GIT_STASH] = COMBO_ACTION(git_stash_combo),
     [PASS_MC] = COMBO_ACTION(pass_mc_combo),
     [USER_MC] = COMBO_ACTION(user_mc_combo),
     [P_C_M_R_LCG_SWP] = COMBO(p_c_m_r_lcg_swp, LCG_SWP),
@@ -595,15 +612,33 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
             }
             break;
 
-     case GIT_ADD:
+    case GIT_ADD:
             if (pressed) {
                 SEND_STRING("git add ");
             }
             break;
 
-     case GIT_CHECKOUT:
+    case GIT_CHECKOUT:
             if (pressed) {
                 SEND_STRING("git checkout ");
+            }
+            break;
+
+    case GIT_RESTORE:
+            if (pressed) {
+                SEND_STRING("git restore ");
+            }
+            break;
+
+    case GIT_REVERT:
+            if (pressed) {
+                SEND_STRING("git revert ");
+            }
+            break;
+
+    case GIT_STASH:
+            if (pressed) {
+                SEND_STRING("git stash ");
             }
             break;
 
