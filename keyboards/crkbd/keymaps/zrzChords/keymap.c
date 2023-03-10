@@ -42,18 +42,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //,-----------------------------------------------------.              ,-----------------------------------------------------.
     LT(3 , KC_ESC),  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                   KC_Y, KC_U,  KC_I,    KC_O,   KC_P,  KC_BSPC,
         //|--------+--------+--------+--------+--------+--------|              |--------+--------+--------+--------+--------+--------|
-              KC_TAB , KC_A,   KC_S,   KC_D,   KC_F,     KC_G,                   KC_H,   KC_J,   KC_K,   KC_L,  KC_SCLN, LGUI_T(KC_QUOT),
+            KC_TAB , KC_A,   KC_S,   KC_D,   KC_F,     KC_G,                   KC_H,   KC_J,   KC_K,   KC_L,  KC_SCLN, LGUI_T(KC_QUOT),
         //|--------+--------+--------+--------+--------+--------|              |--------+--------+--------+--------+--------+--------|
-            KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                   KC_N,  KC_M, KC_COMM,  KC_DOT, KC_SLSH,  RSFT_T(KC_APP),
+            KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                   KC_N,  KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
         //|--------+--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------+--------|
-                                        KC_LCTL, KC_LALT , KC_SPC,               KC_ENT,  KC_SPC, MO(1)
+                                        KC_LCTL, KC_LALT , KC_SPC,               KC_SPC,   MO(1), MO(2)
                                        //`--------------------------'                   `--------------------------'
 
   ),
 
   [1] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                       ,---/m--------------------------------------------------.
-      TO(0), KC_HOME, KC_UP, KC_END, _______, KC_NUM,                              _______,    KC_P7,    KC_P8,    KC_P9, _______, _______,
+      _______, KC_HOME, KC_UP, KC_END, _______, KC_NUM,                              _______,    KC_P7,    KC_P8,    KC_P9, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                       |--------+--------+--------+--------+--------+--------|
       _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______,                       _______,    KC_P4,    KC_P5,    KC_P6, _______,  _______,
   //|--------+--------+--------+--------+--------+--------|                      |--------+--------+--------+--------+--------+--------|
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [2] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      TO(0),   KC_1, KC_2, KC_3,  _______, KC_NUM,                              _______, _______,   KC_HOME, KC_UP, KC_END, _______,
+      _______,   KC_1, KC_2, KC_3,  _______, KC_NUM,                              _______, _______,   KC_HOME, KC_UP, KC_END, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
        _______, KC_4, KC_5, KC_6, _______, _______,                             _______, _______, KC_LEFT, KC_DOWN,KC_RIGHT, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [3] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                             ,-----------------------------------------------------.
-      TO(0),_______,_______,_______,_______,_______,                                    _______,  KC_F1,KC_F2,KC_F3,KC_F4, _______,
+      _______,_______,_______,_______,_______,_______,                                    _______,  KC_F1,KC_F2,KC_F3,KC_F4, _______,
   //|--------+--------+--------+--------+--------+--------|                            |--------+--------+--------+--------+--------+--------|
       _______,KC_PSCR,_______,_______,KC_PAUSE,_______,                                 _______,KC_F5,KC_F6,KC_F7,KC_F8,_______,
   //|--------+--------+--------+--------+--------+--------|                           |--------+--------+--------+--------+--------+--------|
@@ -192,7 +192,7 @@ enum combos {
     G_LALT_LAYER,
 
     //Function layer
-    Y_SPC_LAYER,
+    H_SPC_LAYER,
 
     //Number layer
     numDOT,
@@ -235,8 +235,8 @@ enum combos {
     U_K_DOT_BSLS,
     I_J_SPC_PIPE,
     J_I_L_CIRC,
-    I_J_DEL_LT,
-    U_K_ENT_GT,
+    R_D_B_SPC,
+    R_G_LCTL,
     Y_J_GRV,
     J_P_TILD,
     Y_U_I_HASH,
@@ -267,11 +267,15 @@ enum combos {
     numASTR,
 
     //Control keys
-    K_L_ENT,
     B_SPC_ENT,
+    N_SPC_ENT,
     numENT,
     J_K_TAB,
     Z_X_LSFT_CAPS,
+    T_SPC_DEL,
+    Y_SPC_DEL,
+    DOT_SLSH_RSFT_APP,
+    ESC_SPC_BSPC,
 
     //Navigation keys
     U_I_O_HOME,
@@ -325,7 +329,7 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
     const uint16_t PROGMEM f_LALT_layer[] = { KC_F, KC_LALT, COMBO_END};
 
     //Function layer
-    const uint16_t PROGMEM y_SPC_layer[] = { KC_Y, KC_SPC, COMBO_END};
+    const uint16_t PROGMEM h_SPC_layer[] = { KC_, KC_SPC, COMBO_END};
 
     //Number layer
     const uint16_t PROGMEM numdot[] = { KC_6, KC_SCLN, COMBO_END};
@@ -366,8 +370,8 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
     const uint16_t PROGMEM u_k_DOT_bsls[] = { KC_U, KC_K, KC_DOT, COMBO_END};
     const uint16_t PROGMEM i_j_spc_pipe[] = { KC_I, KC_J, KC_SPC, COMBO_END};
     const uint16_t PROGMEM j_i_l_circ[] = { KC_J, KC_I, KC_L, COMBO_END};
-    const uint16_t PROGMEM i_j_del_lt[] = { KC_I, KC_J, KC_DEL, COMBO_END};
-    const uint16_t PROGMEM u_k_ent_gt[] = { KC_U, KC_K, KC_ENT, COMBO_END};
+    const uint16_t PROGMEM r_d_b_spc[] = { KC_R, KC_D, KC_SPC, COMBO_END};
+    const uint16_t PROGMEM r_g_lctl[] = { KC_R, KC_G, KC_LCTL, COMBO_END};
     const uint16_t PROGMEM y_j_grv[] = { KC_Y, KC_J, COMBO_END};
     const uint16_t PROGMEM j_p_tild[] = { KC_J, KC_P, COMBO_END};
     const uint16_t PROGMEM y_u_i_hash[] = { KC_Y, KC_U, KC_I, COMBO_END};
@@ -397,12 +401,15 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
     const uint16_t PROGMEM numastr[] = { KC_N, KC_P1, KC_P2, COMBO_END};
 
     //Control keys
-    const uint16_t PROGMEM k_L_ent[] = { KC_K, KC_L, KC_SCLN, COMBO_END};
     const uint16_t PROGMEM b_SPC_ent[] = { KC_B, KC_SPC, COMBO_END};
+    const uint16_t PROGMEM n_SPC_ent[] = { KC_N, KC_SPC, COMBO_END};
     const uint16_t PROGMEM nument[] = { KC_5, KC_6, KC_SCLN, COMBO_END};
     const uint16_t PROGMEM j_k_tab[] = { KC_J, KC_K, COMBO_END};
     const uint16_t PROGMEM z_x_lsft_caps[] = { KC_Z, KC_X, KC_LSFT, COMBO_END};
-
+    const uint16_t PROGMEM t_SPC_DEL[] = { KC_T, KC_SPC, COMBO_END};
+    const uint16_t PROGMEM y_SPC_DEL[] = { KC_Y, KC_SPC, COMBO_END};
+    const uint16_t PROGMEM dot_slsh_rsft_app[] = { KC_DOT, KC_SLSH, KC_RSFT, COMBO_END};
+    const uint16_t PROGMEM Esc_SPC_BSPC[] = { KC_ESC, KC_SPC, COMBO_END};
 
     //Navigation keys
     const uint16_t PROGMEM u_i_o_home[] = { KC_U, KC_I, KC_O, COMBO_END};
@@ -452,7 +459,7 @@ combo_t key_combos[] = {
     [G_LALT_LAYER] = COMBO(g_LALT_layer, TT(2)),
 
     //Function layer
-    [Y_SPC_LAYER] = COMBO(y_SPC_layer, TT(3)),
+    [H_SPC_LAYER] = COMBO(h_SPC_layer, TT(3)),
 
     //Number layer
     [numDOT] = COMBO(numdot, KC_DOT),
@@ -493,8 +500,8 @@ combo_t key_combos[] = {
     [U_K_DOT_BSLS] = COMBO(u_k_DOT_bsls, KC_BSLS),
     [I_J_SPC_PIPE] = COMBO(i_j_spc_pipe, KC_PIPE),
     [J_I_L_CIRC] = COMBO(j_i_l_circ, KC_CIRC),
-    [I_J_DEL_LT] = COMBO(i_j_del_lt, KC_LT),
-    [U_K_ENT_GT] = COMBO(u_k_ent_gt, KC_GT),
+    [R_D_B_SPC] = COMBO(r_d_b_spc, KC_LT),
+    [R_G_LCTL] = COMBO(r_g_lctl, KC_GT),
     [Y_J_GRV] = COMBO(y_j_grv, KC_GRV),
     [J_P_TILD] = COMBO(j_p_tild, KC_TILD),
     [Y_U_I_HASH] = COMBO(y_u_i_hash, KC_HASH),
@@ -524,11 +531,15 @@ combo_t key_combos[] = {
     [numASTR] = COMBO(numastr, KC_ASTR),
 
     //Control keys
-    [K_L_ENT] = COMBO(k_L_ent, KC_ENT),
     [B_SPC_ENT] = COMBO(b_SPC_ent, KC_ENT),
+    [N_SPC_ENT] = COMBO(n_SPC_ent, KC_ENT),
     [numENT] = COMBO(nument, KC_ENT),
     [J_K_TAB] = COMBO(j_k_tab, KC_TAB),
     [Z_X_LSFT_CAPS] = COMBO(z_x_lsft_caps, KC_CAPS),
+    [T_SPC_DEL] = COMBO(t_SPC_DEL, KC_DEL),
+    [Y_SPC_DEL] = COMBO(y_SPC_DEL, KC_DEL),
+    [DOT_SLSH_RSFT_APP] = COMBO(dot_slsh_rsft_app, KC_APP),
+    [ESC_SPC_BSPC] = COMBO(Esc_SPC_BSPC, KC_BSPC),
 
     //Navigation keys
     [U_I_O_HOME] = COMBO(u_i_o_home, KC_HOME),
