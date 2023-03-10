@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|              |--------+--------+--------+--------+--------+--------|
             KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                   KC_N,  KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
         //|--------+--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------+--------|
-                                        KC_LCTL, KC_LALT , KC_SPC,               KC_SPC,   MO(1), MO(2)
+                                        KC_LCTL, KC_LALT , KC_SPC,               KC_ENT,   MO(1), MO(2)
                                        //`--------------------------'                   `--------------------------'
 
   ),
@@ -192,7 +192,7 @@ enum combos {
     G_LALT_LAYER,
 
     //Function layer
-    H_SPC_LAYER,
+    H_ENT_LAYER,
 
     //Number layer
     numDOT,
@@ -268,7 +268,7 @@ enum combos {
 
     //Control keys
     B_SPC_ENT,
-    N_SPC_ENT,
+    N_ENT_SPC,
     numENT,
     J_K_TAB,
     Z_X_LSFT_CAPS,
@@ -329,7 +329,7 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
     const uint16_t PROGMEM f_LALT_layer[] = { KC_F, KC_LALT, COMBO_END};
 
     //Function layer
-    const uint16_t PROGMEM h_SPC_layer[] = { KC_H, KC_SPC, COMBO_END};
+    const uint16_t PROGMEM h_ENT_layer[] = { KC_H, KC_ENT, COMBO_END};
 
     //Number layer
     const uint16_t PROGMEM numdot[] = { KC_6, KC_SCLN, COMBO_END};
@@ -402,7 +402,7 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 
     //Control keys
     const uint16_t PROGMEM b_SPC_ent[] = { KC_B, KC_SPC, COMBO_END};
-    const uint16_t PROGMEM n_SPC_ent[] = { KC_N, KC_SPC, COMBO_END};
+    const uint16_t PROGMEM n_ENT_spc[] = { KC_N, KC_ENT, COMBO_END};
     const uint16_t PROGMEM nument[] = { KC_5, KC_6, KC_SCLN, COMBO_END};
     const uint16_t PROGMEM j_k_tab[] = { KC_J, KC_K, COMBO_END};
     const uint16_t PROGMEM z_x_lsft_caps[] = { KC_Z, KC_X, KC_LSFT, COMBO_END};
@@ -459,7 +459,7 @@ combo_t key_combos[] = {
     [G_LALT_LAYER] = COMBO(g_LALT_layer, TT(2)),
 
     //Function layer
-    [H_SPC_LAYER] = COMBO(h_SPC_layer, TT(3)),
+    [H_ENT_LAYER] = COMBO(h_ENT_layer, TT(3)),
 
     //Number layer
     [numDOT] = COMBO(numdot, KC_DOT),
@@ -532,7 +532,7 @@ combo_t key_combos[] = {
 
     //Control keys
     [B_SPC_ENT] = COMBO(b_SPC_ent, KC_ENT),
-    [N_SPC_ENT] = COMBO(n_SPC_ent, KC_ENT),
+    [N_ENT_SPC] = COMBO(n_ENT_spc, KC_SPC),
     [numENT] = COMBO(nument, KC_ENT),
     [J_K_TAB] = COMBO(j_k_tab, KC_TAB),
     [Z_X_LSFT_CAPS] = COMBO(z_x_lsft_caps, KC_CAPS),
