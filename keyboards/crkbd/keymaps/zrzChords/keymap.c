@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                      |--------+--------+--------+--------+--------+--------|
     _______, _______, _______, _______, KC_PGDN, KC_PGUP,                          _______,    KC_P1,    KC_P2,    KC_P3,  _______, LLOCK,
   //|--------+--------+--------+--------+--------+--------+--------|         |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, _______,  _______,         KC_PENT, KC_P0, _______
+                                          _______, _______,  _______,         KC_PENT, _______, KC_P0
                                       //`--------------------------'          `--------------------------'
   ),
 
@@ -329,7 +329,7 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
     const uint16_t PROGMEM f_LALT_layer[] = { KC_F, KC_LALT, COMBO_END};
 
     //Function layer
-    const uint16_t PROGMEM h_SPC_layer[] = { KC_, KC_SPC, COMBO_END};
+    const uint16_t PROGMEM h_SPC_layer[] = { KC_H, KC_SPC, COMBO_END};
 
     //Number layer
     const uint16_t PROGMEM numdot[] = { KC_6, KC_SCLN, COMBO_END};
