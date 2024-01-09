@@ -1,21 +1,3 @@
-/*
-Copyright 2019 @foostan
-Copyright 2020 Drashna Jaelre <@drashna>
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
 #include QMK_KEYBOARD_H
 
 #include "features/layer_lock.h"
@@ -40,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [0] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.              ,-----------------------------------------------------.
-    LT(3 , KC_ESC),  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                   KC_Y, KC_U,  KC_I,    KC_O,   KC_P,  KC_BSPC,
+    KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                   KC_Y, KC_U,  KC_I,    KC_O,   KC_P,  KC_BSPC,
         //|--------+--------+--------+--------+--------+--------|              |--------+--------+--------+--------+--------+--------|
             KC_TAB , KC_A,   KC_S,   KC_D,   KC_F,     KC_G,                   KC_H,   KC_J,   KC_K,   KC_L,  KC_SCLN, LGUI_T(KC_QUOT),
         //|--------+--------+--------+--------+--------+--------|              |--------+--------+--------+--------+--------+--------|
@@ -53,11 +35,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [1] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                       ,---/m--------------------------------------------------.
-      _______, KC_HOME, KC_UP, KC_END, _______, KC_NUM,                              _______,    KC_P7,    KC_P8,    KC_P9, _______, _______,
+      LLOCK, KC_HOME, KC_UP, KC_END, _______, KC_NUM,                              _______,    KC_P7,    KC_P8,    KC_P9, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                       |--------+--------+--------+--------+--------+--------|
-      _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______,                       _______,    KC_P4,    KC_P5,    KC_P6, _______,  _______,
+      _______, KC_LEFT, KC_DOWN, KC_RIGHT, KC_WH_U, _______,                       _______,    KC_P4,    KC_P5,    KC_P6, _______,  _______,
   //|--------+--------+--------+--------+--------+--------|                      |--------+--------+--------+--------+--------+--------|
-    _______, _______, _______, _______, KC_PGDN, KC_PGUP,                          _______,    KC_P1,    KC_P2,    KC_P3,  _______, LLOCK,
+    _______, _______, _______, KC_WH_L, KC_WH_D, KC_WH_R,                          _______,    KC_P1,    KC_P2,    KC_P3,  _______, _______,
   //|--------+--------+--------+--------+--------+--------+--------|         |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______,  _______,         KC_PENT, _______, KC_P0
                                       //`--------------------------'          `--------------------------'
@@ -66,27 +48,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [2] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______,   KC_1, KC_2, KC_3,  _______, KC_NUM,                              _______, _______,   KC_HOME, KC_UP, KC_END, _______,
+      LLOCK,   KC_1, KC_2, KC_3,  _______, KC_NUM,                              _______, _______,   KC_HOME, KC_UP, KC_END, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       _______, KC_4, KC_5, KC_6, _______, _______,                             _______, _______, KC_LEFT, KC_DOWN,KC_RIGHT, _______,
+       _______, KC_4, KC_5, KC_6, _______, KC_PSCR,                             _______, _______, KC_LEFT, KC_DOWN,KC_RIGHT, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, KC_7, KC_8, KC_9, _______, _______,                                 KC_PGUP, KC_PGDN, _______, _______, _______, LLOCK,
+      _______, KC_7, KC_8, KC_9, _______, KC_PAUSE,                                 _______, _______, _______, _______, _______, _______,
   //|--------+--------+--------+--------+--------+-------+--------|        |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_0, _______, _______,          _______, _______, _______
+                                          KC_0, _______, _______,          KC_INS, _______, _______
                                       //`--------------------------'          `--------------------------'
-  ),
-
-
-  [3] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                             ,-----------------------------------------------------.
-      _______,_______,_______,_______,_______,_______,                                    _______,  KC_F1,KC_F2,KC_F3,KC_F4, _______,
-  //|--------+--------+--------+--------+--------+--------|                            |--------+--------+--------+--------+--------+--------|
-      _______,KC_PSCR,_______,_______,KC_PAUSE,_______,                                 _______,KC_F5,KC_F6,KC_F7,KC_F8,_______,
-  //|--------+--------+--------+--------+--------+--------|                           |--------+--------+--------+--------+--------+--------|
-      _______,_______,_______,KC_MPRV,KC_MNXT,KC_MPLY,                               _______ ,KC_F9,KC_F10,KC_F11,KC_F12,LLOCK,
-  //|--------+--------+--------+--------+--------+--------+--------|                |--------+--------+--------+--------+--------+--------+--------|
-                                          SELWORD, _______ ,  KC_BSPC,             KC_INS, _______, _______
-                                      //`--------------------------'                 `--------------------------'
   )
 };
 
@@ -101,24 +70,16 @@ MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,                  
 
 [1] = {
 MG_CYAN, MG_BLUE, MG_RED, MG_BLUE, ___off___, MG_RED,                               ___off___, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, ___off___,
-___off___, MG_RED, MG_RED, MG_RED, ___off___, ___off___,                            ___off___, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, ___off___,
-___off___, ___off___, ___off___, ___off___, MG_RED, MG_RED,                         ___off___, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, MG_GREEN,
+___off___, MG_RED, MG_RED, MG_RED, MG_GREEN, ___off___,                            ___off___, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, ___off___,
+___off___, ___off___, ___off___, MG_GREEN, MG_GREEN, MG_GREEN,                         ___off___, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, ___off___,
                                  ___off___, ___off___, ___off___,               MG_RED, MG_BLUE, ___off___
       },
 
 [2] = {
 MG_CYAN, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, MG_RED,                        ___off___, ___off___, MG_BLUE, MG_RED, MG_BLUE, ___off___,
 ___off___, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, ___off___,                   ___off___, ___off___,MG_RED, MG_RED, MG_RED, ___off___,
-___off___, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, ___off___,                 MG_RED, MG_RED, ___off___, ___off___, ___off___, MG_GREEN,
+___off___, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, ___off___,                 MG_RED, MG_RED, ___off___, ___off___, ___off___, ___off___,
                                  MG_BLUE, ___off___, ___off___,         ___off___, ___off___, ___off___
-      },
-
-
-[3] = {
-MG_CYAN, ___off___, ___off___, ___off___, ___off___, ___off___,             ___off___, MG_GREEN, MG_GREEN, MG_GREEN, MG_GREEN, ___off___,
-___off___, MG_RED, ___off___, ___off___, MG_RED, ___off___,                 ___off___, MG_GREEN, MG_GREEN, MG_GREEN, MG_GREEN, ___off___,
-___off___, ___off___, ___off___, MG_RED, MG_RED, MG_RED,                    ___off___, MG_GREEN, MG_GREEN, MG_GREEN, MG_GREEN, MG_PURPLE,
-                                     MG_RED, ___off___, MG_RED,            MG_RED, ___off___, ___off___
       }
 };
 
@@ -187,6 +148,14 @@ void set_keylog(uint16_t keycode, keyrecord_t *record) {
 }
 
 enum combos {
+    //spanish characters
+    ALT_ENYE,
+    TILDE_A,
+    TILDE_E,
+    TILDE_I,
+    TILDE_O,
+    TILDE_U,
+
     //Number layer
     F_LALT_LAYER,
     G_LALT_LAYER,
@@ -198,29 +167,34 @@ enum combos {
     numDOT,
     numCOMM,
     numCOLN,
-    numSCLN,
     numQUOT,
     numDQUO,
 
-    //Basic math symbols
+    //Right Keyboard: Basic math symbols
     Y_U_EQL,
     H_J_MINS,
     H_J_K_PLUS,
     N_M_UNDS,
 
-    //Number layer
+    //Left Keyboard: Basic math symbols
+    LEFT_EQL,
+    LEFT_MINS,
+    LEFT_PLUS,
+    LEFT_UNDS,
+
+    //Right Keyboard: Number layer
     Y_7_EQL,
     H_4_MINS,
     H_4_5_PLUS,
     N_1_UNDS,
 
-    //Parentheses
-    BSPC_U_LBRC,
-    BSPC_I_RBRC,
-    BSPC_J_LPRN,
-    BSPC_K_RPRN,
-    BSPC_M_LCBR,
-    BSPC_COMM_RCBR,
+    //Right Keyboard Parentheses
+    LEFT_LBRC,
+    LEFT_RBRC,
+    LEFT_LPRN,
+    LEFT_RPRN,
+    LEFT_LCBR,
+    LEFT_RCBR,
 
     //Number layer
     BSPC_7_LBRC,
@@ -230,13 +204,13 @@ enum combos {
     BSPC_1_LCBR,
     BSPC_2_RCBR,
 
-    //Symbols
+    //Right Keyboard Symbols
     M_K_O_SLSH,
     U_K_DOT_BSLS,
     I_J_SPC_PIPE,
     J_I_L_CIRC,
-    R_D_B_SPC,
-    R_G_LCTL,
+    LOWER_THAN,
+    GREATHER_THAN,
     Y_J_GRV,
     J_P_TILD,
     Y_U_I_HASH,
@@ -247,6 +221,25 @@ enum combos {
     U_K_L_AT,
     H_K_AMPR,
     N_M_COMM_ASTR,
+
+    //Left Keyboard Symbols
+    LEFT_SLSH,
+    LEFT_BSLS,
+    LEFT_PIPE,
+    LEFT_CIRC,
+    LEFT_LOWER_THAN,
+    LEFT_GREATHER_THAN,
+    LEFT_GRV,
+    LEFT_TILD,
+    LEFT_HASH,
+    LEFT_PERC,
+    LEFT_EXLM,
+    LEFT_QUES,
+    LEFT_DLR,
+    LEFT_AT,
+    LEFT_AMPR,
+    LEFT_ASTR,
+
 
     //Symbols on number layer
     numSLSH,
@@ -267,15 +260,13 @@ enum combos {
     numASTR,
 
     //Control keys
-    B_SPC_ENT,
+    LEFT_ENT,
     N_ENT_SPC,
     numENT,
-    J_K_TAB,
     Z_X_LSFT_CAPS,
     T_SPC_DEL,
-    Y_SPC_DEL,
     DOT_SLSH_RSFT_APP,
-    ESC_SPC_BSPC,
+    SELECT_WORD,
 
     //Navigation keys
     U_I_O_HOME,
@@ -298,13 +289,31 @@ enum combos {
     M_SCLN_WH_L,
     J_SLSH_WH_R,
 
+    //Fuction Keys
+    FUNC_KEY_1,
+    FUNC_KEY_2,
+    FUNC_KEY_3,
+    FUNC_KEY_4,
+    FUNC_KEY_5,
+    FUNC_KEY_6,
+    FUNC_KEY_7,
+    FUNC_KEY_8,
+    FUNC_KEY_9,
+    FUNC_KEY_10,
+    FUNC_KEY_11,
+    FUNC_KEY_12,
+    FUNC_KEY_13,
+    FUNC_KEY_14,
+    FUNC_KEY_15,
+
+
     //Misc
     P_C_M_R_LCG_SWP,
     M_A_C_LCG_NRM,
     Q_S_C_F_T_RESET,
     Y_J_LEFT_UP_P_RESET,
     Q_W_E_R_T_NK_TOGG,
-    ASDF_LOREM,
+    ASDF_MAIL,
     GIT_STATUS,
     GIT_COMMIT,
     GIT_PULL,
@@ -318,12 +327,18 @@ enum combos {
     PASS_MC,
     USER_MC,
 
-
     COMBO_LENGTH
 };
 
-
 uint16_t COMBO_LEN = COMBO_LENGTH;
+    //spanish letters
+    const uint16_t PROGMEM nj_combo[] = {KC_N, KC_J, COMBO_END};
+    const uint16_t PROGMEM a_tilde_combo[] = {KC_A, KC_G, COMBO_END};
+    const uint16_t PROGMEM e_tilde_combo[] = {KC_E, KC_G, COMBO_END};
+    const uint16_t PROGMEM i_tilde_combo[] = {KC_I, KC_H, COMBO_END};
+    const uint16_t PROGMEM o_tilde_combo[] = {KC_O, KC_H, COMBO_END};
+    const uint16_t PROGMEM u_tilde_combo[] = {KC_U, KC_H, COMBO_END};
+
     //Number layer
     const uint16_t PROGMEM g_LALT_layer[] = { KC_G, KC_LALT, COMBO_END};
     const uint16_t PROGMEM f_LALT_layer[] = { KC_F, KC_LALT, COMBO_END};
@@ -332,46 +347,54 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
     const uint16_t PROGMEM h_ENT_layer[] = { KC_H, KC_ENT, COMBO_END};
 
     //Number layer
-    const uint16_t PROGMEM numdot[] = { KC_6, KC_SCLN, COMBO_END};
-    const uint16_t PROGMEM numcomm[] = { KC_5, KC_6, COMBO_END};
-    const uint16_t PROGMEM numcoln[] = { KC_4, KC_6, KC_SCLN, COMBO_END};
-    const uint16_t PROGMEM numscln[] = { KC_4, KC_5, KC_6, COMBO_END};
-    const uint16_t PROGMEM numquot[] = { KC_2, KC_6, COMBO_END};
-    const uint16_t PROGMEM numdquo[] = { KC_1, KC_6, COMBO_END};
+    const uint16_t PROGMEM numdot[] = { KC_P2, KC_P3, COMBO_END};
+    const uint16_t PROGMEM numcomm[] = { KC_P1, KC_P5, COMBO_END};
+    const uint16_t PROGMEM numcoln[] = { KC_H, KC_P4, KC_P6, COMBO_END};
+    const uint16_t PROGMEM numquot[] = { KC_P2, KC_P6, COMBO_END};
+    const uint16_t PROGMEM numdquo[] = { KC_P1, KC_P6, COMBO_END};
 
-    //Basic math symbols
+    //Right Keyboard: Basic math symbols
     const uint16_t PROGMEM y_u_eql[] = { KC_Y, KC_U, COMBO_END};
     const uint16_t PROGMEM h_j_mins[] = { KC_H, KC_J, COMBO_END};
     const uint16_t PROGMEM h_j_k_plus[] = { KC_H, KC_J, KC_K, COMBO_END};
     const uint16_t PROGMEM n_m_unds[] = { KC_N, KC_M, COMBO_END};
-    //Number layer
-    const uint16_t PROGMEM y_7_eql[] = { KC_Y, KC_7, COMBO_END};
-    const uint16_t PROGMEM h_4_mins[] = { KC_H, KC_4, COMBO_END};
-    const uint16_t PROGMEM h_4_5_plus[] = { KC_H, KC_4, KC_5, COMBO_END};
-    const uint16_t PROGMEM n_1_unds[] = { KC_N, KC_1, COMBO_END};
 
-    //Parentheses
-    const uint16_t PROGMEM bspc_u_lbrc[] = { KC_BSPC, KC_U, COMBO_END};
-    const uint16_t PROGMEM bspc_i_rbrc[] = { KC_BSPC, KC_I, COMBO_END};
-    const uint16_t PROGMEM bspc_j_lprn[] = { KC_BSPC, KC_J, COMBO_END};
-    const uint16_t PROGMEM bspc_k_rprn[] = { KC_BSPC, KC_K, COMBO_END};
-    const uint16_t PROGMEM bspc_m_lcbr[] = { KC_BSPC, KC_M, COMBO_END};
-    const uint16_t PROGMEM bspc_COMM_rcbr[] = { KC_BSPC, KC_COMM, COMBO_END};
-    //Number layer
-    const uint16_t PROGMEM bspc_7_lbrc[] = { KC_BSPC, KC_7, COMBO_END};
-    const uint16_t PROGMEM bspc_8_rbrc[] = { KC_BSPC, KC_8, COMBO_END};
-    const uint16_t PROGMEM bspc_4_lprn[] = { KC_BSPC, KC_4, COMBO_END};
-    const uint16_t PROGMEM bspc_5_rprn[] = { KC_BSPC, KC_5, COMBO_END};
-    const uint16_t PROGMEM bspc_1_lcbr[] = { KC_BSPC, KC_1, COMBO_END};
-    const uint16_t PROGMEM bspc_2_rcbr[] = { KC_BSPC, KC_2, COMBO_END};
+    //Left  Keyboard: Basic math symbols
+    const uint16_t PROGMEM left_eql[] = { KC_R, KC_T, COMBO_END};
+    const uint16_t PROGMEM left_mins[] = { KC_F, KC_G, COMBO_END};
+    const uint16_t PROGMEM left_plus[] = { KC_F, KC_G, KC_D, COMBO_END};
+    const uint16_t PROGMEM left_unds[] = { KC_V, KC_B, COMBO_END};
 
-    //Symbols
+    //Right  Keyboard: Number layer
+    const uint16_t PROGMEM y_7_eql[] = { KC_Y, KC_P7, COMBO_END};
+    const uint16_t PROGMEM h_4_mins[] = { KC_H, KC_P4, COMBO_END};
+    const uint16_t PROGMEM h_4_5_plus[] = { KC_H, KC_P4, KC_P5, COMBO_END};
+    const uint16_t PROGMEM n_1_unds[] = { KC_N, KC_P1, COMBO_END};
+
+
+    //Right Keyboard: Parentheses
+    const uint16_t PROGMEM left_lbrc[] = { KC_TAB, KC_R, COMBO_END};
+    const uint16_t PROGMEM left_rbrc[] = { KC_TAB, KC_E, COMBO_END};
+    const uint16_t PROGMEM left_lprn[] = { KC_TAB, KC_F, COMBO_END};
+    const uint16_t PROGMEM left_k_rprn[] = { KC_TAB, KC_D, COMBO_END};
+    const uint16_t PROGMEM left_lcbr[] = { KC_TAB, KC_V, COMBO_END};
+    const uint16_t PROGMEM left_rcbr[] = { KC_TAB, KC_C, COMBO_END};
+
+    //Number layer
+    const uint16_t PROGMEM bspc_7_lbrc[] = { KC_BSPC, KC_P7, COMBO_END};
+    const uint16_t PROGMEM bspc_8_rbrc[] = { KC_BSPC, KC_P8, COMBO_END};
+    const uint16_t PROGMEM bspc_4_lprn[] = { KC_BSPC, KC_P4, COMBO_END};
+    const uint16_t PROGMEM bspc_5_rprn[] = { KC_BSPC, KC_P5, COMBO_END};
+    const uint16_t PROGMEM bspc_1_lcbr[] = { KC_BSPC, KC_P1, COMBO_END};
+    const uint16_t PROGMEM bspc_2_rcbr[] = { KC_BSPC, KC_P2, COMBO_END};
+
+    //Right Keyboard Symbols
     const uint16_t PROGMEM m_k_o_slsh[] = { KC_M, KC_K, KC_O, COMBO_END};
     const uint16_t PROGMEM u_k_DOT_bsls[] = { KC_U, KC_K, KC_DOT, COMBO_END};
-    const uint16_t PROGMEM i_j_spc_pipe[] = { KC_I, KC_J, KC_SPC, COMBO_END};
+    const uint16_t PROGMEM i_j_spc_pipe[] = { KC_I, KC_K, KC_COMM, COMBO_END};
     const uint16_t PROGMEM j_i_l_circ[] = { KC_J, KC_I, KC_L, COMBO_END};
-    const uint16_t PROGMEM r_d_b_spc[] = { KC_R, KC_D, KC_SPC, COMBO_END};
-    const uint16_t PROGMEM r_g_lctl[] = { KC_R, KC_G, KC_LCTL, COMBO_END};
+    const uint16_t PROGMEM lower_than[] = { KC_I, KC_J, KC_COMM, COMBO_END};
+    const uint16_t PROGMEM greather_than[] = { KC_I, KC_L, KC_COMM, COMBO_END};
     const uint16_t PROGMEM y_j_grv[] = { KC_Y, KC_J, COMBO_END};
     const uint16_t PROGMEM j_p_tild[] = { KC_J, KC_P, COMBO_END};
     const uint16_t PROGMEM y_u_i_hash[] = { KC_Y, KC_U, KC_I, COMBO_END};
@@ -382,17 +405,37 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
     const uint16_t PROGMEM u_k_l_at[] = { KC_U, KC_K, KC_L, COMBO_END};
     const uint16_t PROGMEM h_k_ampr[] = { KC_H, KC_K, COMBO_END};
     const uint16_t PROGMEM n_m_comm_astr[] = { KC_N, KC_M, KC_COMM, COMBO_END};
+
+    //Left Keyboard Symbols
+    const uint16_t PROGMEM left_slsh[] = { KC_X, KC_D, KC_R, COMBO_END};
+    const uint16_t PROGMEM left_bsls[] = { KC_W, KC_D, KC_V, COMBO_END};
+    const uint16_t PROGMEM left_pipe[] = { KC_E, KC_D, KC_C, COMBO_END};
+    const uint16_t PROGMEM left_circ[] = { KC_F, KC_E, KC_S, COMBO_END};
+    const uint16_t PROGMEM left_lower_than[] = { KC_E, KC_S, KC_C, COMBO_END};
+    const uint16_t PROGMEM left_greather_than[] = { KC_E, KC_F, KC_C, COMBO_END};
+    const uint16_t PROGMEM left_grv[] = { KC_R, KC_G, COMBO_END};
+    const uint16_t PROGMEM left_tild[] = { KC_Q, KC_F, COMBO_END};
+    const uint16_t PROGMEM left_hash[] = { KC_T, KC_R, KC_E, COMBO_END};
+    const uint16_t PROGMEM left_perc[] = { KC_W, KC_V, COMBO_END};
+    const uint16_t PROGMEM left_exlm[] = { KC_W, KC_E, KC_F, COMBO_END};
+    const uint16_t PROGMEM left_ques[] = { KC_S, KC_D, KC_R, COMBO_END};
+    const uint16_t PROGMEM left_dlr[] = { KC_X, KC_C, KC_R, COMBO_END};
+    const uint16_t PROGMEM left_at[] = { KC_W, KC_D, KC_F, COMBO_END};
+    const uint16_t PROGMEM left_ampr[] = { KC_G, KC_D, COMBO_END};
+    const uint16_t PROGMEM left_astr[] = { KC_B, KC_V, KC_C, COMBO_END};
+
+
     //Symbols on number layer
     const uint16_t PROGMEM numslsh[] = { KC_P1, KC_P5, KC_P9, COMBO_END};
     const uint16_t PROGMEM numbsls[] = { KC_P7, KC_P5, KC_P3, COMBO_END};
-    const uint16_t PROGMEM numpipe[] = { KC_P7, KC_P4, KC_P0, COMBO_END};
+    const uint16_t PROGMEM numpipe[] = { KC_P8, KC_P5, KC_P2, COMBO_END};
     const uint16_t PROGMEM numcirc[] = { KC_P4, KC_P8, KC_P6, COMBO_END};
-    const uint16_t PROGMEM numlt[] = { KC_P8, KC_P4, KC_DEL, COMBO_END};
-    const uint16_t PROGMEM numgt[] = { KC_7, KC_P5, KC_BSPC, COMBO_END};
+    const uint16_t PROGMEM numlt[] = { KC_P8, KC_P4, KC_COMM, COMBO_END};
+    const uint16_t PROGMEM numgt[] = { KC_P8, KC_P6, KC_COMM, COMBO_END};
     const uint16_t PROGMEM numgrv[] = { KC_Y, KC_P4, COMBO_END};
     const uint16_t PROGMEM numtild[] = { KC_P4, KC_P, COMBO_END};
     const uint16_t PROGMEM numhash[] = { KC_Y, KC_P7, KC_P8, COMBO_END};
-    const uint16_t PROGMEM numperc[] = { KC_P7, KC_3, COMBO_END};
+    const uint16_t PROGMEM numperc[] = { KC_P7, KC_P3, COMBO_END};
     const uint16_t PROGMEM numexlm[] = { KC_P7, KC_P8, KC_P6, COMBO_END};
     const uint16_t PROGMEM numques[] = { KC_P4, KC_P5, KC_P9, COMBO_END};
     const uint16_t PROGMEM numdlr[] = { KC_P1, KC_P2, KC_P9, COMBO_END};
@@ -401,15 +444,14 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
     const uint16_t PROGMEM numastr[] = { KC_N, KC_P1, KC_P2, COMBO_END};
 
     //Control keys
-    const uint16_t PROGMEM b_SPC_ent[] = { KC_B, KC_SPC, COMBO_END};
+    const uint16_t PROGMEM left_ENTER[] = { KC_B, KC_SPC, COMBO_END};
+    const uint16_t PROGMEM left_bspc[] = { KC_G, KC_SPC, COMBO_END};
     const uint16_t PROGMEM n_ENT_spc[] = { KC_N, KC_ENT, COMBO_END};
-    const uint16_t PROGMEM nument[] = { KC_5, KC_6, KC_SCLN, COMBO_END};
-    const uint16_t PROGMEM j_k_tab[] = { KC_J, KC_K, COMBO_END};
+    const uint16_t PROGMEM nument[] = { KC_P5, KC_P6, KC_SCLN, COMBO_END};
     const uint16_t PROGMEM z_x_lsft_caps[] = { KC_Z, KC_X, KC_LSFT, COMBO_END};
     const uint16_t PROGMEM t_SPC_DEL[] = { KC_T, KC_SPC, COMBO_END};
-    const uint16_t PROGMEM y_SPC_DEL[] = { KC_Y, KC_SPC, COMBO_END};
     const uint16_t PROGMEM dot_slsh_rsft_app[] = { KC_DOT, KC_SLSH, KC_RSFT, COMBO_END};
-    const uint16_t PROGMEM Esc_SPC_BSPC[] = { KC_ESC, KC_SPC, COMBO_END};
+    const uint16_t PROGMEM select_word[] = { KC_A, KC_T, COMBO_END};
 
     //Navigation keys
     const uint16_t PROGMEM u_i_o_home[] = { KC_U, KC_I, KC_O, COMBO_END};
@@ -419,9 +461,9 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
     const uint16_t PROGMEM spc_del_ins[] = { KC_SPC, KC_DEL, COMBO_END};
 
     //Additional media keys
-    const uint16_t PROGMEM p_volu_mprv[] = { KC_F, KC_G, COMBO_END};
-    const uint16_t PROGMEM l_vold_mnxt[] = { KC_V, KC_B, COMBO_END};
-    const uint16_t PROGMEM rght_mply_mute[] = { KC_B, KC_T, COMBO_END};
+    const uint16_t PROGMEM p_volu_mprv[] = { KC_V, KC_U, COMBO_END};
+    const uint16_t PROGMEM l_vold_mnxt[] = { KC_V, KC_D, COMBO_END};
+    const uint16_t PROGMEM rght_mply_mute[] = { KC_V, KC_T, COMBO_END};
 
     //Mouse keys
     const uint16_t PROGMEM m_comm_btn1[] = { KC_M, KC_COMM, COMBO_END};
@@ -432,28 +474,53 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
     const uint16_t PROGMEM m_SCLN_wh_l[] = { KC_M, KC_SCLN, COMBO_END};
     const uint16_t PROGMEM j_SLSH_wh_r[] = { KC_J, KC_SLSH, COMBO_END};
 
+    //Function Keys
+    const uint16_t PROGMEM func_1[] = { KC_ESC, KC_Q, COMBO_END};
+    const uint16_t PROGMEM func_2[] = { KC_ESC, KC_W, COMBO_END};
+    const uint16_t PROGMEM func_3[] = { KC_ESC, KC_E, COMBO_END};
+    const uint16_t PROGMEM func_4[] = { KC_ESC, KC_R, COMBO_END};
+    const uint16_t PROGMEM func_5[] = { KC_ESC, KC_T, COMBO_END};
+    const uint16_t PROGMEM func_6[] = { KC_ESC, KC_A, COMBO_END};
+    const uint16_t PROGMEM func_7[] = { KC_ESC, KC_S, COMBO_END};
+    const uint16_t PROGMEM func_8[] = { KC_ESC, KC_D, COMBO_END};
+    const uint16_t PROGMEM func_9[] = { KC_ESC, KC_F, COMBO_END};
+    const uint16_t PROGMEM func_10[] = { KC_ESC, KC_G, COMBO_END};
+    const uint16_t PROGMEM func_11[] = { KC_ESC, KC_Z, COMBO_END};
+    const uint16_t PROGMEM func_12[] = { KC_ESC, KC_X, COMBO_END};
+    const uint16_t PROGMEM func_13[] = { KC_ESC, KC_C, COMBO_END};
+    const uint16_t PROGMEM func_14[] = { KC_ESC, KC_V, COMBO_END};
+    const uint16_t PROGMEM func_15[] = { KC_ESC, KC_B, COMBO_END};
+
     //Misc
     const uint16_t PROGMEM p_c_m_r_lcg_swp[] = { KC_P, KC_C, KC_M, KC_R, COMBO_END};
     const uint16_t PROGMEM m_a_c_lcg_nrm[] = { KC_M, KC_A, KC_C, COMBO_END};
     const uint16_t PROGMEM q_s_c_f_t_reset[] = { KC_Q, KC_S, KC_C, KC_F, KC_T, COMBO_END};
     const uint16_t PROGMEM y_j_left_UP_p_reset[] = { KC_Y, KC_J, KC_LEFT, KC_UP, KC_P, COMBO_END};
     const uint16_t PROGMEM q_w_e_r_t_nk_togg[] = { KC_Q, KC_W, KC_E, KC_R, KC_T, COMBO_END};
-    const uint16_t PROGMEM lorem_combo[] = {KC_A, KC_S, KC_D, KC_F, COMBO_END};
-    const uint16_t PROGMEM git_status_combo[] = {KC_G, KC_S, COMBO_END};
-    const uint16_t PROGMEM git_commit_combo[] = {KC_G, KC_C, COMBO_END};
+    const uint16_t PROGMEM mail_combo[] = {KC_A, KC_S, KC_D, KC_F, COMBO_END};
+    const uint16_t PROGMEM git_status_combo[] = {KC_G, KC_T, KC_S, COMBO_EN};
+    const uint16_t PROGMEM git_commit_combo[] = {KC_G, KC_T, KC_C, COMBO_EN};
     const uint16_t PROGMEM git_pull_combo[] = {KC_G, KC_P, KC_L, COMBO_END};
     const uint16_t PROGMEM git_push_combo[] = {KC_G, KC_P, KC_H, COMBO_END};
-    const uint16_t PROGMEM git_log_combo[] = {KC_G, KC_L, COMBO_END};
-    const uint16_t PROGMEM git_add_combo[] = {KC_G, KC_A, COMBO_END};
+    const uint16_t PROGMEM git_log_combo[] = {KC_G, KC_T, KC_L, COMBO_END};
+    const uint16_t PROGMEM git_add_combo[] = {KC_G, KC_T, KC_A, COMBO_END};
     const uint16_t PROGMEM git_checkout_combo[] = {KC_G, KC_C, KC_K, COMBO_END};
     const uint16_t PROGMEM git_restore_combo[] = {KC_G, KC_R, KC_T, COMBO_END};
-    const uint16_t PROGMEM git_revert_combo[] = {KC_G, KC_R, KC_V, COMBO_END};
-    const uint16_t PROGMEM git_stash_combo[] = {KC_G, KC_S, KC_T, COMBO_END};
+    const uint16_t PROGMEM git_revert_combo[] = {KC_G, KC_T, KC_V, COMBO_END};
+    const uint16_t PROGMEM git_stash_combo[] = {KC_G, KC_T, KC_H, COMBO_END};
     const uint16_t PROGMEM pass_mc_combo[] = {KC_P, KC_W, COMBO_END};
     const uint16_t PROGMEM user_mc_combo[] = {KC_U, KC_I, KC_D, COMBO_END};
 
 
 combo_t key_combos[] = {
+    //Spanish Characters
+    [ALT_ENYE] = COMBO_ACTION(nj_combo),
+    [TILDE_A] = COMBO_ACTION(a_tilde_combo),
+    [TILDE_E] = COMBO_ACTION(e_tilde_combo),
+    [TILDE_I] = COMBO_ACTION(i_tilde_combo),
+    [TILDE_O] = COMBO_ACTION(o_tilde_combo),
+    [TILDE_U] = COMBO_ACTION(u_tilde_combo),
+
     //Number layer
     [F_LALT_LAYER] = COMBO(f_LALT_layer, TT(1)),
     [G_LALT_LAYER] = COMBO(g_LALT_layer, TT(2)),
@@ -465,28 +532,35 @@ combo_t key_combos[] = {
     [numDOT] = COMBO(numdot, KC_DOT),
     [numCOMM] = COMBO(numcomm, KC_COMM),
     [numCOLN] = COMBO(numcoln, KC_COLN),
-    [numSCLN] = COMBO(numscln, KC_SCLN),
     [numQUOT] = COMBO(numquot, KC_QUOT),
     [numDQUO] = COMBO(numdquo, KC_DQUO),
 
-    //Basic math symbols
+    //Right Keyboard: Basic math symbols
     [Y_U_EQL] = COMBO(y_u_eql, KC_EQL),
     [H_J_MINS] = COMBO(h_j_mins, KC_MINS),
     [H_J_K_PLUS] = COMBO(h_j_k_plus, KC_PLUS),
     [N_M_UNDS] = COMBO(n_m_unds, KC_UNDS),
-    //Number layer
+
+    //Left Keyboard: Basic math symbols
+    [LEFT_EQL] = COMBO(left_eql, KC_EQL),
+    [LEFT_MINS] = COMBO(left_mins, KC_MINS),
+    [LEFT_PLUS] = COMBO(left_plus, KC_PLUS),
+    [LEFT_UNDS] = COMBO(left_unds, KC_UNDS),
+
+    //Right Keyboard: Number layer
     [Y_7_EQL] = COMBO(y_7_eql, KC_EQL),
     [H_4_MINS] = COMBO(h_4_mins, KC_MINS),
     [H_4_5_PLUS] = COMBO(h_4_5_plus, KC_PLUS),
     [N_1_UNDS] = COMBO(n_1_unds, KC_UNDS),
 
-    //Parentheses
-    [BSPC_U_LBRC] = COMBO(bspc_u_lbrc, KC_LBRC),
-    [BSPC_I_RBRC] = COMBO(bspc_i_rbrc, KC_RBRC),
-    [BSPC_J_LPRN] = COMBO(bspc_j_lprn, KC_LPRN),
-    [BSPC_K_RPRN] = COMBO(bspc_k_rprn, KC_RPRN),
-    [BSPC_M_LCBR] = COMBO(bspc_m_lcbr, KC_LCBR),
-    [BSPC_COMM_RCBR] = COMBO(bspc_COMM_rcbr, KC_RCBR),
+    //Left Parentheses
+    [LEFT_LBRC] = COMBO(left_lbrc, KC_LBRC),
+    [LEFT_RBRC] = COMBO(left_rbrc, KC_RBRC),
+    [LEFT_LPRN] = COMBO(left_lprn, KC_LPRN),
+    [LEFT_RPRN] = COMBO(left_k_rprn, KC_RPRN),
+    [LEFT_LCBR] = COMBO(left_lcbr, KC_LCBR),
+    [LEFT_RCBR] = COMBO(left_rcbr, KC_RCBR),
+
     //Number layer
     [BSPC_7_LBRC] = COMBO(bspc_7_lbrc, KC_LBRC),
     [BSPC_8_RBRC] = COMBO(bspc_8_rbrc, KC_RBRC),
@@ -495,13 +569,13 @@ combo_t key_combos[] = {
     [BSPC_1_LCBR] = COMBO(bspc_1_lcbr, KC_LCBR),
     [BSPC_2_RCBR] = COMBO(bspc_2_rcbr, KC_RCBR),
 
-    //Symbols
+    //Right Keyboard Symbols
     [M_K_O_SLSH] = COMBO(m_k_o_slsh, KC_SLSH),
     [U_K_DOT_BSLS] = COMBO(u_k_DOT_bsls, KC_BSLS),
     [I_J_SPC_PIPE] = COMBO(i_j_spc_pipe, KC_PIPE),
     [J_I_L_CIRC] = COMBO(j_i_l_circ, KC_CIRC),
-    [R_D_B_SPC] = COMBO(r_d_b_spc, KC_LT),
-    [R_G_LCTL] = COMBO(r_g_lctl, KC_GT),
+    [LOWER_THAN] = COMBO(lower_than, KC_LT),
+    [GREATHER_THAN] = COMBO(greather_than, KC_GT),
     [Y_J_GRV] = COMBO(y_j_grv, KC_GRV),
     [J_P_TILD] = COMBO(j_p_tild, KC_TILD),
     [Y_U_I_HASH] = COMBO(y_u_i_hash, KC_HASH),
@@ -512,6 +586,26 @@ combo_t key_combos[] = {
     [U_K_L_AT] = COMBO(u_k_l_at, KC_AT),
     [H_K_AMPR] = COMBO(h_k_ampr, KC_AMPR),
     [N_M_COMM_ASTR] = COMBO(n_m_comm_astr, KC_ASTR),
+
+    //Left Keyboard Symbols
+    [LEFT_SLSH] = COMBO(left_slsh, KC_SLSH),
+    [LEFT_BSLS] = COMBO(left_bsls, KC_BSLS),
+    [LEFT_PIPE] = COMBO(left_pipe, KC_PIPE),
+    [LEFT_CIRC] = COMBO(left_circ, KC_CIRC),
+    [LEFT_LOWER_THAN] = COMBO(left_lower_than, KC_LT),
+    [LEFT_GREATHER_THAN] = COMBO(left_greather_than, KC_GT),
+    [LEFT_GRV] = COMBO(left_grv, KC_GRV),
+    [LEFT_TILD] = COMBO(left_tild, KC_TILD),
+    [LEFT_HASH] = COMBO(left_hash, KC_HASH),
+    [LEFT_PERC] = COMBO(left_perc, KC_PERC),
+    [LEFT_EXLM] = COMBO(left_exlm, KC_EXLM),
+    [LEFT_QUES] = COMBO(left_ques, KC_QUES),
+    [LEFT_DLR] = COMBO(left_dlr, KC_DLR),
+    [LEFT_AT] = COMBO(left_at, KC_AT),
+    [LEFT_AMPR] = COMBO(left_ampr, KC_AMPR),
+    [LEFT_ASTR] = COMBO(left_astr, KC_ASTR),
+
+
     //Symbols on number layer
     [numSLSH] = COMBO(numslsh, KC_SLSH),
     [numBSLS] = COMBO(numbsls, KC_BSLS),
@@ -531,15 +625,15 @@ combo_t key_combos[] = {
     [numASTR] = COMBO(numastr, KC_ASTR),
 
     //Control keys
-    [B_SPC_ENT] = COMBO(b_SPC_ent, KC_ENT),
+    [LEFT_ENT] = COMBO(left_ENTER, KC_ENT),
+    [LEFT_BSPC] = COMBO(left_bspc, KC_BSPC),
     [N_ENT_SPC] = COMBO(n_ENT_spc, KC_SPC),
     [numENT] = COMBO(nument, KC_ENT),
-    [J_K_TAB] = COMBO(j_k_tab, KC_TAB),
     [Z_X_LSFT_CAPS] = COMBO(z_x_lsft_caps, KC_CAPS),
     [T_SPC_DEL] = COMBO(t_SPC_DEL, KC_DEL),
-    [Y_SPC_DEL] = COMBO(y_SPC_DEL, KC_DEL),
     [DOT_SLSH_RSFT_APP] = COMBO(dot_slsh_rsft_app, KC_APP),
-    [ESC_SPC_BSPC] = COMBO(Esc_SPC_BSPC, KC_BSPC),
+    [SELECT_WORD] = COMBO(select_word, SELWORD),
+
 
     //Navigation keys
     [U_I_O_HOME] = COMBO(u_i_o_home, KC_HOME),
@@ -562,8 +656,26 @@ combo_t key_combos[] = {
     [M_SCLN_WH_L] = COMBO(m_SCLN_wh_l, KC_WH_L),
     [J_SLSH_WH_R] = COMBO(j_SLSH_wh_r, KC_WH_R),
 
+    //Function Keys
+    [FUNC_KEY_1] = COMBO(func_1, KC_F1),
+    [FUNC_KEY_2] = COMBO(func_2, KC_F2),
+    [FUNC_KEY_3] = COMBO(func_3, KC_F3),
+    [FUNC_KEY_4] = COMBO(func_4, KC_F4),
+    [FUNC_KEY_5] = COMBO(func_5, KC_F5),
+    [FUNC_KEY_6] = COMBO(func_6, KC_F6),
+    [FUNC_KEY_7] = COMBO(func_7, KC_F7),
+    [FUNC_KEY_8] = COMBO(func_8, KC_F8),
+    [FUNC_KEY_9] = COMBO(func_9, KC_F9),
+    [FUNC_KEY_10] = COMBO(func_10, KC_F10),
+    [FUNC_KEY_11] = COMBO(func_11, KC_F11),
+    [FUNC_KEY_12] = COMBO(func_12, KC_F12),
+    [FUNC_KEY_13] = COMBO(func_13, KC_F13),
+    [FUNC_KEY_14] = COMBO(func_14, KC_F14),
+    [FUNC_KEY_15] = COMBO(func_15, KC_F15),
+
+
     //Misc
-    [ASDF_LOREM] = COMBO_ACTION(lorem_combo),
+    [ASDF_MAIL] = COMBO_ACTION(mail_combo),
     [GIT_STATUS] = COMBO_ACTION(git_status_combo),
     [GIT_COMMIT] = COMBO_ACTION(git_commit_combo),
     [GIT_PULL] = COMBO_ACTION(git_pull_combo),
@@ -587,9 +699,69 @@ combo_t key_combos[] = {
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
   switch(combo_index) {
-    case ASDF_LOREM:
+    case TILDE_A:
             if (pressed) {
-                SEND_STRING("Lorem ipsum dolor sit amet ");
+                register_code(KC_LALT);
+                tap_code(KC_P0);
+                tap_code(KC_P2);
+                tap_code(KC_P2);
+                tap_code(KC_P5);
+                unregister_code(KC_LALT);
+            }
+            break;
+    case TILDE_E:
+            if (pressed) {
+                register_code(KC_LALT);
+                tap_code(KC_P0);
+                tap_code(KC_P2);
+                tap_code(KC_P3);
+                tap_code(KC_P3);
+                unregister_code(KC_LALT);
+            }
+            break;
+    case TILDE_I:
+            if (pressed) {
+                register_code(KC_LALT);
+                tap_code(KC_P0);
+                tap_code(KC_P2);
+                tap_code(KC_P3);
+                tap_code(KC_P7);
+                unregister_code(KC_LALT);
+            }
+            break;
+    case TILDE_O:
+            if (pressed) {
+                register_code(KC_LALT);
+                tap_code(KC_P0);
+                tap_code(KC_P2);
+                tap_code(KC_P4);
+                tap_code(KC_P3);
+                unregister_code(KC_LALT);
+            }
+            break;
+    case TILDE_U:
+            if (pressed) {
+                register_code(KC_LALT);
+                tap_code(KC_P0);
+                tap_code(KC_P2);
+                tap_code(KC_P5);
+                tap_code(KC_P0);
+                unregister_code(KC_LALT);
+            }
+            break;
+
+    case ALT_ENYE:
+            if (pressed) {
+                register_code(KC_LALT);
+                tap_code(KC_P1);
+                tap_code(KC_P6);
+                tap_code(KC_P4);
+                unregister_code(KC_LALT);
+            }
+            break;
+    case ASDF_MAIL:
+            if (pressed) {
+                SEND_STRING("johan.zubieta@gmail.com");
             }
             break;
 
@@ -655,13 +827,13 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 
     case PASS_MC:
             if (pressed) {
-                SEND_STRING("Colombia1222*");
+                SEND_STRING("Colombia234*");
             }
             break;
 
     case USER_MC:
             if (pressed) {
-                SEND_STRING("E138208");
+                SEND_STRING("johan.zubietam@perficent.com");
             }
             break;
   }
@@ -793,7 +965,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
      // Store the current modifier state in the variable for later reference
     mod_state = get_mods();
     switch (keycode) {
-           case KC_BSPC: {
+            case KC_BSPC: {
                // Initialize a boolean variable that keeps track
             // of the delete key status: registered or not?
             static bool delkey_registered;
