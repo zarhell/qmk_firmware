@@ -37,9 +37,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                       ,-----------------------------------------------------.
       LLOCK, KC_HOME, KC_UP, KC_END, _______, KC_NUM,                              _______,    KC_P7,    KC_P8,    KC_P9, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                       |--------+--------+--------+--------+--------+--------|
-      _______, KC_LEFT, KC_DOWN, KC_RIGHT, KC_MS_U, _______,                       _______,    KC_P4,    KC_P5,    KC_P6, _______,  _______,
+      _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______,                       _______,    KC_P4,    KC_P5,    KC_P6, _______,  _______,
   //|--------+--------+--------+--------+--------+--------|                      |--------+--------+--------+--------+--------+--------|
-    _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R,                          _______,    KC_P1,    KC_P2,    KC_P3,  _______, _______,
+    _______, _______, _______, _______, _______, _______,                          _______,    KC_P1,    KC_P2,    KC_P3,  _______, _______,
   //|--------+--------+--------+--------+--------+--------+--------|         |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______,  _______,         KC_PENT, _______, KC_P0
                                       //`--------------------------'          `--------------------------'
@@ -239,15 +239,6 @@ enum combos {
     L_VOLD_MNXT,
     RGHT_MPLY_MUTE,
 
-    //Mouse keys
-    M_COMM_BTN1,
-    M_DOT_BTN2,
-    M_COMM_DOT_BTN3,
-    J_SCLN_WH_U,
-    M_SLSH_WH_D,
-    M_SCLN_WH_L,
-    J_SLSH_WH_R,
-
     //Fuction Keys
     FUNC_KEY_1,
     FUNC_KEY_2,
@@ -320,13 +311,13 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
     const uint16_t PROGMEM h_4_5_plus[] = { KC_H, KC_P4, KC_P5, COMBO_END};
     const uint16_t PROGMEM n_1_unds[] = { KC_N, KC_P1, COMBO_END};
 
-    //Right Keyboard: Parentheses
-    const uint16_t PROGMEM left_lbrc[] = { KC_TAB, KC_E, COMBO_END};
-    const uint16_t PROGMEM left_rbrc[] = { KC_TAB, KC_R, COMBO_END};
-    const uint16_t PROGMEM left_lprn[] = { KC_TAB, KC_D, COMBO_END};
-    const uint16_t PROGMEM left_k_rprn[] = { KC_TAB, KC_F, COMBO_END};
-    const uint16_t PROGMEM left_lcbr[] = { KC_TAB, KC_C, COMBO_END};
-    const uint16_t PROGMEM left_rcbr[] = { KC_TAB, KC_V, COMBO_END};
+    //Left Keyboard: Parentheses
+    const uint16_t PROGMEM left_lbrc[] = { KC_ESC, KC_Q, COMBO_END};
+    const uint16_t PROGMEM left_rbrc[] = { KC_TAB, KC_Q, COMBO_END};
+    const uint16_t PROGMEM left_lprn[] = { KC_ESC, KC_A, COMBO_END};
+    const uint16_t PROGMEM left_k_rprn[] = { KC_TAB, KC_A, COMBO_END};
+    const uint16_t PROGMEM left_lcbr[] = { KC_ESC, KC_Z, COMBO_END};
+    const uint16_t PROGMEM left_rcbr[] = { KC_TAB, KC_Z, COMBO_END};
 
     //Left Keyboard Symbols
     const uint16_t PROGMEM left_slsh[] = { KC_X, KC_D, KC_R, COMBO_END};
@@ -385,28 +376,19 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
     const uint16_t PROGMEM l_vold_mnxt[] = { KC_V, KC_D, COMBO_END};
     const uint16_t PROGMEM rght_mply_mute[] = { KC_V, KC_T, COMBO_END};
 
-    //Mouse keys
-    const uint16_t PROGMEM m_comm_btn1[] = { KC_M, KC_COMM, COMBO_END};
-    const uint16_t PROGMEM m_dot_btn2[] = { KC_M, KC_DOT, COMBO_END};
-    const uint16_t PROGMEM m_comm_dot_btn3[] = { KC_M, KC_DOT, KC_COMM, COMBO_END};
-    const uint16_t PROGMEM j_SCLN_wh_u[] = { KC_J, KC_SCLN, COMBO_END};
-    const uint16_t PROGMEM m_SLSH_wh_d[] = { KC_M, KC_SLSH, COMBO_END};
-    const uint16_t PROGMEM m_SCLN_wh_l[] = { KC_M, KC_SCLN, COMBO_END};
-    const uint16_t PROGMEM j_SLSH_wh_r[] = { KC_J, KC_SLSH, COMBO_END};
-
     //Function Keys
-    const uint16_t PROGMEM func_1[] = { KC_ESC, KC_Q, COMBO_END};
-    const uint16_t PROGMEM func_2[] = { KC_ESC, KC_W, COMBO_END};
-    const uint16_t PROGMEM func_3[] = { KC_ESC, KC_E, COMBO_END};
-    const uint16_t PROGMEM func_4[] = { KC_ESC, KC_R, COMBO_END};
-    const uint16_t PROGMEM func_5[] = { KC_ESC, KC_T, COMBO_END};
-    const uint16_t PROGMEM func_6[] = { KC_ESC, KC_A, COMBO_END};
-    const uint16_t PROGMEM func_7[] = { KC_ESC, KC_S, COMBO_END};
-    const uint16_t PROGMEM func_8[] = { KC_ESC, KC_D, COMBO_END};
-    const uint16_t PROGMEM func_9[] = { KC_ESC, KC_F, COMBO_END};
-    const uint16_t PROGMEM func_10[] = { KC_ESC, KC_G, COMBO_END};
-    const uint16_t PROGMEM func_11[] = { KC_ESC, KC_Z, COMBO_END};
-    const uint16_t PROGMEM func_12[] = { KC_ESC, KC_X, COMBO_END};
+    const uint16_t PROGMEM func_1[] = { KC_ESC, KC_W, COMBO_END};
+    const uint16_t PROGMEM func_2[] = { KC_ESC, KC_E, COMBO_END};
+    const uint16_t PROGMEM func_3[] = { KC_ESC, KC_R, COMBO_END};
+    const uint16_t PROGMEM func_4[] = { KC_ESC, KC_T, COMBO_END};
+    const uint16_t PROGMEM func_5[] = { KC_ESC, KC_S, COMBO_END};
+    const uint16_t PROGMEM func_6[] = { KC_ESC, KC_D, COMBO_END};
+    const uint16_t PROGMEM func_7[] = { KC_ESC, KC_F, COMBO_END};
+    const uint16_t PROGMEM func_8[] = { KC_ESC, KC_G, COMBO_END};
+    const uint16_t PROGMEM func_9[] = { KC_ESC, KC_X, COMBO_END};
+    const uint16_t PROGMEM func_10[] = { KC_ESC, KC_C, COMBO_END};
+    const uint16_t PROGMEM func_11[] = { KC_ESC, KC_V, COMBO_END};
+    const uint16_t PROGMEM func_12[] = { KC_ESC, KC_B, COMBO_END};
 
     //Misc
     const uint16_t PROGMEM p_c_m_r_lcg_swp[] = { KC_P, KC_C, KC_M, KC_R, COMBO_END};
@@ -525,15 +507,6 @@ combo_t key_combos[] = {
     [P_VOLU_MPRV] = COMBO(p_volu_mprv, KC_MPRV),
     [L_VOLD_MNXT] = COMBO(l_vold_mnxt, KC_MNXT),
     [RGHT_MPLY_MUTE] = COMBO(rght_mply_mute, KC_MUTE),
-
-    //Mouse keys
-    [M_COMM_BTN1] = COMBO(m_comm_btn1, KC_BTN1),
-    [M_DOT_BTN2] = COMBO(m_dot_btn2, KC_BTN2),
-    [M_COMM_DOT_BTN3] = COMBO(m_comm_dot_btn3, KC_BTN3),
-    [J_SCLN_WH_U] = COMBO(j_SCLN_wh_u, KC_WH_U),
-    [M_SLSH_WH_D] = COMBO(m_SLSH_wh_d, KC_WH_D),
-    [M_SCLN_WH_L] = COMBO(m_SCLN_wh_l, KC_WH_L),
-    [J_SLSH_WH_R] = COMBO(j_SLSH_wh_r, KC_WH_R),
 
     //Function Keys
     [FUNC_KEY_1] = COMBO(func_1, KC_F1),

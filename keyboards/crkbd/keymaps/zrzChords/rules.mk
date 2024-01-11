@@ -1,4 +1,4 @@
-MOUSEKEY_ENABLE = yes    # Mouse keys
+MOUSEKEY_ENABLE = no    # Mouse keys
 RGBLIGHT_ENABLE = no    # Enable WS2812 RGB underlight.
 OLED_ENABLE     = yes
 OLED_DRIVER     = SSD1306
@@ -27,6 +27,8 @@ SPACE_CADET_ENABLE = no # parentheses when tapping left/right mods
 GRAVE_ESC_ENABLE = no
 MAGIC_ENABLE = no
 BOOTMAGIC_ENABLE = no
+
+RAW_ENABLE = yes
 
 LTO_ENABLE = yes
 EXTRAFLAGS += -flto

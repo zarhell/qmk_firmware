@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "select_word.h": "c",
+        "git_commands.h": "c",
+        "layer_lock.h": "c"
+    }
+}
