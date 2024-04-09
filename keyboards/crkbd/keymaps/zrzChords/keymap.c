@@ -18,6 +18,7 @@ enum custom_keycodes {
 #define MG_PURPLE {50,0,232}
 #define MG_GREEN {0,153,0}
 
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [0] = LAYOUT_split_3x6_3(
@@ -35,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [1] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                       ,-----------------------------------------------------.
-      LLOCK, KC_HOME, KC_UP, KC_END, _______, KC_NUM,                              _______,    KC_P7,    KC_P8,    KC_P9, _______, _______,
+      LLOCK, KC_HOME, KC_UP, KC_END, _______, KC_NUM,                              LLOCK,    KC_P7,    KC_P8,    KC_P9, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                       |--------+--------+--------+--------+--------+--------|
       _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______,                       _______,    KC_P4,    KC_P5,    KC_P6, _______,  _______,
   //|--------+--------+--------+--------+--------+--------|                      |--------+--------+--------+--------+--------+--------|
@@ -61,25 +62,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint8_t PROGMEM ledmap[][42][3] = {
 
-[0] = {
-MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,                       MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_RED,
-MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,                       MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_RED,
-MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,                       MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_RED,
-                                         MG_RED, MG_RED, MG_RED,                MG_RED, MG_RED, MG_RED
-      },
+// [0] = {
+// MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,                       MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_RED,
+// MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,                       MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_RED,
+// MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,                       MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_RED,
+//                                          MG_RED, MG_RED, MG_RED,                MG_RED, MG_RED, MG_RED
+//       },
 
 [1] = {
-MG_CYAN, MG_BLUE, MG_RED, MG_BLUE, ___off___, MG_RED,                               ___off___, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, ___off___,
-___off___, MG_RED, MG_RED, MG_RED, MG_GREEN, ___off___,                            ___off___, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, ___off___,
-___off___, ___off___, ___off___, MG_GREEN, MG_GREEN, MG_GREEN,                         ___off___, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, ___off___,
-                                 ___off___, ___off___, ___off___,               MG_RED, MG_BLUE, ___off___
+MG_RED, MG_PURPLE, MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE,                      MG_PURPLE, MG_BLUE, MG_BLUE, MG_BLUE, MG_PURPLE, MG_RED,
+MG_RED, MG_RED, MG_RED, MG_RED, MG_PURPLE, MG_PURPLE,                            MG_PURPLE, MG_BLUE, MG_BLUE, MG_BLUE, MG_PURPLE, MG_RED,
+MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,                   MG_PURPLE, MG_BLUE, MG_BLUE, MG_BLUE, MG_PURPLE, MG_RED,
+                                 MG_RED, MG_RED, MG_RED,               MG_RED, MG_RED, MG_RED
       },
 
 [2] = {
-MG_CYAN, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, MG_RED,                        ___off___, ___off___, MG_BLUE, MG_RED, MG_BLUE, ___off___,
-___off___, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, ___off___,                   ___off___, ___off___,MG_RED, MG_RED, MG_RED, ___off___,
-___off___, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, ___off___,                 MG_RED, MG_RED, ___off___, ___off___, ___off___, ___off___,
-                                 MG_BLUE, ___off___, ___off___,         ___off___, ___off___, ___off___
+MG_RED, MG_BLUE, MG_BLUE, MG_BLUE, MG_PURPLE, MG_PURPLE,                        MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_RED, MG_PURPLE, MG_RED,
+MG_RED, MG_BLUE, MG_BLUE, MG_BLUE, MG_PURPLE, MG_PURPLE,                   MG_PURPLE, MG_PURPLE,MG_RED, MG_RED, MG_RED, MG_RED,
+MG_RED, MG_BLUE, MG_BLUE, MG_BLUE, MG_PURPLE, MG_PURPLE,                 MG_RED, MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_RED,
+                                 MG_RED, MG_RED, MG_RED,         MG_RED, MG_RED, MG_RED
       }
 };
 
@@ -163,11 +164,11 @@ enum combos {
     numQUOT,
     numDQUO,
 
-    //Right Keyboard: Basic math symbols
-    Y_U_EQL,
-    H_J_MINS,
-    H_J_K_PLUS,
-    N_M_UNDS,
+    //Left Keyboard: Basic math symbols
+    R_T_EQL,
+    F_G_MINS,
+    D_F_G_PLUS,
+    V_B_UNDS,
 
     //Right Keyboard: Number layer
     Y_7_EQL,
@@ -176,12 +177,9 @@ enum combos {
     N_1_UNDS,
 
     //Left Keyboard Parentheses
-    LEFT_LBRC,
-    LEFT_RBRC,
-    LEFT_LPRN,
-    LEFT_RPRN,
-    LEFT_LCBR,
-    LEFT_RCBR,
+    LEFT_BRACKET,
+    LEFT_CURLY_BRACE,
+    LEFT_PAREN,
 
     //Left Keyboard Symbols
     LEFT_SLSH,
@@ -299,11 +297,11 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
     const uint16_t PROGMEM numquot[] = { KC_P2, KC_P6, COMBO_END};
     const uint16_t PROGMEM numdquo[] = { KC_P1, KC_P6, COMBO_END};
 
-    //Right Keyboard: Basic math symbols
-    const uint16_t PROGMEM y_u_eql[] = { KC_Y, KC_U, COMBO_END};
-    const uint16_t PROGMEM h_j_mins[] = { KC_H, KC_J, COMBO_END};
-    const uint16_t PROGMEM h_j_k_plus[] = { KC_H, KC_J, KC_K, COMBO_END};
-    const uint16_t PROGMEM n_m_unds[] = { KC_N, KC_M, COMBO_END};
+    //Left Keyboard: Basic math symbols
+    const uint16_t PROGMEM r_t_eql[] = { KC_R, KC_T, COMBO_END};
+    const uint16_t PROGMEM f_g_mins[] = { KC_F, KC_G, COMBO_END};
+    const uint16_t PROGMEM d_f_g_plus[] = { KC_D, KC_F, KC_G, COMBO_END};
+    const uint16_t PROGMEM v_b_unds[] = { KC_V, KC_B, COMBO_END};
 
     //Right  Keyboard: Number layer
     const uint16_t PROGMEM y_7_eql[] = { KC_Y, KC_P7, COMBO_END};
@@ -312,12 +310,9 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
     const uint16_t PROGMEM n_1_unds[] = { KC_N, KC_P1, COMBO_END};
 
     //Left Keyboard: Parentheses
-    const uint16_t PROGMEM left_lbrc[] = { KC_ESC, KC_Q, COMBO_END};
-    const uint16_t PROGMEM left_rbrc[] = { KC_TAB, KC_Q, COMBO_END};
-    const uint16_t PROGMEM left_lprn[] = { KC_ESC, KC_A, COMBO_END};
-    const uint16_t PROGMEM left_k_rprn[] = { KC_TAB, KC_A, COMBO_END};
-    const uint16_t PROGMEM left_lcbr[] = { KC_ESC, KC_Z, COMBO_END};
-    const uint16_t PROGMEM left_rcbr[] = { KC_TAB, KC_Z, COMBO_END};
+    const uint16_t PROGMEM bracket_combo[] = { KC_ESC, KC_Q, COMBO_END};
+    const uint16_t PROGMEM curly_brace_combo[] = { KC_ESC, KC_A, COMBO_END};
+    const uint16_t PROGMEM paren_combo[] = { KC_ESC, KC_Z, COMBO_END};
 
     //Left Keyboard Symbols
     const uint16_t PROGMEM left_slsh[] = { KC_X, KC_D, KC_R, COMBO_END};
@@ -420,8 +415,9 @@ combo_t key_combos[] = {
     [TILDE_U] = COMBO_ACTION(u_tilde_combo),
 
     //Number layer
-    [F_LALT_LAYER] = COMBO(f_LALT_layer, TT(1)),
-    [G_LALT_LAYER] = COMBO(g_LALT_layer, TT(2)),
+    [F_LALT_LAYER] = COMBO(f_LALT_layer, TG(1)),
+    [G_LALT_LAYER] = COMBO(g_LALT_layer, TG(2)),
+
 
     //Number layer
     [numDOT] = COMBO(numdot, KC_DOT),
@@ -430,11 +426,11 @@ combo_t key_combos[] = {
     [numQUOT] = COMBO(numquot, KC_QUOT),
     [numDQUO] = COMBO(numdquo, KC_DQUO),
 
-    //Right Keyboard: Basic math symbols
-    [Y_U_EQL] = COMBO(y_u_eql, KC_EQL),
-    [H_J_MINS] = COMBO(h_j_mins, KC_MINS),
-    [H_J_K_PLUS] = COMBO(h_j_k_plus, KC_PLUS),
-    [N_M_UNDS] = COMBO(n_m_unds, KC_UNDS),
+    //Left Keyboard: Basic math symbols
+    [R_T_EQL] = COMBO(r_t_eql, KC_EQL),
+    [F_G_MINS] = COMBO(f_g_mins, KC_MINS),
+    [D_F_G_PLUS] = COMBO(d_f_g_plus, KC_PLUS),
+    [V_B_UNDS] = COMBO(v_b_unds, KC_UNDS),
 
     //Right Keyboard: Number layer
     [Y_7_EQL] = COMBO(y_7_eql, KC_EQL),
@@ -443,12 +439,9 @@ combo_t key_combos[] = {
     [N_1_UNDS] = COMBO(n_1_unds, KC_UNDS),
 
     //Left Parentheses
-    [LEFT_LBRC] = COMBO(left_lbrc, KC_LBRC),
-    [LEFT_RBRC] = COMBO(left_rbrc, KC_RBRC),
-    [LEFT_LPRN] = COMBO(left_lprn, KC_LPRN),
-    [LEFT_RPRN] = COMBO(left_k_rprn, KC_RPRN),
-    [LEFT_LCBR] = COMBO(left_lcbr, KC_LCBR),
-    [LEFT_RCBR] = COMBO(left_rcbr, KC_RCBR),
+    [LEFT_BRACKET] = COMBO_ACTION(bracket_combo),
+    [LEFT_CURLY_BRACE] = COMBO_ACTION(curly_brace_combo),
+    [LEFT_PAREN] = COMBO_ACTION(paren_combo),
 
     //Left Keyboard Symbols
     [LEFT_SLSH] = COMBO(left_slsh, KC_SLSH),
@@ -596,7 +589,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 unregister_code(KC_LALT);
             }
             break;
-
     case ALT_ENYE:
             if (pressed) {
                 register_code(KC_LALT);
@@ -611,76 +603,82 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 SEND_STRING("johan.zubieta@gmail.com");
             }
             break;
-
     case GIT_STATUS:
             if (pressed) {
                 SEND_STRING("git status");
             }
             break;
-
     case GIT_COMMIT:
             if (pressed) {
                 SEND_STRING("git commit -m ");
             }
             break;
-
     case GIT_PULL:
             if (pressed) {
                 SEND_STRING("git pull");
             }
             break;
-
     case GIT_PUSH:
             if (pressed) {
                 SEND_STRING("git push");
             }
             break;
-
     case GIT_LOG:
             if (pressed) {
                 SEND_STRING("git log -");
             }
             break;
-
     case GIT_ADD:
             if (pressed) {
                 SEND_STRING("git add ");
             }
             break;
-
     case GIT_CHECKOUT:
             if (pressed) {
                 SEND_STRING("git checkout ");
             }
             break;
-
     case GIT_RESTORE:
             if (pressed) {
                 SEND_STRING("git restore ");
             }
             break;
-
     case GIT_REVERT:
             if (pressed) {
                 SEND_STRING("git revert ");
             }
             break;
-
     case GIT_STASH:
             if (pressed) {
                 SEND_STRING("git stash ");
             }
             break;
-
     case PASS_MC:
             if (pressed) {
                 SEND_STRING("Colombia234*");
             }
             break;
-
     case USER_MC:
             if (pressed) {
-                SEND_STRING("johan.zubietam@perficent.com");
+                SEND_STRING("johan.zubietam@globant.com");
+            }
+            break;
+    case LEFT_BRACKET:
+            if (pressed) {
+                SEND_STRING("[]");
+                tap_code(KC_LEFT);
+            }
+            break;
+    case LEFT_CURLY_BRACE:
+            if (pressed) {
+                SEND_STRING("{}");
+                tap_code(KC_LEFT);
+            }
+            break;
+    case LEFT_PAREN:
+            if (pressed) {
+                SEND_STRING("()");
+                tap_code(KC_LEFT);
             }
             break;
   }
@@ -770,9 +768,9 @@ uint8_t ledIndexForKeymapIndex(uint8_t keyIndex) {
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
     uint8_t layerNum = get_highest_layer(layer_state);
-    // if (layerNum == 0) {
-    //     return;
-    // }
+    if (layerNum == 0) {
+        return;
+    }
 
      // Per-key indicators
     uint8_t ledIndex = 0;
