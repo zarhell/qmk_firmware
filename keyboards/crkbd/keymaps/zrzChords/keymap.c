@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                      |--------+--------+--------+--------+--------+--------|
     _______, _______, _______, _______, _______, _______,                          _______,    KC_P1,    KC_P2,    KC_P3,  _______, _______,
   //|--------+--------+--------+--------+--------+--------+--------|         |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, _______,  _______,         KC_PENT, _______, KC_P0
+                                          _______, _______,  _______,         KC_INS, _______, KC_P0
                                       //`--------------------------'          `--------------------------'
   ),
 
@@ -53,34 +53,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
        _______, KC_4, KC_5, KC_6, _______, KC_PSCR,                             _______, _______, KC_LEFT, KC_DOWN,KC_RIGHT, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, KC_7, KC_8, KC_9, _______, KC_PAUSE,                                 _______, _______, _______, _______, _______, _______,
+      _______, KC_7, KC_8, KC_9, KC_0,  KC_PAUSE,                                 _______, _______, _______, _______, _______, _______,
   //|--------+--------+--------+--------+--------+-------+--------|        |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_0, _______, _______,          KC_INS, _______, _______
+                                          _______, _______, _______,          KC_PENT, _______, _______
                                       //`--------------------------'          `--------------------------'
   )
 };
 
 const uint8_t PROGMEM ledmap[][42][3] = {
 
-// [0] = {
-// MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,                       MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_RED,
-// MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,                       MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_RED,
-// MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,                       MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_RED,
-//                                          MG_RED, MG_RED, MG_RED,                MG_RED, MG_RED, MG_RED
-//       },
+[0] = {
+___off___, ___off___, ___off___, ___off___, ___off___, ___off___,                       ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,
+___off___, ___off___, ___off___, ___off___, ___off___, ___off___,                       ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,
+___off___, ___off___, ___off___, ___off___, ___off___, ___off___,                       ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,
+                                         ___off___, MG_RED, ___off___,                ___off___, MG_RED, ___off___
+      },
 
 [1] = {
-MG_RED, MG_PURPLE, MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE,                      MG_PURPLE, MG_BLUE, MG_BLUE, MG_BLUE, MG_PURPLE, MG_RED,
-MG_RED, MG_RED, MG_RED, MG_RED, MG_PURPLE, MG_PURPLE,                            MG_PURPLE, MG_BLUE, MG_BLUE, MG_BLUE, MG_PURPLE, MG_RED,
-MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,                   MG_PURPLE, MG_BLUE, MG_BLUE, MG_BLUE, MG_PURPLE, MG_RED,
-                                 MG_RED, MG_RED, MG_RED,               MG_RED, MG_RED, MG_RED
+___off___, MG_BLUE, MG_RED, MG___BLUE, ___off___, ___off___,                      ___off___, MG_RED, MG_RED, MG_RED, ___off___, ___off___,
+___off___, MG_RED, MG_RED, MG_RED, ___off___, ___off___,                            ___off___, MG_RED, MG_RED, MG_RED, ___off___, ___off___,
+___off___, ___off___, ___off___, ___off___, ___off___, ___off___,                   ___off___, MG_RED, MG_RED, MG_RED, ___off___, ___off___,
+                                 ___off___, ___off___, ___off___,               ___off___, ___off___, MG_RED
       },
 
 [2] = {
-MG_RED, MG_BLUE, MG_BLUE, MG_BLUE, MG_PURPLE, MG_PURPLE,                        MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_RED, MG_PURPLE, MG_RED,
-MG_RED, MG_BLUE, MG_BLUE, MG_BLUE, MG_PURPLE, MG_PURPLE,                   MG_PURPLE, MG_PURPLE,MG_RED, MG_RED, MG_RED, MG_RED,
-MG_RED, MG_BLUE, MG_BLUE, MG_BLUE, MG_PURPLE, MG_PURPLE,                 MG_RED, MG_RED, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_RED,
-                                 MG_RED, MG_RED, MG_RED,         MG_RED, MG_RED, MG_RED
+___off___, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, ___off___,                      ___off___, ___off___, MG_BLUE, MG_RED, MG_BLUE, ___off___,
+___off___, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, ___off___,                      ___off___, ___off___,MG_RED, MG_RED, MG_RED, ___off___,
+___off___, MG_BLUE, MG_BLUE, MG_BLUE, MG_BLUE, ___off___,                        ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,
+                                 ___off___, ___off___, ___off___,         ___off___, ___off___, ___off___
       }
 };
 
