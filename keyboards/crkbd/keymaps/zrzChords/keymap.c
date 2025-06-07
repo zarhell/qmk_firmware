@@ -29,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|              |--------+--------+--------+--------+--------+--------|
             KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                   KC_N,  KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
         //|--------+--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------+--------|
-                                        KC_LCTL, KC_LALT , KC_SPC,               KC_ENT,   MO(1), MO(2)
+                                        KC_LCTL, MO(1) , KC_SPC,               KC_ENT,   KC_LALT, MO(2)
                                        //`--------------------------'                   `--------------------------'
 
   ),
@@ -70,7 +70,7 @@ ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,               
       },
 
 [1] = {
-___off___, MG_BLUE, MG_RED, MG___BLUE, ___off___, ___off___,                      ___off___, MG_RED, MG_RED, MG_RED, ___off___, ___off___,
+___off___, MG_BLUE, MG_RED, MG_BLUE, ___off___, ___off___,                      ___off___, MG_RED, MG_RED, MG_RED, ___off___, ___off___,
 ___off___, MG_RED, MG_RED, MG_RED, ___off___, ___off___,                            ___off___, MG_RED, MG_RED, MG_RED, ___off___, ___off___,
 ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,                   ___off___, MG_RED, MG_RED, MG_RED, ___off___, ___off___,
                                  ___off___, ___off___, ___off___,               ___off___, ___off___, MG_RED
@@ -253,10 +253,6 @@ enum combos {
 
 
     //Misc
-    P_C_M_R_LCG_SWP,
-    M_A_C_LCG_NRM,
-    Q_S_C_F_T_RESET,
-    Y_J_LEFT_UP_P_RESET,
     ASDF_MAIL,
     GIT_STATUS,
     GIT_COMMIT,
@@ -386,10 +382,7 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
     const uint16_t PROGMEM func_12[] = { KC_ESC, KC_B, COMBO_END};
 
     //Misc
-    const uint16_t PROGMEM p_c_m_r_lcg_swp[] = { KC_P, KC_C, KC_M, KC_R, COMBO_END};
-    const uint16_t PROGMEM m_a_c_lcg_nrm[] = { KC_M, KC_A, KC_C, COMBO_END};
-    const uint16_t PROGMEM q_s_c_f_t_reset[] = { KC_Q, KC_S, KC_C, KC_F, KC_T, COMBO_END};
-    const uint16_t PROGMEM y_j_left_UP_p_reset[] = { KC_Y, KC_J, KC_LEFT, KC_UP, KC_P, COMBO_END};
+
     const uint16_t PROGMEM mail_combo[] = {KC_A, KC_S, KC_D, KC_F, COMBO_END};
     const uint16_t PROGMEM git_status_combo[] = {KC_G, KC_T, KC_S, COMBO_END};
     const uint16_t PROGMEM git_commit_combo[] = {KC_G, KC_T, KC_C, COMBO_END};
@@ -528,11 +521,7 @@ combo_t key_combos[] = {
     [GIT_REVERT] = COMBO_ACTION(git_revert_combo),
     [GIT_STASH] = COMBO_ACTION(git_stash_combo),
     [PASS_MC] = COMBO_ACTION(pass_mc_combo),
-    [USER_MC] = COMBO_ACTION(user_mc_combo),
-    [P_C_M_R_LCG_SWP] = COMBO(p_c_m_r_lcg_swp, LCG_SWP),
-    [M_A_C_LCG_NRM] = COMBO(m_a_c_lcg_nrm, LCG_NRM),
-    [Q_S_C_F_T_RESET] = COMBO(q_s_c_f_t_reset, RESET),
-    [Y_J_LEFT_UP_P_RESET] = COMBO(y_j_left_UP_p_reset, RESET),
+    [USER_MC] = COMBO_ACTION(user_mc_combo)
 };
 
 
@@ -765,17 +754,16 @@ uint8_t ledIndexForKeymapIndex(uint8_t keyIndex) {
   return g_led_config.matrix_co[row][col];
 }
 
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     uint8_t layerNum = get_highest_layer(layer_state);
     if (layerNum == 0) {
-        return;
+        return false;
     }
 
-     // Per-key indicators
+    // Per-key indicators
     uint8_t ledIndex = 0;
     uint8_t r, g, b;
-    for (uint8_t keyIndex = 0; keyIndex < 42; keyIndex++) { // 0 to 42
+    for (uint8_t keyIndex = 0; keyIndex < 42; keyIndex++) {
         ledIndex = ledIndexForKeymapIndex(keyIndex);
 
         if (ledIndex >= led_min && ledIndex <= led_max) {
@@ -790,6 +778,8 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             }
         }
     }
+
+    return true;
 }
 
 

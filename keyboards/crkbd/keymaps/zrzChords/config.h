@@ -36,7 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DISABLE_WHEN_USB_SUSPENDED true
 
 #define TAPPING_TERM 150
-#define IGNORE_MOD_TAP_INTERRUPT
 
 #define SPLIT_LAYER_STATE_ENABLE
 
@@ -46,7 +45,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // small layer state
 #define LAYER_STATE_8BIT
 
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 80
+#ifndef RGB_MATRIX_MAXIMUM_BRIGHTNESS
+  #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 80
+#endif
 #define RGB_DISABLE_TIMEOUT 10000
 #define LED_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
