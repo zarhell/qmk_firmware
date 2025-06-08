@@ -36,7 +36,6 @@ SRC += \
     ./utils/keylog.c \
     ./init/init_user.c \
     ./handlers/keycode_handler.c \
-	./keycodes/keycodes.h \
     ./combos/combos.c \
     ./combos/combos_git.c \
     ./combos/combos_media.c \
