@@ -41,4 +41,6 @@ SRC += \
     ./combos/combos_media.c \
     ./combos/combos_misc.c \
     ./combos/combos_spanish.c \
-    ./combos/combos_symbols.c
+    ./combos/combos_symbols.c \
+    ./combos/combos_control.c \
+    ./combos/combos_function.c
