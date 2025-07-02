@@ -10,9 +10,12 @@
 #include "keycodes/keycodes.h"
 #include "combos/combos_symbols.h"
 #include "combos/combos_media.h"
+#include "combos/combos_control.h"
+#include "combos/combos_function.h"
 
 // COMBO simples que devuelven keycodes
 combo_t key_combos[] = {
+    // — Símbolos básicos
     COMBO(left_slsh, KC_SLSH),
     COMBO(left_bsls, KC_BSLS),
     COMBO(left_pipe, KC_PIPE),
@@ -30,29 +33,54 @@ combo_t key_combos[] = {
     COMBO(left_ampr, KC_AMPR),
     COMBO(left_astr, KC_ASTR),
 
+    // — Símbolos en capa numérica
     COMBO(numslsh, KC_SLSH),
     COMBO(numbsls, KC_BSLS),
     COMBO(numpipe, KC_PIPE),
     COMBO(numcirc, KC_CIRC),
-    COMBO(numlt, KC_LT),
-    COMBO(numgt, KC_GT),
-    COMBO(numgrv, KC_GRV),
+    COMBO(numlt,   KC_LT),
+    COMBO(numgt,   KC_GT),
+    COMBO(numgrv,  KC_GRV),
     COMBO(numtild, KC_TILD),
     COMBO(numhash, KC_HASH),
     COMBO(numperc, KC_PERC),
     COMBO(numexlm, KC_EXLM),
     COMBO(numques, KC_QUES),
-    COMBO(numdlr, KC_DLR),
-    COMBO(numat, KC_AT),
+    COMBO(numdlr,  KC_DLR),
+    COMBO(numat,   KC_AT),
     COMBO(numampr, KC_AMPR),
     COMBO(numastr, KC_ASTR),
 
+    // — Multimedia
     COMBO(media_play_pause_combo, KC_MEDIA_PLAY_PAUSE),
-    COMBO(media_vol_up_combo, KC_AUDIO_VOL_UP),
-    COMBO(media_vol_down_combo, KC_AUDIO_VOL_DOWN),
-    COMBO(media_mute_combo, KC_AUDIO_MUTE),
-    COMBO(media_next_combo, KC_MEDIA_NEXT_TRACK),
-    COMBO(media_prev_combo, KC_MEDIA_PREV_TRACK),
+    COMBO(media_vol_up_combo,     KC_AUDIO_VOL_UP),
+    COMBO(media_vol_down_combo,   KC_AUDIO_VOL_DOWN),
+    COMBO(media_mute_combo,       KC_AUDIO_MUTE),
+    COMBO(media_next_combo,       KC_MEDIA_NEXT_TRACK),
+    COMBO(media_prev_combo,       KC_MEDIA_PREV_TRACK),
+
+    // — Control Keys (desde combos_control.h)
+    COMBO(left_enter,        KC_ENT),
+    COMBO(left_bspc,         KC_BSPC),
+    COMBO(n_ENT_spc,         KC_SPC),
+    COMBO(z_x_lsft_caps,     KC_CAPS),
+    COMBO(t_SPC_DEL,         KC_DEL),
+    COMBO(dot_slsh_rsft_app, KC_APP),
+    COMBO(select_word,       SELWORD),
+
+    // — Function Keys (desde combos_function.h)
+    COMBO(func_1,   KC_F1),
+    COMBO(func_2,   KC_F2),
+    COMBO(func_3,   KC_F3),
+    COMBO(func_4,   KC_F4),
+    COMBO(func_5,   KC_F5),
+    COMBO(func_6,   KC_F6),
+    COMBO(func_7,   KC_F7),
+    COMBO(func_8,   KC_F8),
+    COMBO(func_9,   KC_F9),
+    COMBO(func_10,  KC_F10),
+    COMBO(func_11,  KC_F11),
+    COMBO(func_12,  KC_F12),
 };
 
 #define KC_ KC_TRNS
@@ -70,50 +98,21 @@ combo_t key_combos[] = {
 // ----------------------------------------------------------------------------
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    /* Layer 0: QWERTY
-     * ┌────────┬────────┬────────┬────────┬────────┬────────┐      ┌────────┬────────┬────────┬────────┬────────┬────────┐
-     * │  Esc   │   Q    │   W    │   E    │   R    │   T    │      │   Y    │   U    │   I    │   O    │   P    │ Backsp │
-     * ├────────┼────────┼────────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼────────┼────────┼────────┤
-     * │  Tab   │   A    │   S    │   D    │   F    │   G    │      │   H    │   J    │   K    │   L    │   ;    │ GUI+'" │
-     * ├────────┼────────┼────────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼────────┼────────┼────────┤
-     * │ Shift  │   Z    │   X    │   C    │   V    │   B    │      │   N    │   M    │   ,    │   .    │   /    │ Shift  │
-     * └────────┴────────┴────────┴────────┴────────┴────────┴──────┴────────┴────────┴────────┴────────┴────────┴────────┘
-     *         LCtrl    MO(1)    Space     Enter    LAlt     MO(2)
-     */
+
     [0] = LAYOUT_split_3x6_3(
-        KC_ESC,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-        KC_TAB,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, LGUI_T(KC_QUOT),
-        KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+        KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,    KC_ESC,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
+        KC_A,   KC_S,    KC_D,    KC_F,    KC_G,    KC_TAB,        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, LGUI_T(KC_QUOT),
+        KC_Z,  KC_X,    KC_C,    KC_V,    KC_B,    KC_LSFT,        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
                               KC_LCTL, MO(1),    KC_SPC,     KC_ENT,  KC_LALT, MO(2)
     ),
 
-    /* Layer 1: Navigation & Numpad
-     * ┌────────┬────────┬────────┬────────┬────────┬────────┐      ┌────────┬────────┬────────┬────────┬────────┬────────┐
-     * │ LLock  │ Home   │  Up    │  End   │   _    │  Num   │      │ LLock  │   7    │   8    │   9    │   _    │   _    │
-     * ├────────┼────────┼────────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼────────┼────────┼────────┤
-     * │   _    │ Left   │  Down  │ Right  │   _    │   _    │      │   _    │   4    │   5    │   6    │   _    │   _    │
-     * ├────────┼────────┼────────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼────────┼────────┼────────┤
-     * │   _    │   _    │   _    │   _    │   _    │   _    │      │   _    │   1    │   2    │   3    │   _    │   _    │
-     * └────────┴────────┴────────┴────────┴────────┴────────┴──────┴────────┴────────┴────────┴────────┴────────┴────────┘
-     *         _       _       _       Ins     _       0
-     */
     [1] = LAYOUT_split_3x6_3(
-        LLOCK,    KC_HOME, KC_UP,   KC_END, KC_TRNS, KC_NUM,     LLOCK,    KC_P7,   KC_P8,   KC_P9,   KC_TRNS, KC_TRNS,
-        KC_TRNS,  KC_LEFT, KC_DOWN, KC_RIGHT,KC_TRNS,KC_TRNS,    KC_TRNS,  KC_P4,   KC_P5,   KC_P6,   KC_TRNS, KC_TRNS,
-        KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,    KC_TRNS,  KC_P1,   KC_P2,   KC_P3,   KC_TRNS, KC_TRNS,
+        KC_HOME,    KC_UP, KC_END,   KC_P7, KC_P8, KC_P9,     LLOCK,    KC_P7,   KC_P8,   KC_P9,   KC_TRNS, KC_TRNS,
+        KC_LEFT,  KC_DOWN, KC_RIGHT, KC_P4,KC_P5,KC_P6,    KC_TRNS,  KC_P4,   KC_P5,   KC_P6,   KC_TRNS, KC_TRNS,
+        LLOCK,  KC_TRNS, KC_NUM, KC_P1, KC_P2,KC_P3,    KC_TRNS,  KC_P1,   KC_P2,   KC_P3,   KC_TRNS, KC_TRNS,
                               KC_TRNS, KC_TRNS, KC_TRNS,    KC_INS,   KC_TRNS, KC_P0
     ),
 
-    /* Layer 2: Numbers & Mouse
-     * ┌────────┬────────┬────────┬────────┬────────┬────────┐      ┌────────┬────────┬────────┬────────┬────────┬────────┐
-     * │ LLock  │   1    │   2    │   3    │   _    │  Num   │      │   _    │   _    │ Home   │   Up   │  End   │   _    │
-     * ├────────┼────────┼────────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼────────┼────────┼────────┤
-     * │   _    │   4    │   5    │   6    │   _    │  PScr  │      │   _    │   _    │ Left   │  Down  │ Right  │   _    │
-     * ├────────┼────────┼────────┼────────┼────────┼────────┤      ├────────┼────────┼────────┼────────┼────────┼────────┤
-     * │   _    │   7    │   8    │   9    │   0    │  Pause │      │   _    │   _    │   _    │   _    │   _    │   _    │
-     * └────────┴────────┴────────┴────────┴────────┴────────┴──────┴────────┴────────┴────────┴────────┴────────┴────────┘
-     *         _       _       _       PEnt    _       _
-     */
     [2] = LAYOUT_split_3x6_3(
         LLOCK,    KC_1,   KC_2,    KC_3,   KC_TRNS, KC_NUM,   KC_TRNS,  KC_TRNS, KC_HOME, KC_UP,    KC_END,  KC_TRNS,
         KC_TRNS,  KC_4,   KC_5,    KC_6,   KC_TRNS, KC_PSCR,  KC_TRNS,  KC_TRNS, KC_LEFT, KC_DOWN,  KC_RIGHT,KC_TRNS,
@@ -123,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // ----------------------------------------------------------------------------
-// LED indicator map (unchanged)
+// LED indicator map
 // ----------------------------------------------------------------------------
 const uint8_t PROGMEM ledmap[][42][3] = {
 
