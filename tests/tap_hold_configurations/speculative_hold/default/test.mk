@@ -15,7 +15,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 KEY_OVERRIDE_ENABLE = yes
-MAGIC_ENABLE = yes
 
 INTROSPECTION_KEYMAP_C = test_keymap.c
 

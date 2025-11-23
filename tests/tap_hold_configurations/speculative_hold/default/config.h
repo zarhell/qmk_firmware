@@ -20,4 +20,3 @@
 #include "test_common.h"
 
 #define SPECULATIVE_HOLD
-#define DUMMY_MOD_NEUTRALIZER_KEYCODE KC_F24
