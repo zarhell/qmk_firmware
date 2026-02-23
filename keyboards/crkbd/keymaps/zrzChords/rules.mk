@@ -24,7 +24,7 @@ SPACE_CADET_ENABLE  = no
 GRAVE_ESC_ENABLE    = no
 MAGIC_ENABLE        = no
 BOOTMAGIC_ENABLE    = no
-RAW_ENABLE          = yes
+RAW_ENABLE          = no
 
 EXTRAFLAGS += -flto
 

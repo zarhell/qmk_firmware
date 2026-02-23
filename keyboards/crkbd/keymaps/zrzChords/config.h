@@ -35,7 +35,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LAYER_LOCK_IDLE_TIMEOUT 10000
 #define RGB_DISABLE_WHEN_USB_SUSPENDED true
 
-#define TAPPING_TERM 150
+#define TAPPING_TERM 160
+#define COMBO_TERM   50
 
 #define SPLIT_LAYER_STATE_ENABLE
 
@@ -141,6 +142,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_MUSIC_MODE
 #define TAPPING_TOGGLE 2
 #define COMBO_VARIABLE_LEN
+
 
 #ifdef RGBLIGHT_ENABLE
     #define RGBLIGHT_EFFECT_BREATHING

@@ -5,21 +5,20 @@ void oled_render_keylog(void) {
     oled_write(get_keylog_str(), false);
 }
 
-#define _QWERTY 0
-#define _RAISE 2
-#define _LOWER 4
-
 void oled_render_layer_state(void) {
     oled_write_P(PSTR("Layer: "), false);
-    switch (layer_state) {
-        case _QWERTY:
+    switch (get_highest_layer(layer_state)) {
+        case 0:
             oled_write_ln_P(PSTR("Qwerty"), false);
             break;
-        case _RAISE:
-            oled_write_ln_P(PSTR("Lower"), false);
+        case 1:
+            oled_write_ln_P(PSTR("Nav/Num"), false);
             break;
-        case _LOWER:
-            oled_write_ln_P(PSTR("Raise"), false);
+        case 2:
+            oled_write_ln_P(PSTR("Numbers"), false);
+            break;
+        default:
+            oled_write_ln_P(PSTR("???"), false);
             break;
     }
 }
