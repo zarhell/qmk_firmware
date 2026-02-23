@@ -27,7 +27,6 @@ uint8_t ledIndexForKeymapIndex(uint8_t keyIndex) {
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     uint8_t layerNum = get_highest_layer(layer_state);
-    if (layerNum == 0) return false;
 
     for (uint8_t keyIndex = 0; keyIndex < 42; keyIndex++) {
         uint8_t ledIndex = ledIndexForKeymapIndex(keyIndex);
