@@ -21,6 +21,7 @@ enum custom_keycodes {
     DEV_END,          // GUI+→ (macOS) / End (Windows)
     DEV_WORD_LEFT,    // Alt+← (macOS) / Ctrl+← (Windows)
     DEV_WORD_RIGHT,   // Alt+→ (macOS) / Ctrl+→ (Windows)
+    APP_MENU,         // Shift+F10 (macOS) / KC_APP (Windows)
 
     // --- Misc Combos ---
     EMAIL_GMAIL,
