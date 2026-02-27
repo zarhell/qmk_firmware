@@ -9,14 +9,7 @@ enum custom_keycodes {
     TOG_OS,     // Alterna entre macOS y Windows en tiempo de ejecución
 
     // --- Dev shortcuts (OS-aware: GUI en macOS, CTRL en Windows) ---
-    DEV_COPY,
-    DEV_PASTE,
-    DEV_CUT,
-    DEV_UNDO,
-    DEV_REDO,
     DEV_COMMENT,      // Ctrl+/ o Cmd+/
-    DEV_DUP_LINE,     // Shift+Alt+↓ (VSCode/JetBrains)
-    DEV_DEL_LINE,     // Ctrl+Shift+K (VSCode) / Ctrl+Y (JetBrains)
     DEV_HOME,         // GUI+← (macOS) / Home (Windows)
     DEV_END,          // GUI+→ (macOS) / End (Windows)
     DEV_WORD_LEFT,    // Alt+← (macOS) / Ctrl+← (Windows)
