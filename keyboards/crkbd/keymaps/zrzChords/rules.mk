@@ -29,7 +29,6 @@ RAW_ENABLE          = no
 EXTRAFLAGS += -flto
 
 SRC += \
-    ./lib/rgb_state_reader.c \
     ./features/layer_lock.c \
     ./features/select_word.c \
     ./rgb/rgb_indicators.c \

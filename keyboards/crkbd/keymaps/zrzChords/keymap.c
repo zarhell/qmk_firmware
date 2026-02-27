@@ -3,7 +3,6 @@
 #include "features/layer_lock.h"
 #include "features/select_word.h"
 #include "rgb/rgb_indicators.h"
-#include "oled/oled_render.h"
 #include "handlers/keycode_handler.h"
 #include "init/init_user.h"
 #include "combos/combos.h"

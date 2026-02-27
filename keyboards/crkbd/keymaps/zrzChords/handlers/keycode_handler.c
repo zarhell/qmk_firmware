@@ -167,38 +167,8 @@ bool handle_keycode(uint16_t keycode, keyrecord_t *record) {
             return true;
 
         // --- Dev shortcuts OS-aware ---
-        case DEV_COPY:
-            if (record->event.pressed) tap_code16(os_ctrl(KC_C));
-            return false;
-        case DEV_PASTE:
-            if (record->event.pressed) tap_code16(os_ctrl(KC_V));
-            return false;
-        case DEV_CUT:
-            if (record->event.pressed) tap_code16(os_ctrl(KC_X));
-            return false;
-        case DEV_UNDO:
-            if (record->event.pressed) tap_code16(os_ctrl(KC_Z));
-            return false;
-        case DEV_REDO:
-            if (record->event.pressed) {
-                // macOS: Cmd+Shift+Z | Windows: Ctrl+Y
-                tap_code16(is_mac ? SGUI(KC_Z) : LCTL(KC_Y));
-            }
-            return false;
         case DEV_COMMENT:
             if (record->event.pressed) tap_code16(os_ctrl(KC_SLSH));
-            return false;
-        case DEV_DUP_LINE:
-            if (record->event.pressed) {
-                // VSCode + JetBrains: Shift+Alt+↓ (ambos OS)
-                tap_code16(LSFT(LALT(KC_DOWN)));
-            }
-            return false;
-        case DEV_DEL_LINE:
-            if (record->event.pressed) {
-                // VSCode: Ctrl+Shift+K | JetBrains: Ctrl+Y
-                tap_code16(is_mac ? SGUI(KC_K) : LCTL(LSFT(KC_K)));
-            }
             return false;
         case DEV_HOME:
             if (record->event.pressed) {
