@@ -42,6 +42,7 @@ static bool is_spanish_key(uint16_t keycode) {
         case KC_A: case KC_E: case KC_I:
         case KC_O: case KC_U: case KC_N:
         case KC_1: case KC_SLSH:
+        case SFT_T(KC_SCLN):   // ;; → :
             return true;
         default:
             return false;
@@ -59,6 +60,13 @@ static bool handle_spanish_double_tap(uint16_t keycode, keyrecord_t *record) {
 
     if (keycode == dt_last_keycode && timer_elapsed(dt_last_time) < DOUBLE_TAP_TERM) {
         dt_last_keycode = KC_NO;
+
+        // ;; → :
+        if (keycode == SFT_T(KC_SCLN)) {
+            tap_code(KC_BSPC);
+            tap_code16(S(KC_SCLN));
+            return false;
+        }
 
         uint16_t lo = 0, hi = 0;
         switch (keycode) {

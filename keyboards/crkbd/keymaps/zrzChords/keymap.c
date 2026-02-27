@@ -14,8 +14,8 @@
 // ---------------------------------------------------------------------------
 // Aliases — mod-tap & layer-tap
 //   GUI_ESC  tap:Esc    hold:GUI     |  GUI_QT   tap:'      hold:GUI
-//   SFT_TAB  tap:Tab    hold:Shift   |  CTL_ENT  tap:Enter  hold:Ctrl
-//   ALT_SCL  tap:;      hold:Alt     |  CTL_CMM  tap:,      hold:Ctrl
+//   ALT_TAB  tap:Tab    hold:Alt     |  CTL_ENT  tap:Enter  hold:Ctrl
+//   SFT_SCL  tap:;      hold:Shift   |  CTL_CMM  tap:,      hold:Ctrl
 //   L1_DOT   tap:.      hold:Layer1  |  L1_PSCR  tap:PrtScr hold:Layer1
 //   L2_SPC   tap:Space  hold:Layer2  |  L2_TAB   tap:Tab    hold:Layer2
 //
@@ -28,9 +28,9 @@
 // ---------------------------------------------------------------------------
 #define GUI_ESC  LGUI_T(KC_ESC)
 #define GUI_QT   LGUI_T(KC_QUOT)
-#define SFT_TAB  SFT_T(KC_TAB)
-#define CTL_ENT  LCTL_T(KC_ENT)
-#define ALT_SCL  LALT_T(KC_SCLN)
+#define ALT_TAB  LALT_T(KC_TAB)
+#define CTL_ENT  RCTL_T(KC_ENT)
+#define SFT_SCL  SFT_T(KC_SCLN)
 #define CTL_CMM  LCTL_T(KC_COMM)
 #define L1_DOT   LT(1, KC_DOT)
 #define L1_PSCR  LT(1, KC_PSCR)
@@ -71,13 +71,13 @@ combo_t key_combos[] = {
     COMBO(left_plus,          KC_PLUS),
 
     // — Control
-    COMBO(left_enter,    KC_ENT),        // B+SPC
-    COMBO(left_bspc,     KC_BSPC),       // G+SPC
-    COMBO(t_SPC_DEL,     KC_DEL),        // T+SPC
-    COMBO(n_ENT_spc,     KC_SPC),        // N+Enter
-    COMBO(z_x_lsft_caps, KC_CAPS),       // Z+X+Alt(;)
-    COMBO(app_menu_combo, APP_MENU),     // M+N → KC_APP (Win) / Shift+F10 (Mac)
-    COMBO(alt_tab_combo, LALT(KC_TAB)),  // Tab+A → Alt+Tab
+    COMBO(left_enter,     KC_ENT),        // B+SPC
+    COMBO(left_bspc,      KC_BSPC),       // G+SPC
+    COMBO(t_SPC_DEL,      KC_DEL),        // T+SPC
+    COMBO(n_ENT_spc,      KC_SPC),        // N+Enter
+    COMBO(z_x_lsft_caps,  KC_CAPS),       // Z+X+Shift(;)
+    COMBO(app_menu_combo, APP_MENU),      // M+N → KC_APP (Win) / Shift+F10 (Mac)
+    COMBO(alt_tab_combo,  LALT(KC_TAB)),  // Tab+A → Alt+Tab
 
     // — Brackets (apertura)
     COMBO(bracket_combo,     KC_LBRC),
@@ -105,57 +105,57 @@ combo_t key_combos[] = {
 #define MG_RED    {153,   0,   0}
 #define MG_BLUE   {  0,   0, 153}
 #define MG_PURPLE { 50,   0, 232}
-#define MG_GREEN  {  0, 153,   0}
 
 // ---------------------------------------------------------------------------
 // Keymap
 // ---------------------------------------------------------------------------
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-// ┌─────────────────────────────────────────────────────────────────────────┐
-// │  Layer 0: QWERTY — base                                                 │
-// └─────────────────────────────────────────────────────────────────────────┘
+/* ========================================================================== */
+/* LAYER 0 — BASE                                                              */
+/* ========================================================================== */
 [0] = LAYOUT_split_3x6_3(
   // ╭──────────┬──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────┬──────────╮
      GUI_ESC,   KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,           KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,      KC_BSPC,
   // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
-     SFT_TAB,   KC_A,      KC_S,      KC_D,      KC_F,      KC_G,           KC_H,      KC_J,      KC_K,      KC_L,      COMMENT,   GUI_QT,
+     ALT_TAB,   KC_A,      KC_S,      KC_D,      KC_F,      KC_G,           KC_H,      KC_J,      KC_K,      KC_L,      COMMENT,   GUI_QT,
   // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
-     ALT_SCL,   KC_Z,      KC_X,      KC_C,      KC_V,      KC_B,           KC_N,      KC_M,      WD_LEFT,   WD_RGHT,   D_END,     KC_RSFT,
+     SFT_SCL,   KC_Z,      KC_X,      KC_C,      KC_V,      KC_B,           KC_N,      KC_M,      WD_LEFT,   WD_RGHT,   D_END,     KC_RSFT,
   // ╰──────────┴──────────┴──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┴──────────┴──────────╯
                                        CTL_CMM,   L1_DOT,    L2_SPC,        CTL_ENT,   L2_TAB,    L1_PSCR
   //                                  ╰──────────┴──────────┴──────────╯   ╰──────────┴──────────┴──────────╯
 ),
 
-// ┌─────────────────────────────────────────────────────────────────────────┐
-// │  Layer 1: Navegación (L) + Funciones (R)                                │
-// └─────────────────────────────────────────────────────────────────────────┘
+/* ========================================================================== */
+/* LAYER 1 — NAV (LEFT) + FUNCTION (RIGHT)                                    */
+/* ========================================================================== */
 [1] = LAYOUT_split_3x6_3(
   // ╭──────────┬──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────┬──────────╮
-     _______,   D_HOME,    KC_UP,     D_END,     _______,   LLOCK,          LLOCK,     KC_F9,     KC_F10,    KC_F11,    KC_F12,    _______,
+     _______,   D_HOME,    KC_UP,     D_END,     _______,   KC_NUM,         KC_F7,     KC_F8,     KC_F9,     KC_F10,    KC_F11,    KC_F12,
   // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
-     WD_LEFT,   KC_LEFT,   KC_DOWN,   KC_RIGHT,  WD_RGHT,   _______,        _______,   KC_F5,     KC_F6,     KC_F7,     KC_F8,     _______,
+     _______,   KC_LEFT,   KC_DOWN,   KC_RIGHT,  _______,   _______,        KC_F4,     KC_F5,     KC_F6,     KC_F1,     KC_F2,     KC_F3,
   // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
-     _______,   KC_PGUP,   _______,   KC_PGDN,   _______,   KC_NUM,         _______,   KC_F1,     KC_F2,     KC_F3,     KC_F4,     _______,
+     _______,   KC_PGUP,   _______,   KC_PGDN,   _______,   _______,        _______,   _______,   _______,   _______,   _______,   _______,
   // ╰──────────┴──────────┴──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┴──────────┴──────────╯
                                        _______,   _______,   _______,        KC_INS,    _______,   _______
   //                                  ╰──────────┴──────────┴──────────╯   ╰──────────┴──────────┴──────────╯
 ),
 
-// ┌─────────────────────────────────────────────────────────────────────────┐
-// │  Layer 2: Números (L) + Mouse (R)                                       │
-// └─────────────────────────────────────────────────────────────────────────┘
+/* ========================================================================== */
+/* LAYER 2 — NUMPAD (LEFT) + MOUSE (RIGHT)                                    */
+/* ========================================================================== */
 [2] = LAYOUT_split_3x6_3(
   // ╭──────────┬──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────┬──────────╮
-     LLOCK,     KC_7,      KC_8,      KC_9,      TOG_OS,    KC_NUM,         MS_WHLU,   _______,   MS_BTN1,   MS_UP,     MS_BTN2,   KC_WBAK,
+     TOG_OS,    KC_7,      KC_8,      KC_9,      _______,   KC_NUM,         MS_WHLU,   _______,   MS_BTN1,   MS_UP,     MS_BTN2,   KC_WBAK,
   // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
-     _______,   KC_4,      KC_5,      KC_6,      KC_DOT,    KC_PSCR,        MS_WHLD,   _______,   MS_LEFT,   MS_DOWN,   MS_RGHT,   KC_WFWD,
+     _______,   KC_4,      KC_5,      KC_6,      _______,   KC_PSCR,        MS_WHLD,   _______,   MS_LEFT,   MS_DOWN,   MS_RGHT,   KC_WFWD,
   // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
-     KC_0,      KC_1,      KC_2,      KC_3,      KC_COMM,   KC_PAUSE,       MS_BTN3,   _______,   _______,   _______,   _______,   _______,
+     _______,   KC_1,      KC_2,      KC_3,      KC_0,      KC_PAUSE,       MS_BTN3,   _______,   _______,   _______,   _______,   _______,
   // ╰──────────┴──────────┴──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┴──────────┴──────────╯
                                        _______,   _______,   _______,        LLOCK,     _______,   _______
   //                                  ╰──────────┴──────────┴──────────╯   ╰──────────┴──────────┴──────────╯
 )
+
 };
 
 // ---------------------------------------------------------------------------
@@ -164,23 +164,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint8_t PROGMEM ledmap[2][42][3] = {
 
 {   // Layer 1: Navegación (L) + Función (R)
-    // top   L: ___  | HOME | UP   | END  | ___  | LLOCK            top   R: LLOCK | F9  | F10  | F11  | F12  | ___
-    ___off___, MG_RED,   MG_BLUE,  MG_RED,   ___off___, MG_CYAN,    MG_CYAN,  MG_RED,   MG_RED,   MG_RED,   MG_RED,   ___off___,
-    // home  L: WRD_L | LEFT | DOWN | RGHT | WRD_R | ___            home  R: ___   | F5  | F6   | F7   | F8   | ___
-    MG_RED,   MG_BLUE,  MG_BLUE,  MG_BLUE,  MG_RED,   ___off___,   ___off___, MG_RED,   MG_RED,   MG_RED,   MG_RED,   ___off___,
-    // bot   L: ___  | PGUP | ___  | PGDN | ___  | NUM              bot   R: ___   | F1  | F2   | F3   | F4   | ___
-    ___off___, MG_RED,   ___off___, MG_RED,   ___off___, ___off___,  ___off___, MG_RED,   MG_RED,   MG_RED,   MG_RED,   ___off___,
+    // top   L: ___  | HOME | UP  | END  | ___  | NUM              top   R: F7   | F8  | F9  | F10  | F11  | F12
+    ___off___, MG_RED,   MG_BLUE,  MG_RED,   ___off___, ___off___,  MG_RED,   MG_RED,   MG_RED,   MG_RED,   MG_RED,   MG_RED,
+    // home  L: ___  | LEFT | DOWN | RGHT | ___  | ___              home  R: F4   | F5  | F6  | F1   | F2   | F3
+    ___off___, MG_BLUE,  MG_BLUE,  MG_BLUE,  ___off___, ___off___,  MG_RED,   MG_RED,   MG_RED,   MG_RED,   MG_RED,   MG_RED,
+    // bot   L: ___  | PGUP | ___  | PGDN | ___  | ___              bot   R: ___  | ___  | ___  | ___  | ___  | ___
+    ___off___, MG_RED,   ___off___, MG_RED,   ___off___, ___off___,  ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,
     // thumb L: ___  | ___  | ___                                    thumb R: INS  | ___  | ___
-    ___off___, ___off___, ___off___,                                  ___off___, ___off___, ___off___
+    ___off___, ___off___, ___off___,                                  MG_CYAN,  ___off___, ___off___
 },
 
 {   // Layer 2: Números (L) + Mouse (R)
-    // top   L: LLOCK |  7  |  8   |  9   | OS   | NUM              top   R: WHLU  | ___  | BTN1 | UP   | BTN2 | WBAK
-    MG_CYAN,  MG_RED,   MG_RED,   MG_RED,   ___off___, ___off___,   MG_CYAN,  ___off___, MG_RED,   MG_BLUE,  MG_RED,   ___off___,
-    // home  L: ___  |  4  |  5   |  6   | DOT  | PSCR             home  R: WHLD  | ___  | LEFT | DOWN | RGHT | WFWD
-    ___off___, MG_RED,   MG_RED,   MG_RED,   ___off___, ___off___,   MG_CYAN,  ___off___, MG_BLUE,  MG_BLUE,  MG_BLUE,  ___off___,
-    // bot   L:  0   |  1  |  2   |  3   | COMM | PAUSE            bot   R: BTN3  | ___  | ___  | ___  | ___  | ___
-    MG_RED,   MG_RED,   MG_RED,   MG_RED,   ___off___, ___off___,   MG_RED,   ___off___, ___off___, ___off___, ___off___, ___off___,
+    // top   L: OS   |  7  |  8   |  9   | ___  | NUM              top   R: WHLU  | ___  | BTN1 | UP   | BTN2 | WBAK
+    MG_CYAN,  MG_RED,   MG_RED,   MG_RED,   ___off___, ___off___,  MG_CYAN,  ___off___, MG_RED,   MG_BLUE,  MG_RED,   ___off___,
+    // home  L: ___  |  4  |  5   |  6   | ___  | PSCR             home  R: WHLD  | ___  | LEFT | DOWN | RGHT | WFWD
+    ___off___, MG_RED,   MG_RED,   MG_RED,   ___off___, ___off___,  MG_CYAN,  ___off___, MG_BLUE,  MG_BLUE,  MG_BLUE,  ___off___,
+    // bot   L: ___  |  1  |  2   |  3   |  0   | PAUSE            bot   R: BTN3  | ___  | ___  | ___  | ___  | ___
+    ___off___, MG_RED,   MG_RED,   MG_RED,   MG_RED,   ___off___,   MG_RED,   ___off___, ___off___, ___off___, ___off___, ___off___,
     // thumb L: ___  | ___  | ___                                    thumb R: LLOCK | ___  | ___
     ___off___, ___off___, ___off___,                                  MG_CYAN,  ___off___, ___off___
 }
