@@ -67,7 +67,8 @@ combo_t key_combos[] = {
     COMBO(left_bspc,     KC_BSPC),  // G+SPC
     COMBO(t_SPC_DEL,     KC_DEL),   // T+SPC
     COMBO(n_ENT_spc,     KC_SPC),   // N+Enter
-    COMBO(z_x_lsft_caps, KC_CAPS),  // Z+X+Shift
+    COMBO(z_x_lsft_caps, KC_CAPS),   // Z+X+Shift
+    COMBO(app_menu_combo, APP_MENU), // M+N+Shift → KC_APP(win) / Shift+F10(mac)
 
     // — Apertura de brackets
     COMBO(bracket_combo,     KC_LBRC),
