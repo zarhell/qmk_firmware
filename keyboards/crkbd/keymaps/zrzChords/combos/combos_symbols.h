@@ -3,10 +3,15 @@
 #include "quantum.h"
 #include "keycodes/keycodes.h"
 
-// --- Declaración de combos usados con COMBO_ACTION ---
+// --- Apertura de brackets (ESC + fila)
 extern const uint16_t PROGMEM bracket_combo[];
 extern const uint16_t PROGMEM curly_brace_combo[];
 extern const uint16_t PROGMEM paren_combo[];
+
+// --- Cierre de brackets (pares horizontales Q+W / A+S / Z+X)
+extern const uint16_t PROGMEM bracket_close_combo[];
+extern const uint16_t PROGMEM curly_close_combo[];
+extern const uint16_t PROGMEM paren_close_combo[];
 
 // --- Declaración de combos usados con COMBO ---
 extern const uint16_t PROGMEM left_slsh[];

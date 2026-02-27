@@ -86,40 +86,15 @@ static bool handle_spanish_double_tap(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-// ---------------------------------------------------------------------------
-// Bracket double-tap: press the opening bracket combo twice quickly →
-// second tap sends the matching closing bracket.
-//   [[ → ]   {{ → }   (( → )
-// Any other keypress between the two taps resets the sequence.
-// ---------------------------------------------------------------------------
-static uint16_t br_last_keycode = KC_NO;
-static uint16_t br_last_time    = 0;
 
-static bool handle_bracket_double_tap(uint16_t keycode, keyrecord_t *record) {
-    if (!record->event.pressed) return true;
+// ---------------------------------------------------------------------------
+// OS mode (false = Windows, true = macOS). Toggle con TOG_OS.
+// ---------------------------------------------------------------------------
+bool is_mac = false;
 
-    switch (keycode) {
-        case KC_LBRC:
-        case KC_LCBR:
-        case KC_LPRN:
-            if (keycode == br_last_keycode && timer_elapsed(br_last_time) < DOUBLE_TAP_TERM) {
-                br_last_keycode = KC_NO;
-                uint16_t closing;
-                switch (keycode) {
-                    case KC_LBRC: closing = KC_RBRC; break;
-                    case KC_LCBR: closing = KC_RCBR; break;
-                    default:      closing = KC_RPRN; break;
-                }
-                tap_code16(closing);
-                return false;
-            }
-            br_last_keycode = keycode;
-            br_last_time    = timer_read();
-            return true;
-        default:
-            br_last_keycode = KC_NO;
-            return true;
-    }
+// Envía el modificador correcto según OS: LGUI en macOS, LCTL en Windows.
+static inline uint16_t os_ctrl(uint16_t kc) {
+    return is_mac ? LGUI(kc) : LCTL(kc);
 }
 
 // ---------------------------------------------------------------------------
@@ -137,7 +112,6 @@ bool handle_keycode(uint16_t keycode, keyrecord_t *record) {
     if (!process_select_word(keycode, record, SELWORD)) return false;
 
     if (!handle_spanish_double_tap(keycode, record)) return false;
-    if (!handle_bracket_double_tap(keycode, record)) return false;
 
     mod_state = get_mods();
     switch (keycode) {
@@ -176,8 +150,75 @@ bool handle_keycode(uint16_t keycode, keyrecord_t *record) {
         case PASSWORD:
             if (record->event.pressed) send_string(USER_PASSWORD);
             return false;
-        case SIGNATURE:
-            if (record->event.pressed) send_string(USER_SIGNATURE);
+
+        // --- OS Toggle ---
+        case TOG_OS:
+            if (record->event.pressed) is_mac = !is_mac;
+            return false;
+
+        // --- Screenshot OS-aware (intercepta KC_PSCR) ---
+        case KC_PSCR:
+            if (record->event.pressed && is_mac) {
+                register_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI));
+                tap_code(KC_4);
+                unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI));
+                return false;
+            }
+            return true;
+
+        // --- Dev shortcuts OS-aware ---
+        case DEV_COPY:
+            if (record->event.pressed) tap_code16(os_ctrl(KC_C));
+            return false;
+        case DEV_PASTE:
+            if (record->event.pressed) tap_code16(os_ctrl(KC_V));
+            return false;
+        case DEV_CUT:
+            if (record->event.pressed) tap_code16(os_ctrl(KC_X));
+            return false;
+        case DEV_UNDO:
+            if (record->event.pressed) tap_code16(os_ctrl(KC_Z));
+            return false;
+        case DEV_REDO:
+            if (record->event.pressed) {
+                // macOS: Cmd+Shift+Z | Windows: Ctrl+Y
+                tap_code16(is_mac ? SGUI(KC_Z) : LCTL(KC_Y));
+            }
+            return false;
+        case DEV_COMMENT:
+            if (record->event.pressed) tap_code16(os_ctrl(KC_SLSH));
+            return false;
+        case DEV_DUP_LINE:
+            if (record->event.pressed) {
+                // VSCode + JetBrains: Shift+Alt+↓ (ambos OS)
+                tap_code16(LSFT(LALT(KC_DOWN)));
+            }
+            return false;
+        case DEV_DEL_LINE:
+            if (record->event.pressed) {
+                // VSCode: Ctrl+Shift+K | JetBrains: Ctrl+Y
+                tap_code16(is_mac ? SGUI(KC_K) : LCTL(LSFT(KC_K)));
+            }
+            return false;
+        case DEV_HOME:
+            if (record->event.pressed) {
+                tap_code16(is_mac ? LGUI(KC_LEFT) : KC_HOME);
+            }
+            return false;
+        case DEV_END:
+            if (record->event.pressed) {
+                tap_code16(is_mac ? LGUI(KC_RIGHT) : KC_END);
+            }
+            return false;
+        case DEV_WORD_LEFT:
+            if (record->event.pressed) {
+                tap_code16(is_mac ? LALT(KC_LEFT) : LCTL(KC_LEFT));
+            }
+            return false;
+        case DEV_WORD_RIGHT:
+            if (record->event.pressed) {
+                tap_code16(is_mac ? LALT(KC_RIGHT) : LCTL(KC_RIGHT));
+            }
             return false;
     }
 

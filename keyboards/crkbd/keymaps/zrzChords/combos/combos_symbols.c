@@ -1,8 +1,14 @@
 #include "combos_symbols.h"
 
-const uint16_t PROGMEM bracket_combo[] = { KC_ESC, KC_Q, COMBO_END };
-const uint16_t PROGMEM curly_brace_combo[] = { KC_ESC, KC_A, COMBO_END };
-const uint16_t PROGMEM paren_combo[] = { KC_ESC, KC_Z, COMBO_END };
+// Nota: top-left key es LGUI_T(KC_ESC) tras el refactor de Layer 0
+const uint16_t PROGMEM bracket_combo[]    = { LGUI_T(KC_ESC), KC_Q, COMBO_END };  // ESC+Q → [
+const uint16_t PROGMEM curly_brace_combo[] = { LGUI_T(KC_ESC), KC_A, COMBO_END }; // ESC+A → {
+const uint16_t PROGMEM paren_combo[]      = { LGUI_T(KC_ESC), KC_Z, COMBO_END };  // ESC+Z → (
+
+// Cierre de brackets — mismo anchor ESC, tecla adyacente derecha
+const uint16_t PROGMEM bracket_close_combo[] = { LGUI_T(KC_ESC), KC_W, COMBO_END };  // ESC+W → ]
+const uint16_t PROGMEM curly_close_combo[]   = { LGUI_T(KC_ESC), KC_S, COMBO_END };  // ESC+S → }
+const uint16_t PROGMEM paren_close_combo[]   = { LGUI_T(KC_ESC), KC_X, COMBO_END };  // ESC+X → )
 
 const uint16_t PROGMEM left_slsh[] = { KC_X, KC_D, KC_R, COMBO_END };
 const uint16_t PROGMEM left_bsls[] = { KC_W, KC_D, KC_V, COMBO_END };
