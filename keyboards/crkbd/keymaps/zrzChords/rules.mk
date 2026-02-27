@@ -37,10 +37,6 @@ SRC += \
     ./init/init_user.c \
     ./handlers/keycode_handler.c \
     ./combos/combos.c \
-    ./combos/combos_git.c \
-    ./combos/combos_media.c \
     ./combos/combos_misc.c \
-    ./combos/combos_spanish.c \
     ./combos/combos_symbols.c \
-    ./combos/combos_control.c \
-    ./combos/combos_function.c
+    ./combos/combos_control.c

@@ -35,8 +35,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LAYER_LOCK_IDLE_TIMEOUT 10000
 #define RGB_DISABLE_WHEN_USB_SUSPENDED true
 
-#define TAPPING_TERM 160
-#define COMBO_TERM   50
+#define TAPPING_TERM    175
+#define PERMISSIVE_HOLD
+#define COMBO_TERM       35
+#define COMBO_STRICT_TIMER
 
 #define SPLIT_LAYER_STATE_ENABLE
 
