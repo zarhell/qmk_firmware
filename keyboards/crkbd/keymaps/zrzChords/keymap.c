@@ -133,9 +133,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ╭──────────┬──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────┬──────────╮
      _______,   D_HOME,    KC_UP,     D_END,     _______,   KC_NUM,         KC_F7,     KC_F8,     KC_F9,     KC_F10,    KC_F11,    KC_F12,
   // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
-     _______,   KC_LEFT,   KC_DOWN,   KC_RIGHT,  _______,   _______,        KC_F4,     KC_F5,     KC_F6,     KC_F1,     KC_F2,     KC_F3,
+     WD_LEFT,   KC_LEFT,   KC_DOWN,   KC_RIGHT,  WD_RGHT,   KC_PGUP,         KC_F1,     KC_F2,     KC_F3,      KC_F4,     KC_F5,     KC_F6,
   // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
-     _______,   KC_PGUP,   _______,   KC_PGDN,   _______,   _______,        _______,   _______,   _______,   _______,   _______,   _______,
+     _______,   _______,   _______,   _______,   _______,   KC_PGDN,        _______,   _______,   _______,   _______,   _______,   _______,
   // ╰──────────┴──────────┴──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┴──────────┴──────────╯
                                        _______,   _______,   _______,        KC_INS,    _______,   _______
   //                                  ╰──────────┴──────────┴──────────╯   ╰──────────┴──────────┴──────────╯
@@ -146,13 +146,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* ========================================================================== */
 [2] = LAYOUT_split_3x6_3(
   // ╭──────────┬──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────┬──────────╮
-     TOG_OS,    KC_7,      KC_8,      KC_9,      _______,   KC_NUM,         MS_WHLU,   _______,   MS_BTN1,   MS_UP,     MS_BTN2,   KC_WBAK,
+       TOG_OS,    _______,      KC_7,      KC_8,      KC_9,  KC_NUM,         MS_WHLU,   MS_BTN1,   MS_UP,     MS_BTN2,    KC_WBAK,   _______,
   // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
-     _______,   KC_4,      KC_5,      KC_6,      _______,   KC_PSCR,        MS_WHLD,   _______,   MS_LEFT,   MS_DOWN,   MS_RGHT,   KC_WFWD,
-  // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
-     _______,   KC_1,      KC_2,      KC_3,      KC_0,      KC_PAUSE,       MS_BTN3,   _______,   _______,   _______,   _______,   _______,
+       _______,   _______,      KC_4,      KC_5,      KC_6,   KC_DOT,        MS_WHLD,   MS_LEFT,   MS_DOWN,   MS_RGHT,   KC_WFWD,   _______,
+  // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
+       KC_PAUSE,   _______,     KC_1,      KC_2,      KC_3,   KC_COMM,       MS_BTN3,   _______,   _______,   _______,   _______,   _______,
   // ╰──────────┴──────────┴──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┴──────────┴──────────╯
-                                       _______,   _______,   _______,        LLOCK,     _______,   _______
+                                           KC_0,   _______,   _______,        LLOCK,     _______,   _______
   //                                  ╰──────────┴──────────┴──────────╯   ╰──────────┴──────────┴──────────╯
 )
 
@@ -165,24 +165,24 @@ const uint8_t PROGMEM ledmap[2][42][3] = {
 
 {   // Layer 1: Navegación (L) + Función (R)
     // top   L: ___  | HOME | UP  | END  | ___  | NUM              top   R: F7   | F8  | F9  | F10  | F11  | F12
-    ___off___, MG_RED,   MG_BLUE,  MG_RED,   ___off___, ___off___,  MG_RED,   MG_RED,   MG_RED,   MG_RED,   MG_RED,   MG_RED,
+    ___off___, ___off___,   MG_BLUE,  ___off___,   ___off___,      ___off___,  MG_RED,   MG_RED,   MG_RED,   MG_RED,   MG_RED,   MG_RED,
     // home  L: ___  | LEFT | DOWN | RGHT | ___  | ___              home  R: F4   | F5  | F6  | F1   | F2   | F3
-    ___off___, MG_BLUE,  MG_BLUE,  MG_BLUE,  ___off___, ___off___,  MG_RED,   MG_RED,   MG_RED,   MG_RED,   MG_RED,   MG_RED,
+    ___off___, MG_BLUE,  MG_BLUE,  MG_BLUE,  ___off___,           ___off___,  MG_RED,   MG_RED,   MG_RED,   MG_RED,   MG_RED,   MG_RED,
     // bot   L: ___  | PGUP | ___  | PGDN | ___  | ___              bot   R: ___  | ___  | ___  | ___  | ___  | ___
-    ___off___, MG_RED,   ___off___, MG_RED,   ___off___, ___off___,  ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,
+    ___off___, ___off___,   ___off___, ___off___,              ___off___, ___off___,  ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,
     // thumb L: ___  | ___  | ___                                    thumb R: INS  | ___  | ___
-    ___off___, ___off___, ___off___,                                  MG_CYAN,  ___off___, ___off___
+                               ___off___, ___off___, ___off___,                                  MG_CYAN,  ___off___, ___off___
 },
 
 {   // Layer 2: Números (L) + Mouse (R)
-    // top   L: OS   |  7  |  8   |  9   | ___  | NUM              top   R: WHLU  | ___  | BTN1 | UP   | BTN2 | WBAK
-    MG_CYAN,  MG_RED,   MG_RED,   MG_RED,   ___off___, ___off___,  MG_CYAN,  ___off___, MG_RED,   MG_BLUE,  MG_RED,   ___off___,
-    // home  L: ___  |  4  |  5   |  6   | ___  | PSCR             home  R: WHLD  | ___  | LEFT | DOWN | RGHT | WFWD
-    ___off___, MG_RED,   MG_RED,   MG_RED,   ___off___, ___off___,  MG_CYAN,  ___off___, MG_BLUE,  MG_BLUE,  MG_BLUE,  ___off___,
-    // bot   L: ___  |  1  |  2   |  3   |  0   | PAUSE            bot   R: BTN3  | ___  | ___  | ___  | ___  | ___
-    ___off___, MG_RED,   MG_RED,   MG_RED,   MG_RED,   ___off___,   MG_RED,   ___off___, ___off___, ___off___, ___off___, ___off___,
+    // top   L: OS   |  ___  |  7  |  8   |  9  | NUM              top   R: WHLU  | ___  | BTN1 | UP   | BTN2 | WBAK
+    MG_CYAN,  ___off___,   MG_RED,   MG_RED,   MG_RED, ___off___,  ___off___,  ___off___, MG_BLUE,   ___off___,  ___off___,   ___off___,
+    // home  L: ___  |  ___  |  4  |  5   |  6  | PSCR             home  R: WHLD  | ___  | LEFT | DOWN | RGHT | WFWD
+    ___off___, ___off___,   MG_RED,   MG_RED,   MG_RED, ___off___,  ___off___,  MG_BLUE,  MG_BLUE,  MG_BLUE,  ___off___,  ___off___,
+    // bot   L: ___  | ___  |  1  |  2   |  3   | PAUSE            bot   R: BTN3  | ___  | ___  | ___  | ___  | ___
+    ___off___, ___off___,   MG_RED,   MG_RED,   MG_RED,   ___off___,   ___off___,   ___off___, ___off___, ___off___, ___off___, ___off___,
     // thumb L: ___  | ___  | ___                                    thumb R: LLOCK | ___  | ___
-    ___off___, ___off___, ___off___,                                  MG_CYAN,  ___off___, ___off___
+                               MG_RED, ___off___, ___off___,                                  ___off___,  ___off___, ___off___
 }
 };
 
