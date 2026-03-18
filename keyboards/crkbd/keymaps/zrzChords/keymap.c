@@ -16,30 +16,43 @@
 // Aliases — mod-tap & layer-tap
 //
 //   GUI_ESC  tap:Esc    hold:GUI     |  GUI_QT   tap:'      hold:GUI
-//   ALT_TAB  tap:Tab    hold:Alt     |  CTL_ENT  tap:Enter  hold:Ctrl
+//   L2_TAB   tap:Tab    hold:Layer2  |  ALT_G    tap:G      hold:Alt
+//   L2_PSCR  tap:PrtScr hold:Layer2
 //
-// Layer 0 thumb izquierdo:
-//   KC_LCTL  ← Ctrl puro (sin tap), 0 delay para Ctrl+C/V/Z/X
-//   MO(1)    ← Layer 1 momentáneo (sin tap, reemplaza L1_DOT)
-//   L2_SPC   tap:Space  hold:Layer2
+// Pinky izquierdo home row:
+//   L2_TAB   Tab / Layer2 — acceso a Mouse y F-keys desde mano izquierda
 //
-// Thumb derecho Layer 1:
-//   KC_0 en tercer thumb (L1_PSCR position) para numpad completo
+// Home row izquierdo col 5:
+//   ALT_G    G tap, Alt hold — modificador Alt sin salir de home row
 //
-// Short aliases para keycodes largos:
-//   COMMENT = DEV_COMMENT    Ctrl+/  (macOS: Cmd+/)
-//   WD_LEFT = DEV_WORD_LEFT  Alt+←   (macOS) / Ctrl+← (Windows)
-//   WD_RGHT = DEV_WORD_RIGHT Alt+→   (macOS) / Ctrl+→ (Windows)
-//   D_HOME  = DEV_HOME       Cmd+←   (macOS) / Home   (Windows)
-//   D_END   = DEV_END        Cmd+→   (macOS) / End    (Windows)
+// Thumb izquierdo:
+//   KC_LCTL  Ctrl puro — 0 delay para Ctrl+C/V/Z/X
+//   MO(1)    Layer 1 momentáneo (sin tap)
+//   KC_SPC   Space puro — permite combos B+SPC, G+SPC, T+SPC
+//
+// Thumb derecho:
+//   KC_ENT   Enter puro
+//   MO(1)    Layer 1 momentáneo
+//   L2_PSCR  tap:PrtScr hold:Layer2 — acceso Layer2 desde mano derecha
+//
+// Nota L2_TAB / ALT_G: PERMISSIVE_HOLD deshabilitado vía get_permissive_hold()
+//   para evitar activación accidental de capa/modificador en combos rápidos.
+//
+// Layer 1, posición L2_PSCR:
+//   KC_0 — tap cuando Layer1 está activo vía MO(1)
+//
+// Short aliases:
+//   COMMENT = DEV_COMMENT    Ctrl+/ (macOS: Cmd+/)
+//   WD_LEFT = DEV_WORD_LEFT  Alt+← (macOS) / Ctrl+← (Windows)
+//   WD_RGHT = DEV_WORD_RIGHT Alt+→ (macOS) / Ctrl+→ (Windows)
+//   D_HOME  = DEV_HOME       Cmd+← (macOS) / Home (Windows)
+//   D_END   = DEV_END        Cmd+→ (macOS) / End (Windows)
 // ---------------------------------------------------------------------------
 #define GUI_ESC  LGUI_T(KC_ESC)
 #define GUI_QT   LGUI_T(KC_QUOT)
-#define ALT_TAB  LALT_T(KC_TAB)
-#define CTL_ENT  RCTL_T(KC_ENT)
-#define L2_SPC   LT(2, KC_SPC)
 #define L2_TAB   LT(2, KC_TAB)
-#define L1_PSCR  LT(1, KC_PSCR)
+#define ALT_G    LALT_T(KC_G)
+#define L2_PSCR  LT(2, KC_PSCR)
 
 #define COMMENT  DEV_COMMENT
 #define WD_LEFT  DEV_WORD_LEFT
@@ -85,9 +98,8 @@ combo_t key_combos[] = {
     COMBO(left_bspc,      KC_BSPC),
     COMBO(t_SPC_DEL,      KC_DEL),
     COMBO(n_ENT_spc,      KC_SPC),
-    COMBO(caps_combo,     KC_CAPS),       // Z+X+C → CapsLock
+    COMBO(caps_combo,     KC_CAPS),       // LSFT+Z+X → CapsLock
     COMBO(app_menu_combo, APP_MENU),      // M+N → KC_APP / Shift+F10
-    COMBO(alt_tab_combo,  ALT_TAB_HOLD),  // Tab+A → Alt+Tab (mantiene Alt)
 
     // — Brackets (apertura)
     COMBO(bracket_combo,     KC_LBRC),
@@ -144,11 +156,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ╭──────────┬──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────┬──────────╮
      GUI_ESC,   KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,           KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,      KC_BSPC,
   // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
-     ALT_TAB,   KC_A,      KC_S,      KC_D,      KC_F,      KC_G,           KC_H,      KC_J,      KC_K,      KC_L,      COMMENT,   GUI_QT,
+     L2_TAB,    KC_A,      KC_S,      KC_D,      KC_F,      ALT_G,          KC_H,      KC_J,      KC_K,      KC_L,      COMMENT,   GUI_QT,
   // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
-     KC_LSFT,   KC_Z,      KC_X,      KC_C,      KC_V,      KC_B,           KC_N,      KC_M,      KC_COMM,   KC_DOT,    KC_SLSH,   KC_RSFT,
+     KC_LSFT,   KC_Z,      KC_X,      KC_C,      KC_V,      KC_B,           KC_N,      KC_M,      KC_COMM,   KC_DOT,    KC_RALT,   KC_RSFT,
   // ╰──────────┴──────────┴──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┴──────────┴──────────╯
-                                       KC_LCTL,   MO(1),     L2_SPC,         CTL_ENT,   L2_TAB,    L1_PSCR
+                                       KC_LCTL,   MO(1),     KC_SPC,        KC_ENT,   MO(1),    L2_PSCR
   //                                  ╰──────────┴──────────┴──────────╯   ╰──────────┴──────────┴──────────╯
 ),
 
@@ -194,11 +206,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [2] = LAYOUT_split_3x6_3(
   // ╭──────────┬──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────┬──────────╮
-     TOG_OS,    _______,   MS_UP,     _______,   MS_BTN1,   MS_WHLU,        KC_F7,     KC_F8,     KC_F9,     KC_F10,    KC_F11,    KC_F12,
+     TOG_OS,    MS_BTN1,   MS_UP,     MS_BTN2,   MS_BTN3,   MS_WHLU,        KC_F7,     KC_F8,     KC_F9,     KC_F10,    KC_F11,    KC_F12,
   // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
-     _______,   MS_LEFT,   MS_DOWN,   MS_RGHT,  MS_BTN2,   MS_WHLD,        KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,     KC_F6,
+     _______,   MS_LEFT,   MS_DOWN,   MS_RGHT,  _______,   MS_WHLD,        KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,     KC_F6,
   // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
-     KC_PAUSE,  MS_BTN3,   _______,   _______,   KC_WBAK,   KC_WFWD,        _______,   _______,   _______,   _______,   _______,   _______,
+     KC_PAUSE,  KC_WBAK,   KC_WFWD,   _______,   _______,   _______,        _______,   _______,   _______,   _______,   _______,   _______,
   // ╰──────────┴──────────┴──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┴──────────┴──────────╯
                                        _______,   _______,   _______,         LLOCK,     _______,   _______
   //                                  ╰──────────┴──────────┴──────────╯   ╰──────────┴──────────┴──────────╯
@@ -221,11 +233,11 @@ const uint8_t PROGMEM ledmap[2][42][3] = {
 {   // Layer 1: Navegación (L) + Números (R)
     //
     // top   L: ___   | D_HOME | UP    | D_END  | ___  | ___       top   R: ___  | 7    | 8    | 9    | ___  | ___
-    ___off___, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, ___off___,    ___off___, MG_RED, MG_RED, MG_RED, ___off___, ___off___,
+    ___off___, ___off___, MG_BLUE, ___off___, ___off___, ___off___,    ___off___, MG_RED, MG_RED, MG_RED, ___off___, ___off___,
     // home  L: ___   | LEFT   | DOWN  | RIGHT  | ___  | PGUP      home  R: ___  | 4    | 5    | 6    | ___  | ___
-    ___off___, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, MG_BLUE,      ___off___, MG_RED, MG_RED, MG_RED, ___off___, ___off___,
+    ___off___, MG_BLUE, MG_BLUE, MG_BLUE, ___off___, ___off___,      ___off___, MG_RED, MG_RED, MG_RED, ___off___, ___off___,
     // bot   L: ___   | WD_L   | ___   | WD_R   | ___  | PGDN      bot   R: ___  | 1    | 2    | 3    | ___  | ___
-    ___off___, MG_BLUE, ___off___, MG_BLUE, ___off___, MG_BLUE,    ___off___, MG_RED, MG_RED, MG_RED, ___off___, ___off___,
+    ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,    ___off___, MG_RED, MG_RED, MG_RED, ___off___, ___off___,
     // thumb L: ___  | ___  | ___                                   thumb R: ___  | ___  | 0
                                ___off___, ___off___, ___off___,                                ___off___, ___off___, MG_RED
 },
@@ -233,15 +245,28 @@ const uint8_t PROGMEM ledmap[2][42][3] = {
 {   // Layer 2: Mouse (L) + Función (R)
     //
     // top   L: TOG_OS | ___    | MS_UP | ___    | BTN1 | WHLU     top   R: F7     | F8     | F9     | F10    | F11    | F12
-    MG_CYAN, ___off___, MG_CYAN, ___off___, MG_CYAN, MG_CYAN,      MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,
+    ___off___, ___off___, MG_CYAN, ___off___, ___off___, ___off___,      MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,
     // home  L: ___    | MS_L   | MS_DN | MS_R   | BTN2 | WHLD     home  R: F1     | F2     | F3     | F4     | F5     | F6
-    ___off___, MG_CYAN, MG_CYAN, MG_CYAN, MG_CYAN, MG_CYAN,        MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,
+    ___off___, MG_CYAN, MG_CYAN, MG_CYAN, ___off___, ___off___,        MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,
     // bot   L: PAUSE  | BTN3   | ___   | ___    | WBAK | WFWD     bot   R: ___    | ___    | ___    | ___    | ___    | ___
-    MG_CYAN, MG_CYAN, ___off___, ___off___, MG_CYAN, MG_CYAN,      ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,
+    ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,      ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,
     // thumb L: ___  | ___  | ___                                   thumb R: LLOCK | ___  | ___
                                ___off___, ___off___, ___off___,                                MG_CYAN, ___off___, ___off___
 }
 };
+
+// Desactiva PERMISSIVE_HOLD para mod-taps de home row izquierdo:
+// evita que combos rápidos (G+SPC, R+G, etc.) activen Alt o Layer2
+// antes de que expire el TAPPING_TERM.
+bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case L2_TAB:
+        case ALT_G:
+            return false;
+        default:
+            return true;
+    }
+}
 
 uint16_t get_combo_len(void) {
     return sizeof(key_combos) / sizeof(combo_t);

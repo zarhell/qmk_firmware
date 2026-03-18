@@ -82,21 +82,6 @@ bool handle_keycode(uint16_t keycode, keyrecord_t *record) {
         }
 
         // -------------------------------------------------------------------
-        // Alt+Tab con Alt sostenido para navegación de ventanas
-        //   Press: registra LALT + envía Tab (abre switcher)
-        //   Release: libera LALT (confirma selección)
-        //   Mientras está presionado: puede seguir presionando Tab o flechas
-        // -------------------------------------------------------------------
-        case ALT_TAB_HOLD:
-            if (record->event.pressed) {
-                register_code(KC_LALT);
-                tap_code(KC_TAB);
-            } else {
-                unregister_code(KC_LALT);
-            }
-            return false;
-
-        // -------------------------------------------------------------------
         // Acentos españoles — combo de dos teclas, mano derecha
         // Windows: Alt(derecho)+numpad → no interfiere con VSCode
         // macOS:   send_string con UTF-8 (requiere layout que lo soporte)
