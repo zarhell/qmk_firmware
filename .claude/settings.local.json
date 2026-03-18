@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./keyboards/crkbd/keymaps/zrzChords/scripts/compile_crkbd.sh 2>&1)"
+    ]
+  }
+}

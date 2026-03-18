@@ -7,100 +7,38 @@
 
 // ---------------------------------------------------------------------------
 // Lightweight Alt+numpad unicode sender (Windows, no UNICODE_ENABLE needed).
-// Sends Alt + 0 + three decimal digits → ANSI/Unicode codepoint.
-// Requires NumLock ON. Works for codepoints 0x0020–0x00FF (Latin-1 range).
+// Usa KC_RALT en lugar de KC_LALT para evitar que VSCode active su menú
+// al interceptar el Alt izquierdo durante la secuencia de numpad.
+// Requiere NumLock ON. Funciona para codepoints 0x0020–0x00FF (Latin-1).
 // ---------------------------------------------------------------------------
 static inline uint8_t numpad_kc(uint8_t d) {
-    // KC_P1..KC_P9 are consecutive; KC_P0 is separate
     return d == 0 ? KC_P0 : KC_P1 + (d - 1);
 }
 
 static void send_win_unicode(uint16_t cp) {
-    register_code(KC_LALT);
-    tap_code(KC_P0);                              // leading 0 → ANSI mode
+    register_code(KC_RALT);            // Right Alt: no activa menú en VSCode
+    tap_code(KC_P0);                   // leading 0 → modo ANSI
     tap_code(numpad_kc((cp / 100) % 10));
     tap_code(numpad_kc((cp / 10)  % 10));
     tap_code(numpad_kc( cp        % 10));
-    unregister_code(KC_LALT);
+    unregister_code(KC_RALT);
 }
 
 // ---------------------------------------------------------------------------
-// Spanish double-tap: press the same key twice quickly → accented character.
-//   A+A → á,  E+E → é,  N+N → ñ,  1+1 → ¡,  /+/ → ¿
-// Shift held on the second tap produces the uppercase variant (Á, É, Ñ …).
+// Envía acento con soporte uppercase (Shift sostenido al activar el combo).
 // ---------------------------------------------------------------------------
-// DOUBLE_TAP_TERM can be overridden in config.h
-#ifndef DOUBLE_TAP_TERM
-#define DOUBLE_TAP_TERM 200
-#endif
-
-static uint16_t dt_last_keycode = KC_NO;
-static uint16_t dt_last_time    = 0;
-
-static bool is_spanish_key(uint16_t keycode) {
-    switch (keycode) {
-        case KC_A: case KC_E: case KC_I:
-        case KC_O: case KC_U: case KC_N:
-        case KC_1: case KC_SLSH:
-        case SFT_T(KC_SCLN):   // ;; → :
-            return true;
-        default:
-            return false;
-    }
+static void send_accent(uint16_t lo, uint16_t hi) {
+    uint8_t saved_mods = get_mods();
+    del_mods(MOD_MASK_SHIFT);
+    send_win_unicode((saved_mods & MOD_MASK_SHIFT) ? hi : lo);
+    set_mods(saved_mods);
 }
-
-static bool handle_spanish_double_tap(uint16_t keycode, keyrecord_t *record) {
-    if (!record->event.pressed) return true;
-
-    // Any non-Spanish key in between resets the sequence (fixes "palabra" → "paábra")
-    if (!is_spanish_key(keycode)) {
-        dt_last_keycode = KC_NO;
-        return true;
-    }
-
-    if (keycode == dt_last_keycode && timer_elapsed(dt_last_time) < DOUBLE_TAP_TERM) {
-        dt_last_keycode = KC_NO;
-
-        // ;; → :
-        if (keycode == SFT_T(KC_SCLN)) {
-            tap_code(KC_BSPC);
-            tap_code16(S(KC_SCLN));
-            return false;
-        }
-
-        uint16_t lo = 0, hi = 0;
-        switch (keycode) {
-            case KC_A:    lo = 0xE1; hi = 0xC1; break; // á / Á
-            case KC_E:    lo = 0xE9; hi = 0xC9; break; // é / É
-            case KC_I:    lo = 0xED; hi = 0xCD; break; // í / Í
-            case KC_O:    lo = 0xF3; hi = 0xD3; break; // ó / Ó
-            case KC_U:    lo = 0xFA; hi = 0xDA; break; // ú / Ú
-            case KC_N:    lo = 0xF1; hi = 0xD1; break; // ñ / Ñ
-            case KC_1:    lo = 0xA1; hi = 0xA1; break; // ¡
-            case KC_SLSH: lo = 0xBF; hi = 0xBF; break; // ¿
-            default:      return true;
-        }
-
-        uint8_t saved_mods = get_mods();
-        del_mods(MOD_MASK_SHIFT);
-        tap_code(KC_BSPC);
-        send_win_unicode((saved_mods & MOD_MASK_SHIFT) ? hi : lo);
-        set_mods(saved_mods);
-        return false;
-    }
-
-    dt_last_keycode = keycode;
-    dt_last_time    = timer_read();
-    return true;
-}
-
 
 // ---------------------------------------------------------------------------
 // OS mode (false = Windows, true = macOS). Toggle con TOG_OS.
 // ---------------------------------------------------------------------------
 bool is_mac = false;
 
-// Envía el modificador correcto según OS: LGUI en macOS, LCTL en Windows.
 static inline uint16_t os_ctrl(uint16_t kc) {
     return is_mac ? LGUI(kc) : LCTL(kc);
 }
@@ -118,8 +56,6 @@ bool handle_keycode(uint16_t keycode, keyrecord_t *record) {
 
     if (!process_layer_lock(keycode, record, LLOCK)) return false;
     if (!process_select_word(keycode, record, SELWORD)) return false;
-
-    if (!handle_spanish_double_tap(keycode, record)) return false;
 
     mod_state = get_mods();
     switch (keycode) {
@@ -144,6 +80,45 @@ bool handle_keycode(uint16_t keycode, keyrecord_t *record) {
             }
             return true;
         }
+
+        // -------------------------------------------------------------------
+        // Alt+Tab con Alt sostenido para navegación de ventanas
+        //   Press: registra LALT + envía Tab (abre switcher)
+        //   Release: libera LALT (confirma selección)
+        //   Mientras está presionado: puede seguir presionando Tab o flechas
+        // -------------------------------------------------------------------
+        case ALT_TAB_HOLD:
+            if (record->event.pressed) {
+                register_code(KC_LALT);
+                tap_code(KC_TAB);
+            } else {
+                unregister_code(KC_LALT);
+            }
+            return false;
+
+        // -------------------------------------------------------------------
+        // Acentos españoles — combo de dos teclas, mano derecha
+        // Windows: Alt(derecho)+numpad → no interfiere con VSCode
+        // macOS:   send_string con UTF-8 (requiere layout que lo soporte)
+        // -------------------------------------------------------------------
+        case TILDE_A:
+            if (record->event.pressed) send_accent(0xE1, 0xC1);  // á / Á
+            return false;
+        case TILDE_E:
+            if (record->event.pressed) send_accent(0xE9, 0xC9);  // é / É
+            return false;
+        case TILDE_I:
+            if (record->event.pressed) send_accent(0xED, 0xCD);  // í / Í
+            return false;
+        case TILDE_O:
+            if (record->event.pressed) send_accent(0xF3, 0xD3);  // ó / Ó
+            return false;
+        case TILDE_U:
+            if (record->event.pressed) send_accent(0xFA, 0xDA);  // ú / Ú
+            return false;
+        case ENIE:
+            if (record->event.pressed) send_accent(0xF1, 0xD1);  // ñ / Ñ
+            return false;
 
         // Misc string combos
         case EMAIL_GMAIL:
@@ -200,7 +175,6 @@ bool handle_keycode(uint16_t keycode, keyrecord_t *record) {
             return false;
         case APP_MENU:
             if (record->event.pressed) {
-                // macOS: Shift+F10 (context menu universal) | Windows: App key
                 tap_code16(is_mac ? LSFT(KC_F10) : KC_APP);
             }
             return false;
