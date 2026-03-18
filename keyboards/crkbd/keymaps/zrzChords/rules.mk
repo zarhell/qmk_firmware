@@ -38,4 +38,5 @@ SRC += \
     ./combos/combos.c \
     ./combos/combos_misc.c \
     ./combos/combos_symbols.c \
-    ./combos/combos_control.c
+    ./combos/combos_control.c \
+    ./combos/combos_spanish.c
