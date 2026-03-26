@@ -17,12 +17,18 @@ enum custom_keycodes {
     APP_MENU,         // Shift+F10 (macOS) / KC_APP (Windows)
 
     // --- Acentos españoles (combos dos teclas, mano derecha) ---
-    TILDE_A,    // A+S  → á / Á
+    TILDE_A,    // A+Z  → á / Á
     TILDE_E,    // E+D  → é / É
     TILDE_I,    // I+K  → í / Í
     TILDE_O,    // O+L  → ó / Ó
     TILDE_U,    // U+J  → ú / Ú
     ENIE,       // N+J  → ñ / Ñ
+
+    // --- Navegación entre ventanas (Alt+Tab Win / Cmd+Tab Mac) ---
+    WIN_SWAP,     // hold = mantiene modificador vivo; tap Tab para ciclar
+
+    // --- Símbolo: acento agudo suelto ´ ---
+    ACUTE_ACC,    // D+R → ´  (Win: Alt+0180 / Mac: Opt+e, Space)
 
     // --- Misc Combos ---
     EMAIL_GMAIL,

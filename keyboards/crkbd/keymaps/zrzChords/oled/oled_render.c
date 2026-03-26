@@ -9,13 +9,13 @@ void oled_render_layer_state(void) {
     oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
         case 0:
-            oled_write_ln_P(PSTR("Qwerty"), false);
+            oled_write_ln_P(PSTR("BASE"), false);
             break;
         case 1:
-            oled_write_ln_P(PSTR("Nav/Num"), false);
+            oled_write_ln_P(PSTR("NAV"), false);
             break;
         case 2:
-            oled_write_ln_P(PSTR("Numbers"), false);
+            oled_write_ln_P(PSTR("FN"), false);
             break;
         default:
             oled_write_ln_P(PSTR("???"), false);

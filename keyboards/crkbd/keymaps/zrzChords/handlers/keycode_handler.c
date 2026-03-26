@@ -25,12 +25,34 @@ static void send_win_unicode(uint16_t cp) {
 }
 
 // ---------------------------------------------------------------------------
-// Envía acento con soporte uppercase (Shift sostenido al activar el combo).
+// Acento macOS: Option + dead_kc activa muerta, luego envía base_kc.
+//   Ejemplos: Opt+e → ´ muerta; luego 'a' → á.
+//             Opt+n → ~ muerta; luego 'n' → ñ.
 // ---------------------------------------------------------------------------
-static void send_accent(uint16_t lo, uint16_t hi) {
+static void send_accent_mac(uint8_t dead_kc, uint8_t base_kc, bool upper) {
+    register_code(KC_LALT);
+    tap_code(dead_kc);
+    unregister_code(KC_LALT);
+    if (upper) { register_code(KC_LSFT); }
+    tap_code(base_kc);
+    if (upper) { unregister_code(KC_LSFT); }
+}
+
+// ---------------------------------------------------------------------------
+// Envía acento con soporte uppercase y detección de OS.
+//   lo/hi   → codepoints Latin-1 para Windows (Alt+numpad)
+//   mac_dead → tecla de la secuencia Option+dead en macOS
+//   mac_base → vocal/consonante a enviar después del dead key
+// ---------------------------------------------------------------------------
+static void send_accent(uint16_t lo, uint16_t hi, uint8_t mac_dead, uint8_t mac_base) {
     uint8_t saved_mods = get_mods();
     del_mods(MOD_MASK_SHIFT);
-    send_win_unicode((saved_mods & MOD_MASK_SHIFT) ? hi : lo);
+    bool upper = (saved_mods & MOD_MASK_SHIFT);
+    if (is_mac) {
+        send_accent_mac(mac_dead, mac_base, upper);
+    } else {
+        send_win_unicode(upper ? hi : lo);
+    }
     set_mods(saved_mods);
 }
 
@@ -38,6 +60,17 @@ static void send_accent(uint16_t lo, uint16_t hi) {
 // OS mode (false = Windows, true = macOS). Toggle con TOG_OS.
 // ---------------------------------------------------------------------------
 bool is_mac = false;
+
+// Estado para WIN_SWAP sticky: true mientras el modificador Alt/Cmd esté activo.
+static bool alt_tab_active = false;
+
+// Libera el modificador de WIN_SWAP si estaba activo (llamar al salir del layer).
+void win_swap_cancel(void) {
+    if (alt_tab_active) {
+        unregister_code(is_mac ? KC_LGUI : KC_LALT);
+        alt_tab_active = false;
+    }
+}
 
 static inline uint16_t os_ctrl(uint16_t kc) {
     return is_mac ? LGUI(kc) : LCTL(kc);
@@ -82,27 +115,43 @@ bool handle_keycode(uint16_t keycode, keyrecord_t *record) {
         }
 
         // -------------------------------------------------------------------
-        // Acentos españoles — combo de dos teclas, mano derecha
-        // Windows: Alt(derecho)+numpad → no interfiere con VSCode
-        // macOS:   send_string con UTF-8 (requiere layout que lo soporte)
+        // Acentos españoles — trigger: BSPC + vocal/N
+        // Windows: Alt(R)+numpad    → no interfiere con VSCode
+        // macOS:   Option+dead_key + vocal (requiere US keyboard layout)
         // -------------------------------------------------------------------
+        // mac_dead=KC_E → Opt+e = dead_acute; mac_dead=KC_N → Opt+n = dead_tilde
         case TILDE_A:
-            if (record->event.pressed) send_accent(0xE1, 0xC1);  // á / Á
+            if (record->event.pressed) send_accent(0xE1, 0xC1, KC_E, KC_A);  // á / Á
             return false;
         case TILDE_E:
-            if (record->event.pressed) send_accent(0xE9, 0xC9);  // é / É
+            if (record->event.pressed) send_accent(0xE9, 0xC9, KC_E, KC_E);  // é / É
             return false;
         case TILDE_I:
-            if (record->event.pressed) send_accent(0xED, 0xCD);  // í / Í
+            if (record->event.pressed) send_accent(0xED, 0xCD, KC_E, KC_I);  // í / Í
             return false;
         case TILDE_O:
-            if (record->event.pressed) send_accent(0xF3, 0xD3);  // ó / Ó
+            if (record->event.pressed) send_accent(0xF3, 0xD3, KC_E, KC_O);  // ó / Ó
             return false;
         case TILDE_U:
-            if (record->event.pressed) send_accent(0xFA, 0xDA);  // ú / Ú
+            if (record->event.pressed) send_accent(0xFA, 0xDA, KC_E, KC_U);  // ú / Ú
             return false;
         case ENIE:
-            if (record->event.pressed) send_accent(0xF1, 0xD1);  // ñ / Ñ
+            if (record->event.pressed) send_accent(0xF1, 0xD1, KC_N, KC_N);  // ñ / Ñ
+            return false;
+
+        // --- Acento agudo suelto ´ ---
+        // Win: Alt(R)+0180  /  Mac: Opt+e → dead_acute → Space
+        case ACUTE_ACC:
+            if (record->event.pressed) {
+                if (is_mac) {
+                    register_code(KC_LALT);
+                    tap_code(KC_E);
+                    unregister_code(KC_LALT);
+                    tap_code(KC_SPC);
+                } else {
+                    send_win_unicode(0xB4);
+                }
+            }
             return false;
 
         // Misc string combos
@@ -161,6 +210,20 @@ bool handle_keycode(uint16_t keycode, keyrecord_t *record) {
         case APP_MENU:
             if (record->event.pressed) {
                 tap_code16(is_mac ? LSFT(KC_F10) : KC_APP);
+            }
+            return false;
+
+        // --- Navegación entre ventanas (Win: Alt+Tab / Mac: Cmd+Tab) ---
+        // 1er toque: registra modificador + envía Tab → abre el switcher y lo mantiene visible.
+        // Toques siguientes: envía Tab para mover el selector (modificador sigue activo).
+        // El modificador se libera al salir del layer (layer_state_set_user en keymap.c).
+        case WIN_SWAP:
+            if (record->event.pressed) {
+                if (!alt_tab_active) {
+                    alt_tab_active = true;
+                    register_code(is_mac ? KC_LGUI : KC_LALT);
+                }
+                tap_code(KC_TAB);
             }
             return false;
     }

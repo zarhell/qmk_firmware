@@ -3,13 +3,9 @@
 #include "quantum.h"
 #include "keycodes/keycodes.h"
 
-// --- Declaración de combos (COMBO_ACTION requiere visibilidad de los arrays) ---
-extern const uint16_t PROGMEM tilde_a_combo[];
-extern const uint16_t PROGMEM tilde_e_combo[];
-extern const uint16_t PROGMEM tilde_i_combo[];
-extern const uint16_t PROGMEM tilde_o_combo[];
-extern const uint16_t PROGMEM tilde_u_combo[];
-extern const uint16_t PROGMEM tilde_n_combo[];
-extern const uint16_t PROGMEM enie_combo[];
-extern const uint16_t PROGMEM exclam_combo[];
-extern const uint16_t PROGMEM question_combo[];
+extern const uint16_t PROGMEM bspc_a_combo[];  // A+Z → á/Á
+extern const uint16_t PROGMEM bspc_e_combo[];  // E+D → é/É
+extern const uint16_t PROGMEM bspc_i_combo[];  // I+K → í/Í
+extern const uint16_t PROGMEM bspc_o_combo[];  // O+L → ó/Ó
+extern const uint16_t PROGMEM bspc_u_combo[];  // U+J → ú/Ú
+extern const uint16_t PROGMEM bspc_n_combo[];  // N+J → ñ/Ñ
