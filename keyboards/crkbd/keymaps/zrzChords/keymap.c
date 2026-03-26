@@ -42,11 +42,13 @@
 //   KC_0 — tap cuando Layer1 está activo vía MO(1)
 //
 // Short aliases:
-//   COMMENT = DEV_COMMENT    Ctrl+/ (macOS: Cmd+/)
 //   WD_LEFT = DEV_WORD_LEFT  Alt+← (macOS) / Ctrl+← (Windows)
 //   WD_RGHT = DEV_WORD_RIGHT Alt+→ (macOS) / Ctrl+→ (Windows)
 //   D_HOME  = DEV_HOME       Cmd+← (macOS) / Home (Windows)
 //   D_END   = DEV_END        Cmd+→ (macOS) / End (Windows)
+//
+// COMMENT eliminado del layout → X+D+F combo → DEV_COMMENT
+// WIN_SWAP en Layer 1 posición Tab → Alt+Tab(Win) / Cmd+Tab(Mac)
 // ---------------------------------------------------------------------------
 #define GUI_ESC  LGUI_T(KC_ESC)
 #define GUI_QT   LGUI_T(KC_QUOT)
@@ -54,7 +56,6 @@
 #define ALT_G    LALT_T(KC_G)
 #define L2_PSCR  LT(2, KC_PSCR)
 
-#define COMMENT  DEV_COMMENT
 #define WD_LEFT  DEV_WORD_LEFT
 #define WD_RGHT  DEV_WORD_RIGHT
 #define D_HOME   DEV_HOME
@@ -64,6 +65,9 @@
 // Combos
 // ---------------------------------------------------------------------------
 combo_t key_combos[] = {
+
+    // — Selección de palabra
+    COMBO(sel_word_combo, SELWORD),   // E+T → SELWORD
 
     // — Símbolos (layer base, mano izquierda)
     COMBO(left_slsh,          KC_SLSH),
@@ -86,12 +90,14 @@ combo_t key_combos[] = {
     COMBO(left_min,           KC_MINUS),
     COMBO(left_unds,          KC_UNDS),
     COMBO(left_plus,          KC_PLUS),
+    COMBO(left_acute,         ACUTE_ACC),  // D+R → ´
+    COMBO(left_comment,       DEV_COMMENT),// X+D+F → Ctrl+/
 
-    // — Puntuación mano izquierda (liberan SFT_SCL, CTL_CMM, L1_DOT)
-    COMBO(left_comma,   KC_COMM),   // Z+X → ,
-    COMBO(left_dot,     KC_DOT),    // X+C → .
-    COMBO(left_semi,    KC_SCLN),   // C+V → ;
-    COMBO(left_quote,   KC_QUOT),   // Q+W → '
+    // — Puntuación mano izquierda
+    COMBO(left_comma,   KC_COMM),   // S+X → ,
+    COMBO(left_dot,     KC_DOT),    // C+D → .
+    COMBO(left_semi,    KC_SCLN),   // F+V → ;
+    COMBO(left_quote,   KC_QUOT),   // W+R → '
 
     // — Control
     COMBO(left_enter,     KC_ENT),
@@ -111,13 +117,13 @@ combo_t key_combos[] = {
     COMBO(curly_close_combo,   KC_RCBR),
     COMBO(paren_close_combo,   KC_RPRN),
 
-    // — Acentos españoles (mano derecha, combos de dos teclas)
-    COMBO(tilde_a_combo, TILDE_A),   // A+S → á/Á
-    COMBO(tilde_e_combo, TILDE_E),   // E+D → é/É
-    COMBO(tilde_i_combo, TILDE_I),   // I+K → í/Í
-    COMBO(tilde_o_combo, TILDE_O),   // O+L → ó/Ó
-    COMBO(tilde_u_combo, TILDE_U),   // U+J → ú/Ú
-    COMBO(enie_combo,    ENIE),      // N+J → ñ/Ñ
+    // — Acentos españoles (BSPC = tecla a la derecha de P)
+    COMBO(bspc_a_combo, TILDE_A),   // BSPC+A → á/Á
+    COMBO(bspc_e_combo, TILDE_E),   // BSPC+E → é/É
+    COMBO(bspc_i_combo, TILDE_I),   // BSPC+I → í/Í
+    COMBO(bspc_o_combo, TILDE_O),   // BSPC+O → ó/Ó
+    COMBO(bspc_u_combo, TILDE_U),   // BSPC+U → ú/Ú
+    COMBO(bspc_n_combo, ENIE),      // BSPC+N → ñ/Ñ
 
     // — Misc (edita user_config.h para setear tus datos)
     COMBO(email_gmail_combo, EMAIL_GMAIL),
@@ -156,7 +162,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ╭──────────┬──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────┬──────────╮
      GUI_ESC,   KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,           KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,      KC_BSPC,
   // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
-     L2_TAB,    KC_A,      KC_S,      KC_D,      KC_F,      ALT_G,          KC_H,      KC_J,      KC_K,      KC_L,      COMMENT,   GUI_QT,
+     L2_TAB,    KC_A,      KC_S,      KC_D,      KC_F,      ALT_G,          KC_H,      KC_J,      KC_K,      KC_L,      KC_RCTL,   GUI_QT,
   // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
      KC_LSFT,   KC_Z,      KC_X,      KC_C,      KC_V,      KC_B,           KC_N,      KC_M,      KC_COMM,   KC_DOT,    KC_RALT,   KC_RSFT,
   // ╰──────────┴──────────┴──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┴──────────┴──────────╯
@@ -180,11 +186,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [1] = LAYOUT_split_3x6_3(
   // ╭──────────┬──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────┬──────────╮
-     _______,   D_HOME,    KC_UP,     D_END,     _______,   _______,        _______,   KC_7,      KC_8,      KC_9,      _______,   _______,
+     _______,   D_HOME,    KC_UP,     D_END,     _______,   LLOCK,        _______,   KC_7,      KC_8,      KC_9,      _______,   _______,
   // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
-     _______,   KC_LEFT,   KC_DOWN,   KC_RIGHT,  _______,   KC_PGUP,        _______,   KC_4,      KC_5,      KC_6,      _______,   _______,
+    WIN_SWAP,  KC_LEFT,   KC_DOWN,   KC_RIGHT,  _______,   KC_PGUP,        _______,   KC_4,      KC_5,      KC_6,      _______,   _______,
   // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
-     _______,   WD_LEFT,   _______,   WD_RGHT,   _______,   KC_PGDN,        _______,   KC_1,      KC_2,      KC_3,      _______,   _______,
+     _______,   WD_LEFT,   _______,   WD_RGHT,   _______,   KC_PGDN,        _______,   KC_1,      KC_2,      KC_3,      _______,   KC_LNUM,
   // ╰──────────┴──────────┴──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┴──────────┴──────────╯
                                        _______,   _______,   _______,         _______,   _______,   KC_0
   //                                  ╰──────────┴──────────┴──────────╯   ╰──────────┴──────────┴──────────╯
@@ -212,7 +218,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
      KC_PAUSE,  KC_WBAK,   KC_WFWD,   _______,   _______,   _______,        _______,   _______,   _______,   _______,   _______,   _______,
   // ╰──────────┴──────────┴──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┴──────────┴──────────╯
-                                       _______,   _______,   _______,         LLOCK,     _______,   _______
+                                       LLOCK,   _______,   _______,         KC_INS,     _______,   _______
   //                                  ╰──────────┴──────────┴──────────╯   ╰──────────┴──────────┴──────────╯
 )
 
@@ -274,6 +280,14 @@ uint16_t get_combo_len(void) {
 
 void matrix_scan_user(void) {
     layer_lock_task();
+}
+
+// Libera el modificador de WIN_SWAP al salir del layer 1.
+layer_state_t layer_state_set_user(layer_state_t state) {
+    if (!layer_state_cmp(state, 1)) {
+        win_swap_cancel();
+    }
+    return state;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
