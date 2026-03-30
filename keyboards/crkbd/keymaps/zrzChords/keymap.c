@@ -94,10 +94,15 @@ combo_t key_combos[] = {
     COMBO(left_comment,       DEV_COMMENT),// X+D+F → Ctrl+/
 
     // — Puntuación mano izquierda
-    COMBO(left_comma,   KC_COMM),   // S+X → ,
-    COMBO(left_dot,     KC_DOT),    // C+D → .
-    COMBO(left_semi,    KC_SCLN),   // F+V → ;
+    COMBO(left_comma,   KC_COMM),   // S+C → ,
+    COMBO(left_dot,     KC_DOT),    // D+V → .
+    COMBO(left_semi,    KC_SCLN),   // F+B → ;
     COMBO(left_quote,   KC_QUOT),   // W+R → '
+
+    // — macOS: navegación entre escritorios
+    COMBO(mac_desk_right, LGUI(KC_RGHT)),  // Q+D   → Cmd+→ (escritorio derecho)
+    COMBO(mac_desk_left,  LGUI(KC_LEFT)),  // A+E   → Cmd+← (escritorio izquierdo)
+    COMBO(mac_desk_up,    LGUI(KC_UP)),    // A+W+D → Cmd+↑ (Mission Control)
 
     // — Control
     COMBO(left_enter,     KC_ENT),
@@ -186,11 +191,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [1] = LAYOUT_split_3x6_3(
   // ╭──────────┬──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────┬──────────╮
-     _______,   D_HOME,    KC_UP,     D_END,     _______,   LLOCK,        _______,   KC_7,      KC_8,      KC_9,      _______,   _______,
+     _______,   D_HOME,    KC_UP,     D_END,     _______,   LLOCK,        LLOCK,   KC_7,      KC_8,      KC_9,      _______,   _______,
   // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
     WIN_SWAP,  KC_LEFT,   KC_DOWN,   KC_RIGHT,  _______,   KC_PGUP,        _______,   KC_4,      KC_5,      KC_6,      _______,   _______,
   // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
-     _______,   WD_LEFT,   _______,   WD_RGHT,   _______,   KC_PGDN,        _______,   KC_1,      KC_2,      KC_3,      _______,   KC_LNUM,
+     _______,   WD_LEFT,   _______,   WD_RGHT,   _______,   KC_PGDN,        KC_LNUM,   KC_1,      KC_2,      KC_3,      _______,   _______,
   // ╰──────────┴──────────┴──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┴──────────┴──────────╯
                                        _______,   _______,   _______,         _______,   _______,   KC_0
   //                                  ╰──────────┴──────────┴──────────╯   ╰──────────┴──────────┴──────────╯
