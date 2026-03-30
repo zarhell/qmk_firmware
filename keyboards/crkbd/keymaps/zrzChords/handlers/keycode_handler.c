@@ -199,12 +199,12 @@ bool handle_keycode(uint16_t keycode, keyrecord_t *record) {
             return false;
         case DEV_WORD_LEFT:
             if (record->event.pressed) {
-                tap_code16(is_mac ? LALT(KC_LEFT) : LCTL(KC_LEFT));
+                tap_code16(is_mac ? LOPT(KC_LEFT) : LCTL(KC_LEFT));
             }
             return false;
         case DEV_WORD_RIGHT:
             if (record->event.pressed) {
-                tap_code16(is_mac ? LALT(KC_RIGHT) : LCTL(KC_RIGHT));
+                tap_code16(is_mac ? LOPT(KC_RIGHT) : LCTL(KC_RIGHT));
             }
             return false;
         case APP_MENU:
