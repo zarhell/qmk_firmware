@@ -1,7 +1,6 @@
 #include QMK_KEYBOARD_H
 
 #include "features/layer_lock.h"
-#include "features/select_word.h"
 #include "rgb/rgb_indicators.h"
 #include "handlers/keycode_handler.h"
 #include "init/init_user.h"
@@ -66,9 +65,6 @@
 // ---------------------------------------------------------------------------
 combo_t key_combos[] = {
 
-    // — Selección de palabra
-    COMBO(sel_word_combo, SELWORD),   // E+T → SELWORD
-
     // — Símbolos (layer base, mano izquierda)
     COMBO(left_slsh,          KC_SLSH),
     COMBO(left_bsls,          KC_BSLS),
@@ -98,11 +94,6 @@ combo_t key_combos[] = {
     COMBO(left_dot,     KC_DOT),    // D+V → .
     COMBO(left_semi,    KC_SCLN),   // F+B → ;
     COMBO(left_quote,   KC_QUOT),   // W+R → '
-
-    // — macOS: navegación entre escritorios
-    COMBO(mac_desk_right, LGUI(KC_RGHT)),  // Q+D   → Cmd+→ (escritorio derecho)
-    COMBO(mac_desk_left,  LGUI(KC_LEFT)),  // A+E   → Cmd+← (escritorio izquierdo)
-    COMBO(mac_desk_up,    LGUI(KC_UP)),    // A+W+D → Cmd+↑ (Mission Control)
 
     // — Control
     COMBO(left_enter,     KC_ENT),
@@ -195,7 +186,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
     WIN_SWAP,  KC_LEFT,   KC_DOWN,   KC_RIGHT,  _______,   KC_PGUP,        _______,   KC_4,      KC_5,      KC_6,      _______,   _______,
   // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
-     _______,   WD_LEFT,   _______,   WD_RGHT,   _______,   KC_PGDN,        KC_LNUM,   KC_1,      KC_2,      KC_3,      _______,   _______,
+     _______,   WD_LEFT,   _______,   WD_RGHT,   _______,   KC_PGDN,        KC_NUM_LOCK, KC_1,      KC_2,      KC_3,      _______,   _______,
   // ╰──────────┴──────────┴──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┴──────────┴──────────╯
                                        _______,   _______,   _______,         _______,   _______,   KC_0
   //                                  ╰──────────┴──────────┴──────────╯   ╰──────────┴──────────┴──────────╯

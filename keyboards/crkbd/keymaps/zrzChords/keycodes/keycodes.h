@@ -3,7 +3,6 @@
 enum custom_keycodes {
     // Funciones personalizadas
     LLOCK = SAFE_RANGE,
-    SELWORD,
 
     // --- OS Toggle ---
     TOG_OS,     // Alterna entre macOS y Windows en tiempo de ejecución

@@ -1,8 +1,5 @@
 #include "combos_control.h"
 
-// --- Select Word ---
-const uint16_t PROGMEM sel_word_combo[] = { KC_E, KC_T, COMBO_END };  // E+T → SELWORD
-
 // --- Combos con Space (KC_SPC puro en Layer 0 thumb izq. 3) ---
 const uint16_t PROGMEM left_enter[]     = { KC_B,  KC_SPC,          COMBO_END };  // B+SPC       → Enter
 const uint16_t PROGMEM left_bspc[]      = { LALT_T(KC_G),  KC_SPC,  COMBO_END };  // G+SPC       → Bspc
@@ -18,12 +15,6 @@ const uint16_t PROGMEM caps_combo[]     = { KC_LSFT, KC_Z, KC_X,    COMBO_END };
 
 // --- Puntuación: combos de dos teclas en la mano izquierda ---
 // : y " se obtienen con Shift sostenido + el mismo combo (; y ')
-// left_quote movido a combos_symbols.c (E+R)
 const uint16_t PROGMEM left_comma[]     = { KC_S,  KC_C,            COMBO_END };  // S+C         → ,
 const uint16_t PROGMEM left_dot[]       = { KC_D,  KC_V,            COMBO_END };  // D+V         → .
 const uint16_t PROGMEM left_semi[]      = { KC_F,  KC_B,            COMBO_END };  // F+B         → ;
-
-// --- macOS: navegación entre escritorios ---
-const uint16_t PROGMEM mac_desk_right[] = { KC_Q,  KC_D,            COMBO_END };  // Q+D         → Cmd+→ (escritorio derecho)
-const uint16_t PROGMEM mac_desk_left[]  = { KC_A,  KC_E,            COMBO_END };  // A+E         → Cmd+← (escritorio izquierdo)
-const uint16_t PROGMEM mac_desk_up[]    = { KC_A,  KC_W,  KC_D,     COMBO_END };  // A+W+D       → Cmd+↑ (Mission Control)

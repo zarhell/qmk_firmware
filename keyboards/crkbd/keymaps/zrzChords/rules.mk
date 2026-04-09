@@ -30,7 +30,6 @@ EXTRAFLAGS += -flto
 
 SRC += \
     ./features/layer_lock.c \
-    ./features/select_word.c \
     ./rgb/rgb_indicators.c \
     ./utils/keylog.c \
     ./init/init_user.c \
