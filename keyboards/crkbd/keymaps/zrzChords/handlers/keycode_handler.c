@@ -1,6 +1,5 @@
 #include "keycode_handler.h"
 #include "features/layer_lock.h"
-#include "features/select_word.h"
 #include "utils/keylog.h"
 #include "keycodes/keycodes.h"
 #include "user_config.h"
@@ -88,7 +87,6 @@ bool handle_keycode(uint16_t keycode, keyrecord_t *record) {
     }
 
     if (!process_layer_lock(keycode, record, LLOCK)) return false;
-    if (!process_select_word(keycode, record, SELWORD)) return false;
 
     mod_state = get_mods();
     switch (keycode) {
