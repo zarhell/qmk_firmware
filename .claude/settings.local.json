@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(./keyboards/crkbd/keymaps/zrzChords/scripts/compile_crkbd.sh 2>&1)"
+      "Bash(./keyboards/crkbd/keymaps/zrzChords/scripts/compile_crkbd.sh 2>&1)",
+      "Bash(grep -c \"^\\\\*/$\" \"keyboards/crkbd/keymaps/zrzChords/keymap.c\")"
     ]
   }
 }
