@@ -7,10 +7,10 @@ extern const uint16_t PROGMEM left_enter[];
 extern const uint16_t PROGMEM left_bspc[];
 extern const uint16_t PROGMEM t_SPC_DEL[];
 extern const uint16_t PROGMEM n_ENT_spc[];
-extern const uint16_t PROGMEM caps_combo[];       // LSFT+Z+X → CapsLock
-extern const uint16_t PROGMEM app_menu_combo[];   // M+N → Context menu
+extern const uint16_t PROGMEM caps_combo[];
+extern const uint16_t PROGMEM app_menu_combo[];
 
-// --- Puntuación mano izquierda ---
-extern const uint16_t PROGMEM left_comma[];  // S+C → ,
-extern const uint16_t PROGMEM left_dot[];    // D+V → .
-extern const uint16_t PROGMEM left_semi[];   // F+B → ;
+extern const uint16_t PROGMEM left_comma[];
+extern const uint16_t PROGMEM left_dot[];
+extern const uint16_t PROGMEM left_semi[];
+extern const uint16_t PROGMEM left_colon[];
