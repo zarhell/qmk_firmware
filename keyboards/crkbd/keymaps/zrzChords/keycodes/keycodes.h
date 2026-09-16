@@ -11,6 +11,7 @@ enum custom_keycodes {
     DEV_WORD_LEFT,
     DEV_WORD_RIGHT,
     APP_MENU,
+    GUI_SFT,
 
     TILDE_A,
     TILDE_E,

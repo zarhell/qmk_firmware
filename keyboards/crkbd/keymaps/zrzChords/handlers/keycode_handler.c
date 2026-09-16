@@ -172,6 +172,14 @@ bool handle_keycode(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 
+        case GUI_SFT:
+            if (record->event.pressed) {
+                register_mods(MOD_BIT(KC_LGUI) | MOD_BIT(KC_LSFT));
+            } else {
+                unregister_mods(MOD_BIT(KC_LGUI) | MOD_BIT(KC_LSFT));
+            }
+            return false;
+
         case WIN_SWAP:
             if (record->event.pressed) {
                 if (!alt_tab_active) {
