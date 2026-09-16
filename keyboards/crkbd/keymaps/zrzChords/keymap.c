@@ -60,6 +60,7 @@ combo_t key_combos[] = {
 
     COMBO(bracket_combo,      KC_LBRC),
     COMBO(gui_combo,          KC_LGUI),
+    COMBO(gui_shift_combo,    GUI_SFT),
     COMBO(curly_brace_combo, KC_LCBR),
     COMBO(paren_combo,       KC_LPRN),
 
@@ -120,17 +121,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 /* ========================================================================== */
-/* LAYER 2 — MOUSE (LEFT) + FUNCIÓN (RIGHT)                                   */
+/* LAYER 2 — FUNCIÓN (LEFT) + MOUSE (RIGHT)                                   */
 /* ========================================================================== */
 [2] = LAYOUT_split_3x6_3(
   // ╭──────────┬──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────┬──────────╮
-     TOG_OS,    MS_BTN1,   MS_UP,     MS_BTN2,   MS_BTN3,   MS_WHLU,        KC_F7,     KC_F8,     KC_F9,     KC_F10,    KC_F11,    KC_F12,
+     KC_F1,     KC_F2,     KC_F3,     KC_F4,     _______,   _______,        TOG_OS,    MS_BTN1,   KC_UP,     MS_BTN2,   MS_BTN3,   MS_WHLU,
   // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
-     _______,   MS_LEFT,   MS_DOWN,   MS_RGHT,  _______,   MS_WHLD,        KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,     KC_F6,
+     KC_F5,     KC_F6,     KC_F7,     KC_F8,     _______,   _______,        _______,   KC_LEFT,   KC_DOWN,   KC_RIGHT,  _______,   MS_WHLD,
   // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
-     KC_PAUSE,  KC_WBAK,   KC_WFWD,   _______,   _______,   _______,        _______,   _______,   _______,   _______,   _______,   _______,
+     KC_F9,     KC_F10,    KC_F11,    KC_F12,    _______,   _______,        KC_PAUSE,  KC_WBAK,   KC_WFWD,   _______,   _______,   _______,
   // ╰──────────┴──────────┴──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┴──────────┴──────────╯
-                                       LLOCK,   _______,   _______,         KC_INS,     _______,   _______
+                                       KC_INS,    _______,   _______,         LLOCK,     _______,   _______
   //                                  ╰──────────┴──────────┴──────────╯   ╰──────────┴──────────┴──────────╯
 )
 
@@ -149,14 +150,14 @@ const uint8_t PROGMEM ledmap[2][42][3] = {
                                ___off___, ___off___, ___off___,                                ___off___, ___off___, MG_RED
 },
 
-{   // (L) + Función (R)
-    // top   L: TOG_OS | ___    | MS_UP | ___    | BTN1 | WHLU     top   R: F7     | F8     | F9     | F10    | F11    | F12
-    ___off___, ___off___, MG_CYAN, ___off___, ___off___, ___off___,      MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,
-    // home  L: ___    | MS_L   | MS_DN | MS_R   | BTN2 | WHLD     home  R: F1     | F2     | F3     | F4     | F5     | F6
-    ___off___, MG_CYAN, MG_CYAN, MG_CYAN, ___off___, ___off___,        MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE,
-    // bot   L: PAUSE  | BTN3   | ___   | ___    | WBAK | WFWD     bot   R: ___    | ___    | ___    | ___    | ___    | ___
-    ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,      ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,
-    // thumb L: ___  | ___  | ___                                   thumb R: LLOCK | ___  | ___
+{   // Función (L) + Mouse (R)
+    // top   L: F1     | F2     | F3     | F4     | ___  | ___       top   R: TOG_OS | BTN1 | UP    | BTN2 | BTN3 | WHLU
+    MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, ___off___, ___off___,    ___off___, ___off___, MG_CYAN, ___off___, ___off___, ___off___,
+    // home  L: F5     | F6     | F7     | F8     | ___  | ___       home  R: ___    | LEFT | DOWN  | RIGHT| ___  | WHLD
+    MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, ___off___, ___off___,    ___off___, MG_CYAN, MG_CYAN, MG_CYAN, ___off___, ___off___,
+    // bot   L: F9     | F10    | F11    | F12    | ___  | ___       bot   R: PAUSE  | WBAK | WFWD  | ___  | ___  | ___
+    MG_PURPLE, MG_PURPLE, MG_PURPLE, MG_PURPLE, ___off___, ___off___,    ___off___, ___off___, ___off___, ___off___, ___off___, ___off___,
+    // thumb L: INS  | ___  | ___                                   thumb R: LLOCK | ___  | ___
                                ___off___, ___off___, ___off___,                                MG_CYAN, ___off___, ___off___
 }
 };
@@ -197,4 +198,4 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     }
     return rotation;
 }
-#endif // OLED_ENABLE
+#endif // OLED_ENABLE   

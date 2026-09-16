@@ -2,6 +2,7 @@
 
 const uint16_t PROGMEM bracket_combo[]     = { KC_ESC, KC_Q, COMBO_END };
 const uint16_t PROGMEM gui_combo[]         = { KC_Q, KC_W, COMBO_END };
+const uint16_t PROGMEM gui_shift_combo[]   = { KC_Q, KC_E, COMBO_END };
 
 const uint16_t PROGMEM curly_brace_combo[] = { KC_ESC, KC_A, COMBO_END };
 const uint16_t PROGMEM paren_combo[]      = { KC_ESC, KC_Z, COMBO_END };

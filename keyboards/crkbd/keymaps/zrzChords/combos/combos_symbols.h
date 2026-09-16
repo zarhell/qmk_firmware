@@ -5,6 +5,7 @@
 
 extern const uint16_t PROGMEM bracket_combo[];
 extern const uint16_t PROGMEM gui_combo[];
+extern const uint16_t PROGMEM gui_shift_combo[];
 
 extern const uint16_t PROGMEM curly_brace_combo[];
 extern const uint16_t PROGMEM paren_combo[];
