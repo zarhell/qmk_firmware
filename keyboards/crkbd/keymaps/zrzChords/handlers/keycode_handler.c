@@ -2,20 +2,6 @@
 #include "features/layer_lock.h"
 #include "utils/keylog.h"
 #include "keycodes/keycodes.h"
-#include "user_config.h"
-
-static inline uint8_t numpad_kc(uint8_t d) {
-    return d == 0 ? KC_P0 : KC_P1 + (d - 1);
-}
-
-static void send_win_unicode(uint16_t cp) {
-    register_code(KC_RALT);
-    tap_code(KC_P0);
-    tap_code(numpad_kc((cp / 100) % 10));
-    tap_code(numpad_kc((cp / 10)  % 10));
-    tap_code(numpad_kc( cp        % 10));
-    unregister_code(KC_RALT);
-}
 
 static void send_accent_mac(uint8_t dead_kc, uint8_t base_kc, bool upper) {
     register_code(KC_LALT);
@@ -33,7 +19,7 @@ static void send_accent(uint16_t lo, uint16_t hi, uint8_t mac_dead, uint8_t mac_
     if (is_mac) {
         send_accent_mac(mac_dead, mac_base, upper);
     } else {
-        send_win_unicode(upper ? hi : lo);
+        register_unicode(upper ? hi : lo);
     }
     set_mods(saved_mods);
 }
@@ -47,10 +33,6 @@ void win_swap_cancel(void) {
         unregister_code(is_mac ? KC_LGUI : KC_LALT);
         alt_tab_active = false;
     }
-}
-
-static inline uint16_t os_ctrl(uint16_t kc) {
-    return is_mac ? LGUI(kc) : LCTL(kc);
 }
 
 static uint8_t mod_state;
@@ -104,34 +86,11 @@ bool handle_keycode(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) send_accent(0xF1, 0xD1, KC_N, KC_N);
             return false;
 
-        case ACUTE_ACC:
-            if (record->event.pressed) {
-                if (is_mac) {
-                    register_code(KC_LALT);
-                    tap_code(KC_E);
-                    unregister_code(KC_LALT);
-                    tap_code(KC_SPC);
-                } else {
-                    send_win_unicode(0xB4);
-                }
-            }
-            return false;
-
-        case EMAIL_GMAIL:
-            if (record->event.pressed) send_string(USER_EMAIL_GMAIL);
-            return false;
-        case EMAIL_WORK:
-            if (record->event.pressed) send_string(USER_EMAIL_WORK);
-            return false;
-        case USERNAME:
-            if (record->event.pressed) send_string(USER_USERNAME);
-            return false;
-        case PASSWORD:
-            if (record->event.pressed) send_string(USER_PASSWORD);
-            return false;
-
         case TOG_OS:
-            if (record->event.pressed) is_mac = !is_mac;
+            if (record->event.pressed) {
+                is_mac = !is_mac;
+                set_unicode_input_mode(is_mac ? UNICODE_MODE_MACOS : UNICODE_MODE_LINUX);
+            }
             return false;
 
         case KC_PSCR:
@@ -143,9 +102,6 @@ bool handle_keycode(uint16_t keycode, keyrecord_t *record) {
             }
             return true;
 
-        case DEV_COMMENT:
-            if (record->event.pressed) tap_code16(os_ctrl(KC_SLSH));
-            return false;
         case DEV_HOME:
             if (record->event.pressed) {
                 tap_code16(is_mac ? LGUI(KC_LEFT) : KC_HOME);
@@ -166,12 +122,6 @@ bool handle_keycode(uint16_t keycode, keyrecord_t *record) {
                 tap_code16(is_mac ? LOPT(KC_RIGHT) : LCTL(KC_RIGHT));
             }
             return false;
-        case APP_MENU:
-            if (record->event.pressed) {
-                tap_code16(is_mac ? LSFT(KC_F10) : KC_APP);
-            }
-            return false;
-
         case GUI_SFT:
             if (record->event.pressed) {
                 register_mods(MOD_BIT(KC_LGUI) | MOD_BIT(KC_LSFT));

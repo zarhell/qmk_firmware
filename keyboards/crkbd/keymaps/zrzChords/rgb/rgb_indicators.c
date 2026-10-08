@@ -7,8 +7,9 @@ static const uint8_t PROGMEM layer_bg[][3] = {
     { 50,   0, 232},
     {  0,   0, 153},
     {153,   0,   0},
+    {  0, 206, 209},
 };
-#define LAYER_BG_COUNT 3
+#define LAYER_BG_COUNT 4
 
 static void set_led_color_for_key(uint8_t ledmapIdx, uint8_t keyIndex, uint8_t ledIndex, uint8_t led_min, uint8_t led_max) {
     uint8_t r = pgm_read_byte(&ledmap[ledmapIdx][keyIndex][0]);
@@ -49,7 +50,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
         if (layerNum == 0) {
             RGB_MATRIX_INDICATOR_SET_COLOR(ledIndex, 0, 0, 0);
-        } else if (layerNum <= 2) {
+        } else if (layerNum <= 3) {
             set_led_color_for_key(layerNum - 1, keyIndex, ledIndex, led_min, led_max);
         }
     }

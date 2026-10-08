@@ -5,12 +5,10 @@ enum custom_keycodes {
 
     TOG_OS,
 
-    DEV_COMMENT,
     DEV_HOME,
     DEV_END,
     DEV_WORD_LEFT,
     DEV_WORD_RIGHT,
-    APP_MENU,
     GUI_SFT,
 
     TILDE_A,
@@ -21,12 +19,5 @@ enum custom_keycodes {
     ENIE,
 
     WIN_SWAP,
-
-    ACUTE_ACC,
-
-    EMAIL_GMAIL,
-    EMAIL_WORK,
-    USERNAME,
-    PASSWORD,
 
 };

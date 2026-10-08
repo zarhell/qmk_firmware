@@ -8,6 +8,6 @@
 // ---------------------------------------------------------------------------
 
 #define USER_EMAIL_GMAIL  "johan.zubieta@gmail.com"
-#define USER_EMAIL_WORK   "user@example.com"
+#define USER_EMAIL_WORK   "johan.zubieta@"
 #define USER_USERNAME     "johan.zubieta"
-#define USER_PASSWORD     "=&Col234*zhz"
+#define USER_PASSWORD     "####"
