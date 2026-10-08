@@ -3,17 +3,6 @@
 #include "quantum.h"
 #include "keycodes/keycodes.h"
 
-extern const uint16_t PROGMEM bracket_combo[];
-extern const uint16_t PROGMEM gui_combo[];
-extern const uint16_t PROGMEM gui_shift_combo[];
-
-extern const uint16_t PROGMEM curly_brace_combo[];
-extern const uint16_t PROGMEM paren_combo[];
-
-extern const uint16_t PROGMEM bracket_close_combo[];
-extern const uint16_t PROGMEM curly_close_combo[];
-extern const uint16_t PROGMEM paren_close_combo[];
-
 extern const uint16_t PROGMEM left_slsh[];
 extern const uint16_t PROGMEM left_bsls[];
 extern const uint16_t PROGMEM left_pipe[];
@@ -21,8 +10,6 @@ extern const uint16_t PROGMEM left_circ[];
 extern const uint16_t PROGMEM left_lower_than[];
 extern const uint16_t PROGMEM left_greather_than[];
 extern const uint16_t PROGMEM left_grv[];
-extern const uint16_t PROGMEM left_acute[];
-extern const uint16_t PROGMEM left_comment[];
 extern const uint16_t PROGMEM left_quote[];
 extern const uint16_t PROGMEM left_tild[];
 extern const uint16_t PROGMEM left_hash[];
