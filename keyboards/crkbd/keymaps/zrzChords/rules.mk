@@ -1,6 +1,8 @@
 MOUSEKEY_ENABLE     = yes
 RGBLIGHT_ENABLE     = no
 OLED_ENABLE         = yes
+WPM_ENABLE          = yes
+NKRO_ENABLE         = no
 LTO_ENABLE          = yes
 COMBO_ENABLE        = yes
 BOOTLOADER          = atmel-dfu
@@ -32,6 +34,7 @@ SRC += \
     ./features/layer_lock.c \
     ./rgb/rgb_indicators.c \
     ./utils/keylog.c \
+    ./oled/oled_render.c \
     ./init/init_user.c \
     ./handlers/keycode_handler.c \
     ./combos/combos.c \

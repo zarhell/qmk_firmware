@@ -41,6 +41,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define COMBO_STRICT_TIMER
 
 #define SPLIT_LAYER_STATE_ENABLE
+// OLED: la secundaria necesita WPM, estado de Num Lock y actividad del master
+#define SPLIT_WPM_ENABLE
+#define SPLIT_LED_STATE_ENABLE
+#define SPLIT_ACTIVITY_ENABLE
+#define OLED_TIMEOUT 300000
 
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
