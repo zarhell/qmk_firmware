@@ -1,20 +1,26 @@
 #include "quantum.h"
 #include "rgb_indicators.h"
 
-extern const uint8_t PROGMEM ledmap[][42][3];
+extern const uint8_t PROGMEM ledmap[][42];
 
-static const uint8_t PROGMEM layer_bg[][3] = {
-    { 50,   0, 232},
-    {  0,   0, 153},
-    {153,   0,   0},
-    {  0, 206, 209},
+// Indexed by enum led_color
+static const uint8_t PROGMEM led_palette[][3] = {
+    {  0,   0,   0},  // C_OFF
+    {  0, 206, 209},  // C_CYAN
+    {153,   0,   0},  // C_RED
+    {  0,   0, 153},  // C_BLUE
+    { 50,   0, 232},  // C_PURPLE
 };
+
+// Background color per layer 0..3
+static const uint8_t PROGMEM layer_bg[] = {C_PURPLE, C_BLUE, C_RED, C_CYAN};
 #define LAYER_BG_COUNT 4
 
 static void set_led_color_for_key(uint8_t ledmapIdx, uint8_t keyIndex, uint8_t ledIndex, uint8_t led_min, uint8_t led_max) {
-    uint8_t r = pgm_read_byte(&ledmap[ledmapIdx][keyIndex][0]);
-    uint8_t g = pgm_read_byte(&ledmap[ledmapIdx][keyIndex][1]);
-    uint8_t b = pgm_read_byte(&ledmap[ledmapIdx][keyIndex][2]);
+    uint8_t c = pgm_read_byte(&ledmap[ledmapIdx][keyIndex]);
+    uint8_t r = pgm_read_byte(&led_palette[c][0]);
+    uint8_t g = pgm_read_byte(&led_palette[c][1]);
+    uint8_t b = pgm_read_byte(&led_palette[c][2]);
     RGB_MATRIX_INDICATOR_SET_COLOR(ledIndex, r, g, b);
 }
 
@@ -36,9 +42,10 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     uint8_t layerNum = get_highest_layer(layer_state);
 
     if (layerNum < LAYER_BG_COUNT) {
-        uint8_t r = pgm_read_byte(&layer_bg[layerNum][0]);
-        uint8_t g = pgm_read_byte(&layer_bg[layerNum][1]);
-        uint8_t b = pgm_read_byte(&layer_bg[layerNum][2]);
+        uint8_t c = pgm_read_byte(&layer_bg[layerNum]);
+        uint8_t r = pgm_read_byte(&led_palette[c][0]);
+        uint8_t g = pgm_read_byte(&led_palette[c][1]);
+        uint8_t b = pgm_read_byte(&led_palette[c][2]);
         for (uint8_t i = led_min; i <= led_max; i++) {
             RGB_MATRIX_INDICATOR_SET_COLOR(i, r, g, b);
         }

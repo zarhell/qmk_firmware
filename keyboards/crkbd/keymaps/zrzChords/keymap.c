@@ -70,11 +70,12 @@ combo_t key_combos[] = {
 
 };
 
-#define ___off___ {  0,   0,   0}
-#define MG_CYAN   {  0, 206, 209}
-#define MG_RED    {153,   0,   0}
-#define MG_BLUE   {  0,   0, 153}
-#define MG_PURPLE { 50,   0, 232}
+// Colors are palette indices (see enum led_color / led_palette in rgb/rgb_indicators.*)
+#define ___off___ C_OFF
+#define MG_CYAN   C_CYAN
+#define MG_RED    C_RED
+#define MG_BLUE   C_BLUE
+#define MG_PURPLE C_PURPLE
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -140,7 +141,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-const uint8_t PROGMEM ledmap[3][42][3] = {
+const uint8_t PROGMEM ledmap[3][42] = {
 
 {   // Layer 1: Navegación (L) + Números (R)
     // top   L: ___   | D_HOME | UP    | D_END  | ___  | ___       top   R: ___  | 7    | 8    | 9    | ___  | ___
@@ -201,9 +202,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    if (!is_keyboard_master()) {
-        return OLED_ROTATION_180;
-    }
-    return rotation;
+    return OLED_ROTATION_270;
 }
 #endif // OLED_ENABLE   
