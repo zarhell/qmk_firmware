@@ -63,7 +63,11 @@ bool process_layer_lock(uint16_t keycode, keyrecord_t* record,
   switch (keycode) {
     case QK_MOMENTARY ... QK_MOMENTARY_MAX:  // `MO(layer)` keys.
     case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX: {  // `TT(layer)`.
-      const uint8_t layer = keycode & 255;
+      // MO() and TT() encode the layer in different bit ranges; keycode & 255
+      // is wrong on current QMK (QK_MOMENTARY = 0x5220).
+      const uint8_t layer = (keycode >= QK_LAYER_TAP_TOGGLE)
+                                ? QK_LAYER_TAP_TOGGLE_GET_LAYER(keycode)
+                                : QK_MOMENTARY_GET_LAYER(keycode);
       if (is_layer_locked(layer)) {
         // Event on `MO` or `TT` key where layer is locked.
         if (record->event.pressed) {  // On press, unlock the layer.
@@ -76,7 +80,7 @@ bool process_layer_lock(uint16_t keycode, keyrecord_t* record,
 #ifndef NO_ACTION_TAPPING
     case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:  // `LT(layer, key)` keys.
       if (record->tap.count == 0 && !record->event.pressed &&
-          is_layer_locked((keycode >> 8) & 15)) {
+          is_layer_locked(QK_LAYER_TAP_GET_LAYER(keycode))) {
         // Release event on a held layer-tap key where the layer is locked.
         return false;  // Skip default handling so that layer stays on.
       }
@@ -89,6 +93,10 @@ bool process_layer_lock(uint16_t keycode, keyrecord_t* record,
 
 bool is_layer_locked(uint8_t layer) {
   return locked_layers & ((layer_state_t)1 << layer);
+}
+
+bool layer_lock_is_any(void) {
+  return locked_layers != 0;
 }
 
 void layer_lock_invert(uint8_t layer) {

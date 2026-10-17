@@ -13,12 +13,5 @@ extern const uint16_t PROGMEM left_dot[];
 extern const uint16_t PROGMEM left_semi[];
 extern const uint16_t PROGMEM left_colon[];
 
-extern const uint16_t PROGMEM esc_combo[];
-extern const uint16_t PROGMEM tab_combo[];
-extern const uint16_t PROGMEM left_spc[];
-
 extern const uint16_t PROGMEM left_apos[];
-extern const uint16_t PROGMEM left_shift_enter[];
-
-extern const uint16_t PROGMEM workspace_next[];
-extern const uint16_t PROGMEM workspace_prev[];
+extern const uint16_t PROGMEM left_caps[];

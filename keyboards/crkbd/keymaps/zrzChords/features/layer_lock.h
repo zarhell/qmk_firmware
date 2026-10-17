@@ -64,6 +64,9 @@ bool process_layer_lock(uint16_t keycode, keyrecord_t* record,
 // Returns true if `layer` is currently locked.
 bool is_layer_locked(uint8_t layer);
 
+// Returns true if any layer is currently locked.
+bool layer_lock_is_any(void);
+
 // Locks and turns on `layer`.
 void layer_lock_on(uint8_t layer);
 
