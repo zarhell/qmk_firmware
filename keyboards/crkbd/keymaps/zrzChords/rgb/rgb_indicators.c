@@ -1,5 +1,6 @@
 #include "quantum.h"
 #include "rgb_indicators.h"
+#include "features/layer_lock.h"
 
 extern const uint8_t PROGMEM ledmap[][42];
 
@@ -10,6 +11,7 @@ static const uint8_t PROGMEM led_palette[][3] = {
     {153,   0,   0},  // C_RED
     {  0,   0, 153},  // C_BLUE
     { 50,   0, 232},  // C_PURPLE
+    {153, 153, 153},  // C_WHITE
 };
 
 // Background color per layer 0..3
@@ -43,6 +45,8 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
     if (layerNum < LAYER_BG_COUNT) {
         uint8_t c = pgm_read_byte(&layer_bg[layerNum]);
+        // Layer Lock activo: el fondo parpadea en blanco (~2 Hz)
+        if (layer_lock_is_any() && ((timer_read() >> 8) & 1)) c = C_WHITE;
         uint8_t r = pgm_read_byte(&led_palette[c][0]);
         uint8_t g = pgm_read_byte(&led_palette[c][1]);
         uint8_t b = pgm_read_byte(&led_palette[c][2]);

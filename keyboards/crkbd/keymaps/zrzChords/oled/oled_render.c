@@ -3,7 +3,7 @@
 #include "oled/cat_sprites.h"
 
 // Pantallas 128x32 en vertical (rotacion 270 -> 32x128 px).
-// Master: capa, modificadores, Layer Lock. Secundaria: WPM, Num Lock y gato animado.
+// Master: capa, modificadores, Layer Lock. Secundaria: WPM y gato animado.
 
 #define NUM_LAYERS 4
 
@@ -42,7 +42,7 @@ static const uint8_t PROGMEM font5x7[27][5] = {
     {0x61, 0x51, 0x49, 0x45, 0x43}, // Z
 };
 
-static const char *const layer_names[NUM_LAYERS] = {"BASE", "NAV", "FN", "SYM"};
+static const char *const layer_names[NUM_LAYERS] = {"BASE", "NAV", "FN", "MOUSE"};
 
 // ---------------------------------------------------------------------------
 // Primitivas de dibujo
@@ -178,7 +178,7 @@ static void render_master(void) {
 }
 
 // ---------------------------------------------------------------------------
-// Secundaria: WPM, Num Lock y gato
+// Secundaria: WPM y gato
 // ---------------------------------------------------------------------------
 #define CAT_Y        88
 #define DASH_Y       124
@@ -187,9 +187,9 @@ static void render_master(void) {
 #define WAKE_MS      400
 #define WAKE_MIN_S   10   // inactividad minima para estirarse al despertar
 #define STAND_S      2
-#define SIT_S        10
-#define SLEEP_S      30
-#define DEEP_S       60
+#define SIT_S        6
+#define SLEEP_S      12
+#define DEEP_S       25
 #define WPM_BAR_MAX  140
 #define WALK_FRAMES  5
 
@@ -197,7 +197,7 @@ static const uint16_t anim_ms[4] = {600, 200, 120, 70}; // IDLE/SLEEP, WALK, RUN
 
 static bool slave_drawn = false;
 static uint32_t anim_t = 0, zero_since = 0, wake_t = 0;
-static uint8_t anim = 0, scroll_off = 0, prev_wpm = 0, last_wpm = 255, last_frame = 255, last_num = 255;
+static uint8_t anim = 0, scroll_off = 0, prev_wpm = 0, last_wpm = 255, last_frame = 255;
 static bool wake_active = false, dashes_on = false;
 
 static void draw_wpm(uint8_t wpm) {
@@ -209,18 +209,6 @@ static void draw_wpm(uint8_t wpm) {
     frame_rect(0, 52, 32, 5, true);
     uint8_t w = (uint8_t)(((uint16_t)(wpm > WPM_BAR_MAX ? WPM_BAR_MAX : wpm) * 28) / WPM_BAR_MAX);
     for (uint8_t i = 0; i < w; i++) oled_write_pixel(2 + i, 54, true);
-}
-
-static void draw_num(bool num) {
-    fill_rect(0, 67, 32, 12, false);
-    if (num) {
-        fill_rect(0, 67, 32, 12, true);
-    } else {
-        frame_rect(0, 67, 32, 12, true);
-    }
-    const char *s = "NUM";
-    uint8_t nx = (32 - text_w(s, 1)) / 2;
-    for (uint8_t q = 0; q < 3; q++) draw_glyph(s[q], nx + q * 6, 70, 1, !num);
 }
 
 static void draw_sprite(uint8_t f) {
@@ -254,7 +242,7 @@ static uint8_t pick_frame(uint8_t wpm, uint32_t now) {
     if (idle < SIT_S) return CAT_IDLE_SIT;
     if (idle < SLEEP_S) return CAT_LIE;
     if (idle < DEEP_S) return (anim & 1) ? CAT_SLEEP2 : CAT_SLEEP1;
-    return (anim & 1) ? CAT_SLEEP3 : CAT_SLEEP2;
+    return CAT_SLEEP1 + (anim % 3);
 }
 
 static void render_slave(void) {
@@ -282,18 +270,12 @@ static void render_slave(void) {
         oled_clear();
         draw_text_center("ZRZ", 4, 2, true);
         for (uint8_t x = 0; x < 32; x++) oled_write_pixel(x, 24, true);
-        last_wpm = last_frame = last_num = 255;
+        last_wpm = last_frame = 255;
     }
 
     if (wpm != last_wpm) {
         last_wpm = wpm;
         draw_wpm(wpm);
-    }
-
-    uint8_t num = host_keyboard_led_state().num_lock ? 1 : 0;
-    if (num != last_num) {
-        last_num = num;
-        draw_num(num);
     }
 
     uint8_t f = pick_frame(wpm, now);

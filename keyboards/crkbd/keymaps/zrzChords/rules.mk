@@ -5,6 +5,7 @@ WPM_ENABLE          = yes
 NKRO_ENABLE         = no
 LTO_ENABLE          = yes
 COMBO_ENABLE        = yes
+CAPS_WORD_ENABLE    = yes
 BOOTLOADER          = atmel-dfu
 VIA_ENABLE          = no
 RGB_MATRIX_ENABLE   = yes
@@ -12,7 +13,7 @@ CONSOLE_ENABLE      = no
 MIDI_ENABLE         = no
 TERMINAL_ENABLE     = no
 AUDIO_ENABLE        = no
-UNICODE_ENABLE      = yes
+UNICODE_ENABLE      = no
 UNICODEMAP_ENABLE   = no
 BLUETOOTH_ENABLE    = no
 FAUXCLICKY_ENABLE   = no
@@ -28,8 +29,6 @@ MAGIC_ENABLE        = no
 BOOTMAGIC_ENABLE    = no
 RAW_ENABLE          = no
 
-EXTRAFLAGS += -flto
-
 SRC += \
     ./features/layer_lock.c \
     ./rgb/rgb_indicators.c \
@@ -38,7 +37,5 @@ SRC += \
     ./init/init_user.c \
     ./handlers/keycode_handler.c \
     ./combos/combos.c \
-    ./combos/combos_misc.c \
     ./combos/combos_symbols.c \
-    ./combos/combos_control.c \
-    ./combos/combos_spanish.c
+    ./combos/combos_control.c
