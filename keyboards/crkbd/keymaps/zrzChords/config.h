@@ -44,8 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define COMBO_STRICT_TIMER
 
 #define SPLIT_LAYER_STATE_ENABLE
-// Estado de Layer Lock hacia la mitad esclava (parpadeo del underglow en ambas mitades)
-#define SPLIT_TRANSACTION_IDS_USER RGB_LOCK_SYNC
 // OLED: la secundaria necesita WPM y actividad del master
 #define SPLIT_WPM_ENABLE
 #define SPLIT_ACTIVITY_ENABLE

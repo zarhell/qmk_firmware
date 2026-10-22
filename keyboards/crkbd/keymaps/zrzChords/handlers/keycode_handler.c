@@ -24,6 +24,21 @@ static void dtap_release(dtap_t *d, uint16_t t) {
 static dtap_t gui_dt, mo1l_dt, mo1r_dt, mv_dt[8];
 static bool   mo1l_unlocked = false, mo1r_unlocked = false;
 static bool   esc_consumed  = false;
+// GUI_CTL: Super pendiente hasta confirmar que es un mantenido
+static bool     gui_pending = false, gui_super = false;
+static uint16_t gui_t;
+
+static void gui_super_start(void) {
+    if (gui_pending) {
+        gui_pending = false;
+        gui_super   = true;
+        register_code(KC_LGUI);
+    }
+}
+
+void gui_ctl_task(void) {
+    if (gui_pending && timer_elapsed(gui_t) >= TAPPING_TERM) gui_super_start();
+}
 // Shift izquierdo: toque limpio (sin otra tecla en medio) = Alt one-shot; el Shift real siempre llega al host
 static bool     lsft_dirty = false;
 static uint16_t lsft_t;
@@ -119,6 +134,7 @@ static uint8_t mod_state;
 
 bool handle_keycode(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
+        if (keycode != GUI_CTL) gui_super_start();
         if (keycode != GUI_CTL && keycode != MO1_ALT) dbl_dirty = true;
         if (keycode != KC_LSFT) lsft_dirty = true;
         if (keycode != WIN_SWAP && keycode != KC_LSFT) win_swap_cancel();
@@ -155,19 +171,29 @@ bool handle_keycode(uint16_t keycode, keyrecord_t *record) {
         }
 
         case GUI_CTL:
+            // Toque = Ctrl one-shot; mantenido = Super (se registra al pasar TAPPING_TERM u otra tecla);
+            // doble toque mantenido = Ctrl sostenido
             if (record->event.pressed) {
                 if (dtap_press(&gui_dt, record->event.time)) {
-                    dbl_dirty = false;
+                    del_oneshot_mods(MOD_BIT(KC_LCTL));
                     register_code(KC_LCTL);
                 } else {
-                    register_code(KC_LGUI);
+                    gui_pending = true;
+                    gui_t       = record->event.time;
                 }
             } else {
                 if (gui_dt.dbl) {
                     unregister_code(KC_LCTL);
-                    if (dbl_quick(&gui_dt, record->event.time)) add_oneshot_mods(MOD_BIT(KC_LCTL));
-                } else {
+                } else if (gui_super) {
                     unregister_code(KC_LGUI);
+                    gui_super = false;
+                } else if (gui_pending) {
+                    gui_pending = false;
+                    if ((uint16_t)(record->event.time - gui_t) < TAPPING_TERM) {
+                        add_oneshot_mods(MOD_BIT(KC_LCTL));
+                    } else {
+                        tap_code(KC_LGUI);
+                    }
                 }
                 dtap_release(&gui_dt, record->event.time);
             }

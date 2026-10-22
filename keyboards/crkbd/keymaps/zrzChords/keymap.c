@@ -193,7 +193,7 @@ uint16_t get_combo_len(void) {
 
 void matrix_scan_user(void) {
     layer_lock_task();
-    rgb_lock_sync_task();
+    gui_ctl_task();
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
