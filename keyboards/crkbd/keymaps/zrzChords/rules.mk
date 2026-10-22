@@ -32,7 +32,6 @@ RAW_ENABLE          = no
 SRC += \
     ./features/layer_lock.c \
     ./rgb/rgb_indicators.c \
-    ./utils/keylog.c \
     ./oled/oled_render.c \
     ./init/init_user.c \
     ./handlers/keycode_handler.c \

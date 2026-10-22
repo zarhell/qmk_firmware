@@ -48,11 +48,9 @@ keyboards/crkbd/keymaps/zrzChords/
 ├── rgb/
 │   └── rgb_indicators.c/h   # Per-layer RGB LED map rendering (ledmap[][42])
 ├── oled/
-│   └── oled_render.c/h   # OLED: master shows layer+keylog, secondary shows logo/cat
-├── init/
-│   └── init_user.c/h     # keyboard_post_init_user setup
-└── utils/
-    └── keylog.c/h        # Last-keypress logging for OLED display
+│   └── oled_render.c/h   # OLED: master shows layer, secondary shows logo/cat
+└── init/
+    └── init_user.c/h     # keyboard_post_init_user setup
 ```
 
 There are no accent combos: accents come from AltGr + vowel (US-International layout). `RALT_T(KC_TAB)` on the left and `KC_RALT` on the right provide AltGr on both hands.
@@ -76,9 +74,12 @@ There are no accent combos: accents come from AltGr + vowel (US-International la
 
 ### Double-tap keys (`dtap_t` in `keycode_handler.c`)
 - A double tap is tap, release, press again within `DBL_TAP_MS`; it is decided at press time, so there is no added latency.
-- `GUI_CTL` (left outer thumb): tap/hold = Super; double-tap and hold = left Ctrl.
-- `MO1_ALT` (left middle thumb): tap/hold = layer 1 (Layer Lock aware); double-tap and hold = left Alt.
-- `MO1_MS` (right middle thumb): tap/hold = layer 1 (Layer Lock aware); double-tap and hold = layer 3.
+- A fast double tap of `GUI_CTL` (second press released within `TAPPING_TERM` with no other key in between) leaves Ctrl as a one-shot (`add_oneshot_mods`, `ONESHOT_TIMEOUT` 800 ms); holding it keeps it held (e.g. Ctrl+Backspace to delete words).
+- `GUI_CTL` (left outer thumb): tap/hold = Super; double-tap and hold = left Ctrl, fast double tap = one-shot Ctrl. It is transparent on layer 1, so it also works while `MO1_ALT` is held.
+- `MO1_ALT` (left middle thumb): tap/hold = layer 1 (Layer Lock aware); double-tap and hold = layer 3 (left hand only), a single quick tap = one-shot AltGr (accents; a second quick tap cancels it).
+- `KC_LSFT` (left Shift): normal Shift (always reaches the host, so IntelliJ's Shift Shift works); a clean quick tap (no other key in between) arms a one-shot plain Alt (tap Shift, then Tab = Alt+Tab); pressing Shift again cancels it.
+- `MO1_MS` (right middle thumb): tap/hold = layer 1 (Layer Lock aware); no double tap.
+- `WIN_SWAP` (layer 1, left home): Super+Tab (next Omarchy workspace); with left Shift held, Super+Shift+Tab (previous). Super stays down until leaving layer 1 or pressing any other key.
 
 ### Caps Word
 - The `LSFT + Z + X` combo (`CW_TOGG`) toggles Caps Word; only the left Shift can trigger it. `caps_word_press_user()` in `keymap.c` keeps it on for A–Z, digits, `-`, `_`, Backspace/Delete and the custom layer/mod keys. Omarchy maps `KC_CAPS` to Compose (`compose:caps`), so Caps Lock is not used.
@@ -90,8 +91,12 @@ There are no accent combos: accents come from AltGr + vowel (US-International la
 ### RGB LED map
 - `ledmap[][42]` in `keymap.c` — one entry per key position for layers 1–3, stored in `PROGMEM` as palette indices.
 - Color macros: `MG_CYAN`, `MG_RED`, `MG_BLUE`, `MG_PURPLE`, `___off___` (palette in `rgb_indicators.c`).
-- With a Layer Lock active the underglow background blinks white.
+- With a Layer Lock active the underglow background blinks white on both halves (state synced to the slave with a split RPC, `RGB_LOCK_SYNC`).
 - `rgb_indicators.c` maps keymap indices to physical LED indices accounting for the split layout mirror.
 
 ### Custom keycode handling flow
 `process_record_user` → `handle_keycode()` in `keycode_handler.c` → `process_layer_lock`, then the `MV_*` range check, then the switch for custom behavior (Shift+BSPC = DEL, Esc unlocks Layer Lock, double-tap keys, `WIN_SWAP`).
+
+## Documentación
+
+Mapa completo, combos y mini tutorial en el vault de Obsidian: `wiki/conceptos/QMK/Corne zrzChords/Corne zrzChords - arquitectura y mapeo.md`. Equivalente para el CCK-BALL (ZMK): `wiki/conceptos/ZMK/CCK-BALL/CCK-BALL - arquitectura y mapeo.md`.

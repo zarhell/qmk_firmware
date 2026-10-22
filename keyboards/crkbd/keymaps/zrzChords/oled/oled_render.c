@@ -150,17 +150,13 @@ static void draw_master(uint8_t layer, uint8_t mods, bool lock) {
 
     for (uint8_t d = 2; d < 30; d += 2) oled_write_pixel(d, 86, true);
 
-    draw_text_center("LOCK", 94, 1, true);
+    // Recuadro LOCK: relleno con texto invertido cuando hay una capa bloqueada
     if (lock) {
         fill_rect(0, 104, 32, 22, true);
     } else {
         frame_rect(0, 104, 32, 22, true);
     }
-    const char *lab = lock ? "ON" : "OFF";
-    uint8_t lx = (32 - text_w(lab, 2)) / 2;
-    for (uint8_t k = 0; lab[k]; k++) {
-        draw_glyph(lab[k], lx + k * 11, 111, 2, !lock);
-    }
+    draw_text_center("LOCK", 111, 1, !lock);
 }
 
 static void render_master(void) {
@@ -187,7 +183,6 @@ static void render_master(void) {
 #define WAKE_MS      400
 #define WAKE_MIN_S   10   // inactividad minima para estirarse al despertar
 #define STAND_S      2
-#define SIT_S        6
 #define SLEEP_S      12
 #define DEEP_S       25
 #define WPM_BAR_MAX  140
@@ -239,8 +234,7 @@ static uint8_t pick_frame(uint8_t wpm, uint32_t now) {
     }
     uint32_t idle = (now - zero_since) / 1000;
     if (idle < STAND_S) return CAT_IDLE_STAND;
-    if (idle < SIT_S) return CAT_IDLE_SIT;
-    if (idle < SLEEP_S) return CAT_LIE;
+    if (idle < SLEEP_S) return CAT_IDLE_SIT;
     if (idle < DEEP_S) return (anim & 1) ? CAT_SLEEP2 : CAT_SLEEP1;
     return CAT_SLEEP1 + (anim % 3);
 }

@@ -35,14 +35,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DISABLE_WHEN_USB_SUSPENDED true
 
 #define TAPPING_TERM    130
-// Doble toque (toque, soltar y volver a presionar) para GUI_CTL, MO1_MS y el mouse virtual
+// Doble toque (toque, soltar y volver a presionar) para GUI_CTL, MO1_ALT (capa 3) y el mouse virtual
 #define DBL_TAP_MS      200
 #define QUICK_TAP_TERM  100
 #define PERMISSIVE_HOLD
+#define ONESHOT_TIMEOUT  800
 #define COMBO_TERM       35
 #define COMBO_STRICT_TIMER
 
 #define SPLIT_LAYER_STATE_ENABLE
+// Estado de Layer Lock hacia la mitad esclava (parpadeo del underglow en ambas mitades)
+#define SPLIT_TRANSACTION_IDS_USER RGB_LOCK_SYNC
 // OLED: la secundaria necesita WPM y actividad del master
 #define SPLIT_WPM_ENABLE
 #define SPLIT_ACTIVITY_ENABLE
@@ -121,7 +124,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
-#define NO_ACTION_ONESHOT
 #define DISABLE_LEADER
 #define NO_MUSIC_MODE
 #define COMBO_VARIABLE_LEN
