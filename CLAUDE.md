@@ -74,8 +74,7 @@ There are no accent combos: accents come from AltGr + vowel (US-International la
 
 ### Double-tap keys (`dtap_t` in `keycode_handler.c`)
 - A double tap is tap, release, press again within `DBL_TAP_MS`; it is decided at press time, so there is no added latency.
-- A fast double tap of `GUI_CTL` (second press released within `TAPPING_TERM` with no other key in between) leaves Ctrl as a one-shot (`add_oneshot_mods`, `ONESHOT_TIMEOUT` 800 ms); holding it keeps it held (e.g. Ctrl+Backspace to delete words).
-- `GUI_CTL` (left outer thumb): tap/hold = Super; double-tap and hold = left Ctrl, fast double tap = one-shot Ctrl. It is transparent on layer 1, so it also works while `MO1_ALT` is held.
+- `GUI_CTL` (left outer thumb): tap = one-shot Ctrl (`ONESHOT_TIMEOUT` 800 ms); hold = Super (registered after `TAPPING_TERM` or when another key is pressed, so a tap never sends a bare Super); double-tap and hold = held Ctrl (e.g. Ctrl+Backspace to delete words). It is transparent on layer 1, so it also works while `MO1_ALT` is held.
 - `MO1_ALT` (left middle thumb): tap/hold = layer 1 (Layer Lock aware); double-tap and hold = layer 3 (left hand only), a single quick tap = one-shot AltGr (accents; a second quick tap cancels it).
 - `KC_LSFT` (left Shift): normal Shift (always reaches the host, so IntelliJ's Shift Shift works); a clean quick tap (no other key in between) arms a one-shot plain Alt (tap Shift, then Tab = Alt+Tab); pressing Shift again cancels it.
 - `MO1_MS` (right middle thumb): tap/hold = layer 1 (Layer Lock aware); no double tap.
@@ -91,7 +90,7 @@ There are no accent combos: accents come from AltGr + vowel (US-International la
 ### RGB LED map
 - `ledmap[][42]` in `keymap.c` — one entry per key position for layers 1–3, stored in `PROGMEM` as palette indices.
 - Color macros: `MG_CYAN`, `MG_RED`, `MG_BLUE`, `MG_PURPLE`, `___off___` (palette in `rgb_indicators.c`).
-- With a Layer Lock active the underglow background blinks white on both halves (state synced to the slave with a split RPC, `RGB_LOCK_SYNC`).
+- The underglow is a fixed color per layer; a Layer Lock is shown only on the left OLED (inverted LOCK box).
 - `rgb_indicators.c` maps keymap indices to physical LED indices accounting for the split layout mirror.
 
 ### Custom keycode handling flow

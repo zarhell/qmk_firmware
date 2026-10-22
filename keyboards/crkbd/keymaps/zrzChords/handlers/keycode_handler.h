@@ -4,3 +4,4 @@
 
 bool handle_keycode(uint16_t keycode, keyrecord_t* record);
 void win_swap_cancel(void);
+void gui_ctl_task(void);
