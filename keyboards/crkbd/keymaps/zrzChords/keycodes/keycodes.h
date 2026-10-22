@@ -5,7 +5,7 @@ enum custom_keycodes {
 
     WIN_SWAP,
 
-    // Doble toque: Super izq. -> Ctrl izq.; MO(1) izq. -> Alt izq.; MO(1) der. -> capa 3
+    // Doble toque: Super izq. -> Ctrl izq. (rapido = OSM); MO(1) izq. -> capa 3; toque = OSM AltGr; Shift izq. toque = OSM Alt; MO(1) der. solo capa 1
     GUI_CTL,
     MO1_ALT,
     MO1_MS,

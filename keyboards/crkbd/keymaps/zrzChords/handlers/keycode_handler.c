@@ -1,6 +1,5 @@
 #include "keycode_handler.h"
 #include "features/layer_lock.h"
-#include "utils/keylog.h"
 #include "keycodes/keycodes.h"
 #include "mousekey.h"
 
@@ -25,27 +24,39 @@ static void dtap_release(dtap_t *d, uint16_t t) {
 static dtap_t gui_dt, mo1l_dt, mo1r_dt, mv_dt[8];
 static bool   mo1l_unlocked = false, mo1r_unlocked = false;
 static bool   esc_consumed  = false;
+// Shift izquierdo: toque limpio (sin otra tecla en medio) = Alt one-shot; el Shift real siempre llega al host
+static bool     lsft_dirty = false;
+static uint16_t lsft_t;
 
-// MO(1) compatible con Layer Lock; el doble toque mantenido activa dbl_layer (capa) o dbl_mod (modificador)
-static void mo1_dbl(dtap_t *d, bool *unlocked, keyrecord_t *record, int8_t dbl_layer, uint8_t dbl_mod) {
+// Otra tecla pulsada durante un doble toque: deja de ser un toque rapido (no se convierte en one-shot)
+static bool dbl_dirty = false;
+
+static bool dbl_quick(dtap_t *d, uint16_t t) {
+    return !dbl_dirty && (uint16_t)(t - d->press) < TAPPING_TERM;
+}
+
+// MO(1) compatible con Layer Lock. Un toque rapido sin otra tecla deja el one-shot osm_mod (si no es 0);
+// mantenido = capa 1; doble toque mantenido = dbl_layer (el segundo toque cancela el one-shot)
+static void mo1_dbl(dtap_t *d, bool *unlocked, keyrecord_t *record, int8_t dbl_layer, uint8_t osm_mod) {
     if (record->event.pressed) {
         if (dtap_press(d, record->event.time)) {
+            if (osm_mod) del_oneshot_mods(MOD_BIT(osm_mod));
             if (dbl_layer >= 0) layer_on(dbl_layer);
-            if (dbl_mod) register_code(dbl_mod);
         } else if (is_layer_locked(1)) {
             layer_lock_invert(1);
             *unlocked = true;
         } else {
+            dbl_dirty = false;
             layer_on(1);
         }
     } else {
         if (d->dbl) {
-            if (dbl_layer >= 0) layer_off(dbl_layer);
-            if (dbl_mod) unregister_code(dbl_mod);
+            if (dbl_layer >= 0 && !is_layer_locked(dbl_layer)) layer_off(dbl_layer);
         } else if (*unlocked) {
             *unlocked = false;
         } else if (!is_layer_locked(1)) {
             layer_off(1);
+            if (osm_mod && dbl_quick(d, record->event.time)) add_oneshot_mods(MOD_BIT(osm_mod));
         }
         dtap_release(d, record->event.time);
     }
@@ -93,12 +104,14 @@ static void mouse_virtual(uint16_t keycode, keyrecord_t *record) {
     mousekey_send();
 }
 
-static bool alt_tab_active = false;
+// WIN_SWAP: Super+Tab (workspace siguiente; con Shift izq. fisico, anterior). Super queda
+// presionado hasta salir de la capa 1 o pulsar otra tecla
+static bool swap_active = false;
 
 void win_swap_cancel(void) {
-    if (alt_tab_active) {
-        unregister_code(KC_LALT);
-        alt_tab_active = false;
+    if (swap_active) {
+        unregister_code(KC_LGUI);
+        swap_active = false;
     }
 }
 
@@ -106,7 +119,9 @@ static uint8_t mod_state;
 
 bool handle_keycode(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
-        set_keylog(keycode, record);
+        if (keycode != GUI_CTL && keycode != MO1_ALT) dbl_dirty = true;
+        if (keycode != KC_LSFT) lsft_dirty = true;
+        if (keycode != WIN_SWAP && keycode != KC_LSFT) win_swap_cancel();
     }
 
     if (!process_layer_lock(keycode, record, LLOCK)) return false;
@@ -141,12 +156,33 @@ bool handle_keycode(uint16_t keycode, keyrecord_t *record) {
 
         case GUI_CTL:
             if (record->event.pressed) {
-                register_code(dtap_press(&gui_dt, record->event.time) ? KC_LCTL : KC_LGUI);
+                if (dtap_press(&gui_dt, record->event.time)) {
+                    dbl_dirty = false;
+                    register_code(KC_LCTL);
+                } else {
+                    register_code(KC_LGUI);
+                }
             } else {
-                unregister_code(gui_dt.dbl ? KC_LCTL : KC_LGUI);
+                if (gui_dt.dbl) {
+                    unregister_code(KC_LCTL);
+                    if (dbl_quick(&gui_dt, record->event.time)) add_oneshot_mods(MOD_BIT(KC_LCTL));
+                } else {
+                    unregister_code(KC_LGUI);
+                }
                 dtap_release(&gui_dt, record->event.time);
             }
             return false;
+
+        case KC_LSFT:
+            if (record->event.pressed) {
+                // Shift Shift (IntelliJ): si hay Alt armado por el toque anterior, se cancela
+                if (get_oneshot_mods() & MOD_BIT(KC_LALT)) del_oneshot_mods(MOD_BIT(KC_LALT));
+                lsft_dirty = false;
+                lsft_t     = record->event.time;
+            } else if (!lsft_dirty && (uint16_t)(record->event.time - lsft_t) < TAPPING_TERM) {
+                add_oneshot_mods(MOD_BIT(KC_LALT));
+            }
+            return true;
 
         case KC_ESC:
             // Con un Layer Lock activo, Esc desbloquea todo y vuelve a la capa 0
@@ -163,18 +199,18 @@ bool handle_keycode(uint16_t keycode, keyrecord_t *record) {
             return true;
 
         case MO1_ALT:
-            mo1_dbl(&mo1l_dt, &mo1l_unlocked, record, -1, KC_LALT);
+            mo1_dbl(&mo1l_dt, &mo1l_unlocked, record, 3, KC_RALT);
             return false;
 
         case MO1_MS:
-            mo1_dbl(&mo1r_dt, &mo1r_unlocked, record, 3, 0);
+            mo1_dbl(&mo1r_dt, &mo1r_unlocked, record, -1, 0);
             return false;
 
         case WIN_SWAP:
             if (record->event.pressed) {
-                if (!alt_tab_active) {
-                    alt_tab_active = true;
-                    register_code(KC_LALT);
+                if (!swap_active) {
+                    swap_active = true;
+                    register_code(KC_LGUI);
                 }
                 tap_code(KC_TAB);
             }

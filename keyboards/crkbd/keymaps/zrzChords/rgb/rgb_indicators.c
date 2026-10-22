@@ -1,6 +1,7 @@
 #include "quantum.h"
 #include "rgb_indicators.h"
 #include "features/layer_lock.h"
+#include "transactions.h"
 
 extern const uint8_t PROGMEM ledmap[][42];
 
@@ -40,13 +41,31 @@ uint8_t ledIndexForKeymapIndex(uint8_t keyIndex) {
     return g_led_config.matrix_co[row][col];
 }
 
+// Layer Lock solo existe en el master; la esclava recibe el estado por RPC
+static bool remote_locked = false;
+
+static void lock_sync_handler(uint8_t in_len, const void *in_data, uint8_t out_len, void *out_data) {
+    remote_locked = *(const bool *)in_data;
+}
+
+void rgb_lock_sync_init(void) {
+    transaction_register_rpc(RGB_LOCK_SYNC, lock_sync_handler);
+}
+
+void rgb_lock_sync_task(void) {
+    if (!is_keyboard_master()) return;
+    static bool synced = false;
+    bool locked = layer_lock_is_any();
+    if (locked != synced && transaction_rpc_send(RGB_LOCK_SYNC, sizeof(locked), &locked)) synced = locked;
+}
+
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     uint8_t layerNum = get_highest_layer(layer_state);
 
     if (layerNum < LAYER_BG_COUNT) {
         uint8_t c = pgm_read_byte(&layer_bg[layerNum]);
         // Layer Lock activo: el fondo parpadea en blanco (~2 Hz)
-        if (layer_lock_is_any() && ((timer_read() >> 8) & 1)) c = C_WHITE;
+        if ((is_keyboard_master() ? layer_lock_is_any() : remote_locked) && ((timer_read() >> 8) & 1)) c = C_WHITE;
         uint8_t r = pgm_read_byte(&led_palette[c][0]);
         uint8_t g = pgm_read_byte(&led_palette[c][1]);
         uint8_t b = pgm_read_byte(&led_palette[c][2]);

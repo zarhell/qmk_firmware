@@ -12,15 +12,14 @@ enum cat_frame {
     CAT_STRETCH = 5,
     CAT_IDLE_STAND = 6,
     CAT_IDLE_SIT = 7,
-    CAT_LIE = 8,
-    CAT_SLEEP1 = 9,
-    CAT_SLEEP2 = 10,
-    CAT_SLEEP3 = 11,
+    CAT_SLEEP1 = 8,
+    CAT_SLEEP2 = 9,
+    CAT_SLEEP3 = 10,
     CAT_FRAME_COUNT
 };
 
 // Filas con contenido de todos los frames, una detras de otra.
-static const uint32_t PROGMEM cat_rows[301] = {
+static const uint32_t PROGMEM cat_rows[285] = {
     0x00800000UL, // walk1 y4
     0x00C00000UL, // walk1 y5
     0x00A01C00UL, // walk1 y6
@@ -229,22 +228,6 @@ static const uint32_t PROGMEM cat_rows[301] = {
     0x00B1E00CUL, // idle_sit y28
     0x00A30070UL, // idle_sit y29
     0x007DFFC0UL, // idle_sit y30
-    0x0C018000UL, // lie y15
-    0x0E028000UL, // lie y16
-    0x0B048000UL, // lie y17
-    0x09FA8F80UL, // lie y18
-    0x0804F060UL, // lie y19
-    0x08028030UL, // lie y20
-    0x08008018UL, // lie y21
-    0x9000800CUL, // lie y22
-    0x54100004UL, // lie y23
-    0xA6710004UL, // lie y24
-    0x60020004UL, // lie y25
-    0x10058002UL, // lie y26
-    0x0C0E0F09UL, // lie y27
-    0x0FF01FF9UL, // lie y28
-    0x08E07002UL, // lie y29
-    0x07BFCFFCUL, // lie y30
     0x00000700UL, // sleep1 y10
     0x00000200UL, // sleep1 y11
     0x00000100UL, // sleep1 y12
@@ -335,8 +318,7 @@ static const cat_meta_t PROGMEM cat_meta[CAT_FRAME_COUNT] = {
     {4, 27, 128}, // stretch
     {5, 26, 155}, // idle_stand
     {4, 27, 181}, // idle_sit
-    {15, 16, 208}, // lie
-    {10, 21, 224}, // sleep1
-    {6, 26, 245}, // sleep2
-    {1, 30, 271}, // sleep3
+    {10, 21, 208}, // sleep1
+    {6, 26, 229}, // sleep2
+    {1, 30, 255}, // sleep3
 };
